@@ -1,0 +1,112 @@
+[
+  {
+    "name": "Gulu Central Primary School",
+    "district": "Gulu",
+    "location": {
+      "type": "Point",
+      "coordinates": [32.2990, 2.7746]
+    },
+    "totalRooms": 14,
+    "studentCount": 620,
+    "status": "pending"
+  },
+  {
+    "name": "Lira Town Primary School",
+    "district": "Lira",
+    "location": {
+      "type": "Point",
+      "coordinates": [32.5339, 2.2499]
+    },
+    "totalRooms": 12,
+    "studentCount": 480,
+    "status": "pending"
+  },
+  {
+    "name": "Soroti Central Primary School",
+    "district": "Soroti",
+    "location": {
+      "type": "Point",
+      "coordinates": [33.6111, 1.7150]
+    },
+    "totalRooms": 10,
+    "studentCount": 390,
+    "status": "pending"
+  },
+  {
+    "name": "Walukuba Primary School",
+    "district": "Jinja",
+    "location": {
+      "type": "Point",
+      "coordinates": [33.2026, 0.4244]
+    },
+    "totalRooms": 16,
+    "studentCount": 710,
+    "status": "pending"
+  },
+  {
+    "name": "Mbale Municipal Primary School",
+    "district": "Mbale",
+    "location": {
+      "type": "Point",
+      "coordinates": [34.1755, 1.0649]
+    },
+    "totalRooms": 11,
+    "studentCount": 520,
+    "status": "pending"
+  },
+  {
+    "name": "Tororo Central Primary School",
+    "district": "Tororo",
+    "location": {
+      "type": "Point",
+      "coordinates": [34.1810, 0.6930]
+    },
+    "totalRooms": 9,
+    "studentCount": 340,
+    "status": "pending"
+  },
+  {
+    "name": "Iganga Township Primary School",
+    "district": "Iganga",
+    "location": {
+      "type": "Point",
+      "coordinates": [33.4867, 0.6093]
+    },
+    "totalRooms": 13,
+    "studentCount": 550,
+    "status": "pending"
+  },
+  {
+    "name": "Kamuli Town Primary School",
+    "district": "Kamuli",
+    "location": {
+      "type": "Point",
+      "coordinates": [33.1197, 0.9472]
+    },
+    "totalRooms": 8,
+    "studentCount": 280,
+    "status": "pending"
+  },
+  {
+    "name": "Pallisa Central Primary School",
+    "district": "Pallisa",
+    "location": {
+      "type": "Point",
+      "coordinates": [33.7094, 1.1450]
+    },
+    "totalRooms": 10,
+    "studentCount": 410,
+    "status": "pending"
+  },
+  {
+    "name": "Kumi Town Primary School",
+    "district": "Kumi",
+    "location": {
+      "type": "Point",
+      "coordinates": [33.9361, 1.4608]
+    },
+    "totalRooms": 20,
+    "studentCount": 800,
+    "status": "pending"
+  }
+]

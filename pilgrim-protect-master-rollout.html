@@ -1,0 +1,1234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pilgrim Protect — Master Rollout Plan</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #06080f;
+    color: #e2e8f0;
+    line-height: 1.65;
+    overflow-x: hidden;
+  }
+  .container { max-width: 1260px; margin: 0 auto; padding: 0 28px; }
+
+  /* ── Header ── */
+  .header {
+    padding: 56px 0 36px;
+    text-align: center;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    margin-bottom: 52px;
+  }
+  .header h1 {
+    font-size: 2.6rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, #60a5fa, #34d399, #f59e0b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 8px;
+    letter-spacing: -0.5px;
+  }
+  .header p { color: #64748b; font-size: 1.05rem; }
+  .header-meta {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 16px;
+    flex-wrap: wrap;
+  }
+  .meta-tag {
+    display: inline-block;
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+  .meta-blue { background: rgba(96,165,250,0.1); color: #60a5fa; }
+  .meta-green { background: rgba(52,211,153,0.1); color: #34d399; }
+  .meta-orange { background: rgba(245,158,11,0.1); color: #f59e0b; }
+  .meta-purple { background: rgba(168,85,247,0.1); color: #a855f7; }
+
+  /* ── Tab Navigation ── */
+  .tab-nav {
+    display: flex;
+    gap: 4px;
+    background: rgba(255,255,255,0.03);
+    border-radius: 14px;
+    padding: 4px;
+    margin-bottom: 40px;
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+  .tab-btn {
+    flex: 1;
+    padding: 12px 16px;
+    border: none;
+    background: transparent;
+    color: #64748b;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border-radius: 11px;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .tab-btn:hover { color: #94a3b8; background: rgba(255,255,255,0.03); }
+  .tab-btn.active { background: rgba(255,255,255,0.08); color: #e2e8f0; }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* ── Section Titles ── */
+  .section-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-title .dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* ── Overview Cards ── */
+  .overview-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 48px;
+  }
+  .overview-card {
+    background: rgba(255,255,255,0.025);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 16px;
+    padding: 24px;
+    transition: all 0.3s;
+  }
+  .overview-card:hover { border-color: rgba(255,255,255,0.14); transform: translateY(-2px); }
+  .overview-card .oc-label {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 1.8px;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .overview-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; }
+  .overview-card .oc-tech { font-size: 0.82rem; color: #94a3b8; margin-bottom: 12px; }
+  .overview-card .oc-list { font-size: 0.8rem; color: #64748b; line-height: 1.85; }
+  .overview-card .oc-list span { display: block; padding-left: 14px; position: relative; }
+  .overview-card .oc-list span::before { content: '›'; position: absolute; left: 0; color: #475569; }
+
+  .oc-backend .oc-label { color: #f59e0b; }
+  .oc-backend { border-left: 3px solid #f59e0b; }
+  .oc-frontend .oc-label { color: #60a5fa; }
+  .oc-frontend { border-left: 3px solid #3b82f6; }
+  .oc-mobile .oc-label { color: #34d399; }
+  .oc-mobile { border-left: 3px solid #22c55e; }
+
+  /* ── Gantt-style Timeline ── */
+  .gantt-section { margin-bottom: 56px; }
+  .gantt-header {
+    display: grid;
+    grid-template-columns: 200px repeat(12, 1fr);
+    gap: 0;
+    margin-bottom: 4px;
+    padding: 0 0 8px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .gantt-header span {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #475569;
+    text-align: center;
+    font-weight: 600;
+  }
+  .gantt-header span:first-child { text-align: left; }
+  .gantt-row {
+    display: grid;
+    grid-template-columns: 200px repeat(12, 1fr);
+    gap: 0;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.025);
+  }
+  .gantt-label {
+    font-size: 0.82rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .gantt-label .gl-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .gantt-bar-container {
+    grid-column: var(--start) / var(--end);
+    padding: 0 2px;
+  }
+  .gantt-bar {
+    height: 28px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    font-size: 0.68rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.85);
+    letter-spacing: 0.3px;
+  }
+  .gb-orange { background: linear-gradient(90deg, rgba(245,158,11,0.35), rgba(245,158,11,0.15)); border: 1px solid rgba(245,158,11,0.3); }
+  .gb-blue { background: linear-gradient(90deg, rgba(59,130,246,0.35), rgba(59,130,246,0.15)); border: 1px solid rgba(59,130,246,0.3); }
+  .gb-green { background: linear-gradient(90deg, rgba(34,197,94,0.35), rgba(34,197,94,0.15)); border: 1px solid rgba(34,197,94,0.3); }
+  .gb-purple { background: linear-gradient(90deg, rgba(168,85,247,0.35), rgba(168,85,247,0.15)); border: 1px solid rgba(168,85,247,0.3); }
+  .gb-pink { background: linear-gradient(90deg, rgba(236,72,153,0.35), rgba(236,72,153,0.15)); border: 1px solid rgba(236,72,153,0.3); }
+  .gb-teal { background: linear-gradient(90deg, rgba(20,184,166,0.35), rgba(20,184,166,0.15)); border: 1px solid rgba(20,184,166,0.3); }
+
+  /* ── Milestone markers ── */
+  .milestone-row {
+    display: grid;
+    grid-template-columns: 200px repeat(12, 1fr);
+    padding: 6px 0;
+  }
+  .milestone-marker {
+    text-align: center;
+    font-size: 0.7rem;
+    color: #fbbf24;
+    font-weight: 700;
+  }
+
+  /* ── Phase Cards ── */
+  .phase-grid { margin-bottom: 48px; }
+  .phase-card {
+    background: rgba(255,255,255,0.025);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 16px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    transition: all 0.3s;
+  }
+  .phase-card:hover { border-color: rgba(255,255,255,0.12); }
+  .phase-header {
+    padding: 20px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .phase-header:hover { background: rgba(255,255,255,0.02); }
+  .phase-header-left { display: flex; align-items: center; gap: 14px; }
+  .phase-number {
+    width: 36px; height: 36px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.85rem;
+    font-weight: 800;
+    flex-shrink: 0;
+  }
+  .pn-1 { background: rgba(245,158,11,0.15); color: #f59e0b; }
+  .pn-2 { background: rgba(59,130,246,0.15); color: #3b82f6; }
+  .pn-3 { background: rgba(34,197,94,0.15); color: #22c55e; }
+  .pn-4 { background: rgba(168,85,247,0.15); color: #a855f7; }
+  .pn-5 { background: rgba(236,72,153,0.15); color: #ec4899; }
+  .pn-6 { background: rgba(20,184,166,0.15); color: #14b8a6; }
+  .pn-7 { background: rgba(239,68,68,0.15); color: #ef4444; }
+  .pn-8 { background: rgba(96,165,250,0.15); color: #60a5fa; }
+
+  .phase-title-group h3 { font-size: 1.05rem; font-weight: 700; }
+  .phase-subtitle { font-size: 0.78rem; color: #64748b; margin-top: 2px; }
+  .phase-header-right { display: flex; align-items: center; gap: 12px; }
+  .phase-duration-badge {
+    font-size: 0.72rem;
+    padding: 4px 12px;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.05);
+    color: #94a3b8;
+    font-weight: 500;
+  }
+  .phase-toggle {
+    color: #475569;
+    font-size: 0.85rem;
+    transition: transform 0.3s;
+  }
+  .phase-card.collapsed .phase-toggle { transform: rotate(-90deg); }
+  .phase-card.collapsed .phase-body { display: none; }
+
+  .phase-body { padding: 0 24px 24px; }
+  .phase-body-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .task-block {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 12px;
+    padding: 16px;
+  }
+  .task-block-title {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .tb-orange { color: #f59e0b; }
+  .tb-blue { color: #3b82f6; }
+  .tb-green { color: #22c55e; }
+  .tb-purple { color: #a855f7; }
+  .tb-pink { color: #ec4899; }
+
+  .task-list { font-size: 0.82rem; color: #94a3b8; line-height: 1.85; }
+  .task-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 4px;
+  }
+  .task-check {
+    width: 15px; height: 15px;
+    border: 1.5px solid #334155;
+    border-radius: 4px;
+    flex-shrink: 0;
+    margin-top: 3px;
+  }
+
+  .deliverable-block {
+    grid-column: 1 / -1;
+    background: rgba(52,211,153,0.05);
+    border: 1px solid rgba(52,211,153,0.15);
+    border-radius: 12px;
+    padding: 14px 18px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .deliverable-icon { color: #34d399; font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
+  .deliverable-text { font-size: 0.82rem; color: #34d399; font-weight: 500; line-height: 1.6; }
+
+  .dependency-block {
+    grid-column: 1 / -1;
+    background: rgba(245,158,11,0.05);
+    border: 1px solid rgba(245,158,11,0.12);
+    border-radius: 12px;
+    padding: 12px 18px;
+    font-size: 0.78rem;
+    color: #fbbf24;
+    font-weight: 500;
+  }
+
+  /* ── Accounts Setup Section ── */
+  .accounts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+    margin-bottom: 48px;
+  }
+  .account-card {
+    background: rgba(255,255,255,0.025);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+    transition: all 0.3s;
+  }
+  .account-card:hover { border-color: rgba(255,255,255,0.14); }
+  .account-name { font-weight: 700; font-size: 0.9rem; margin-bottom: 4px; }
+  .account-tier { font-size: 0.75rem; color: #22c55e; font-weight: 500; }
+  .account-note { font-size: 0.72rem; color: #64748b; margin-top: 6px; }
+
+  /* ── Cost Breakdown ── */
+  .cost-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 48px;
+    font-size: 0.85rem;
+  }
+  .cost-table th {
+    text-align: left;
+    padding: 10px 16px;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #64748b;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    font-weight: 600;
+  }
+  .cost-table td {
+    padding: 10px 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    color: #94a3b8;
+  }
+  .cost-table tr:last-child td { border-bottom: none; font-weight: 700; color: #e2e8f0; }
+  .cost-free { color: #22c55e; font-weight: 600; }
+  .cost-paid { color: #f59e0b; font-weight: 600; }
+
+  /* ── Footer ── */
+  .footer {
+    text-align: center;
+    padding: 36px 0;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    color: #334155;
+    font-size: 0.75rem;
+    margin-top: 24px;
+  }
+
+  @media (max-width: 900px) {
+    .overview-grid { grid-template-columns: 1fr; }
+    .phase-body-grid { grid-template-columns: 1fr; }
+    .gantt-section { overflow-x: auto; }
+    .gantt-header, .gantt-row, .milestone-row { min-width: 800px; }
+    .tab-nav { flex-wrap: wrap; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- ═══════════ HEADER ═══════════ -->
+  <div class="header">
+    <h1>Pilgrim Protect</h1>
+    <p>Master Rollout Plan — Backend · Website · Worker App</p>
+    <div class="header-meta">
+      <span class="meta-tag meta-orange">Express + MongoDB</span>
+      <span class="meta-tag meta-blue">Next.js 15 + Mapbox</span>
+      <span class="meta-tag meta-green">Expo (React Native)</span>
+      <span class="meta-tag meta-purple">~10–12 weeks total</span>
+    </div>
+  </div>
+
+  <!-- ═══════════ TAB NAV ═══════════ -->
+  <div class="tab-nav">
+    <button class="tab-btn active" onclick="showTab('overview')">Overview</button>
+    <button class="tab-btn" onclick="showTab('timeline')">Timeline</button>
+    <button class="tab-btn" onclick="showTab('phases')">All Phases</button>
+    <button class="tab-btn" onclick="showTab('setup')">Accounts & Costs</button>
+  </div>
+
+  <!-- ═══════════ TAB: OVERVIEW ═══════════ -->
+  <div id="tab-overview" class="tab-content active">
+
+    <div class="section-title">
+      <div class="dot" style="background: #60a5fa;"></div>
+      Three Products, One API
+    </div>
+
+    <div class="overview-grid">
+      <div class="overview-card oc-backend">
+        <div class="oc-label">Backend API</div>
+        <h3>Node.js + Express</h3>
+        <div class="oc-tech">MongoDB Atlas · Cloudinary · Stripe · Brevo</div>
+        <div class="oc-list">
+          <span>Shared API serving both website and mobile app</span>
+          <span>JWT auth with role-based access (admin, worker, donor)</span>
+          <span>REST endpoints for schools, spray reports, donations, stats</span>
+          <span>Image uploads → Cloudinary</span>
+          <span>Stripe webhooks for payment processing</span>
+          <span>Brevo triggers for automated emails</span>
+          <span>GeoJSON endpoint powering the map</span>
+        </div>
+      </div>
+
+      <div class="overview-card oc-frontend">
+        <div class="oc-label">Donor Website</div>
+        <h3>Next.js 15</h3>
+        <div class="oc-tech">Tailwind · shadcn/ui · Mapbox GL JS · Chart.js</div>
+        <div class="oc-list">
+          <span>Interactive Mapbox map — school markers with live spray data</span>
+          <span>School profile pages — history, photos, impact stats</span>
+          <span>Impact dashboard — total rooms sprayed, students protected</span>
+          <span>"Sponsor a School" flow with Stripe Checkout</span>
+          <span>Storytelling pages with field worker photos & narratives</span>
+          <span>Donor portal — track sponsored schools & donation history</span>
+          <span>Responsive — works on all devices</span>
+        </div>
+      </div>
+
+      <div class="overview-card oc-mobile">
+        <div class="oc-label">Field Worker App</div>
+        <h3>Expo (React Native)</h3>
+        <div class="oc-tech">iOS + Android · Offline-first · Camera access</div>
+        <div class="oc-list">
+          <span>Simple login — tap and go</span>
+          <span>View assigned schools</span>
+          <span>Submit spray report — date, rooms, photos, notes</span>
+          <span>Auto-capture GPS coordinates</span>
+          <span>Offline queue — stores submissions, syncs when online</span>
+          <span>View past submissions</span>
+          <span>Push notifications for new school assignments</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Data flow -->
+    <div class="section-title">
+      <div class="dot" style="background: #f59e0b;"></div>
+      How Data Flows
+    </div>
+
+    <div style="background: rgba(255,255,255,0.025); border: 1px solid rgba(255,255,255,0.07); border-radius: 16px; padding: 28px; margin-bottom: 48px; font-size: 0.88rem; line-height: 2.2; color: #94a3b8;">
+      <div style="display: grid; grid-template-columns: auto 1fr; gap: 8px 16px; align-items: start;">
+        <span style="color: #f59e0b; font-weight: 700;">Step 1</span>
+        <span>Admin populates schools into MongoDB (name, district, GPS coordinates, room count, student count)</span>
+
+        <span style="color: #f59e0b; font-weight: 700;">Step 2</span>
+        <span>Field workers open Expo app → log in → see their assigned schools</span>
+
+        <span style="color: #f59e0b; font-weight: 700;">Step 3</span>
+        <span>Worker arrives at school → opens spray report form → fills date, rooms sprayed, takes before/after photos → submits</span>
+
+        <span style="color: #f59e0b; font-weight: 700;">Step 4</span>
+        <span>Report hits Express API → photos upload to Cloudinary → report saves to MongoDB → school's lastSprayDate updates</span>
+
+        <span style="color: #f59e0b; font-weight: 700;">Step 5</span>
+        <span>Donor visits website → Mapbox map loads GeoJSON from /api/stats/map → sees all schools with real spray data</span>
+
+        <span style="color: #f59e0b; font-weight: 700;">Step 6</span>
+        <span>Donor clicks school marker → popup shows name, spray history, worker photos → clicks "Sponsor This School"</span>
+
+        <span style="color: #f59e0b; font-weight: 700;">Step 7</span>
+        <span>Stripe Checkout processes payment → webhook fires → Donation record created → Donor linked to school → Brevo sends receipt email</span>
+
+        <span style="color: #f59e0b; font-weight: 700;">Step 8</span>
+        <span>Donor returns to portal → sees their sponsored schools → gets email updates when workers submit new spray reports</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ TAB: TIMELINE ═══════════ -->
+  <div id="tab-timeline" class="tab-content">
+
+    <div class="section-title">
+      <div class="dot" style="background: #a855f7;"></div>
+      Gantt Timeline — 12 Weeks
+    </div>
+
+    <div class="gantt-section">
+      <div class="gantt-header">
+        <span></span>
+        <span>Wk 1</span><span>Wk 2</span><span>Wk 3</span><span>Wk 4</span>
+        <span>Wk 5</span><span>Wk 6</span><span>Wk 7</span><span>Wk 8</span>
+        <span>Wk 9</span><span>Wk 10</span><span>Wk 11</span><span>Wk 12</span>
+      </div>
+
+      <!-- Phase 1: Backend Foundation -->
+      <div class="gantt-row">
+        <div class="gantt-label"><div class="gl-dot" style="background: #f59e0b;"></div> Backend Setup</div>
+        <div class="gantt-bar-container" style="--start: 2; --end: 4;">
+          <div class="gantt-bar gb-orange">Wk 1–2</div>
+        </div>
+      </div>
+
+      <!-- Phase 2: Real Data -->
+      <div class="gantt-row">
+        <div class="gantt-label"><div class="gl-dot" style="background: #f59e0b;"></div> Seed Data</div>
+        <div class="gantt-bar-container" style="--start: 4; --end: 5;">
+          <div class="gantt-bar gb-orange">Wk 3</div>
+        </div>
+      </div>
+
+      <!-- Phase 3: Worker App -->
+      <div class="gantt-row">
+        <div class="gantt-label"><div class="gl-dot" style="background: #22c55e;"></div> Worker App</div>
+        <div class="gantt-bar-container" style="--start: 4; --end: 7;">
+          <div class="gantt-bar gb-green">Wk 3–5</div>
+        </div>
+      </div>
+
+      <!-- Phase 4: Map -->
+      <div class="gantt-row">
+        <div class="gantt-label"><div class="gl-dot" style="background: #3b82f6;"></div> Map + Website</div>
+        <div class="gantt-bar-container" style="--start: 6; --end: 9;">
+          <div class="gantt-bar gb-blue">Wk 5–7</div>
+        </div>
+      </div>
+
+      <!-- Phase 5: Donor Features -->
+      <div class="gantt-row">
+        <div class="gantt-label"><div class="gl-dot" style="background: #a855f7;"></div> Stripe + Donors</div>
+        <div class="gantt-bar-container" style="--start: 8; --end: 10;">
+          <div class="gantt-bar gb-purple">Wk 7–9</div>
+        </div>
+      </div>
+
+      <!-- Phase 6: Email -->
+      <div class="gantt-row">
+        <div class="gantt-label"><div class="gl-dot" style="background: #ec4899;"></div> Email (Brevo)</div>
+        <div class="gantt-bar-container" style="--start: 10; --end: 11;">
+          <div class="gantt-bar gb-pink">Wk 9–10</div>
+        </div>
+      </div>
+
+      <!-- Phase 7: Testing -->
+      <div class="gantt-row">
+        <div class="gantt-label"><div class="gl-dot" style="background: #ef4444;"></div> Testing + QA</div>
+        <div class="gantt-bar-container" style="--start: 11; --end: 12;">
+          <div class="gantt-bar gb-teal">Wk 10–11</div>
+        </div>
+      </div>
+
+      <!-- Phase 8: Deploy -->
+      <div class="gantt-row">
+        <div class="gantt-label"><div class="gl-dot" style="background: #60a5fa;"></div> Deploy + Launch</div>
+        <div class="gantt-bar-container" style="--start: 12; --end: 14;">
+          <div class="gantt-bar gb-blue">Wk 11–12</div>
+        </div>
+      </div>
+
+      <!-- Milestones -->
+      <div class="milestone-row">
+        <span></span>
+        <span></span><span class="milestone-marker">▲ API live</span><span></span><span></span>
+        <span class="milestone-marker">▲ App testable</span><span></span><span class="milestone-marker">▲ Map live</span><span></span>
+        <span></span><span></span><span></span><span class="milestone-marker">▲ LAUNCH</span>
+      </div>
+    </div>
+
+    <!-- Dependencies -->
+    <div class="section-title">
+      <div class="dot" style="background: #fbbf24;"></div>
+      Dependencies — What Blocks What
+    </div>
+
+    <div style="background: rgba(255,255,255,0.025); border: 1px solid rgba(255,255,255,0.07); border-radius: 16px; padding: 24px; margin-bottom: 48px; font-size: 0.85rem; color: #94a3b8; line-height: 2;">
+      <div style="display: grid; grid-template-columns: auto auto 1fr; gap: 6px 14px; align-items: center;">
+        <span style="font-weight: 700; color: #f59e0b;">Backend Setup</span>
+        <span style="color: #475569;">→ blocks</span>
+        <span>Everything. Nothing works without the API and database.</span>
+
+        <span style="font-weight: 700; color: #f59e0b;">Seed Data</span>
+        <span style="color: #475569;">→ blocks</span>
+        <span>Worker App (needs schools to select) + Map (needs coordinates to plot)</span>
+
+        <span style="font-weight: 700; color: #22c55e;">Worker App</span>
+        <span style="color: #475569;">→ blocks</span>
+        <span>Live spray data on the map. Can build map UI in parallel, but real data needs workers submitting.</span>
+
+        <span style="font-weight: 700; color: #3b82f6;">Map + Website</span>
+        <span style="color: #475569;">→ blocks</span>
+        <span>Donor features. Stripe "Sponsor a School" needs school profiles to exist first.</span>
+
+        <span style="font-weight: 700; color: #a855f7;">Stripe + Donors</span>
+        <span style="color: #475569;">→ blocks</span>
+        <span>Brevo email triggers (donation receipts, sponsor update emails).</span>
+
+        <span style="font-weight: 700; color: #64748b;">Can run in parallel</span>
+        <span style="color: #475569;">→</span>
+        <span>Worker App (Phase 3) + Seed Data (Phase 2) can overlap. Map UI buildout can start while workers test the app.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ TAB: ALL PHASES ═══════════ -->
+  <div id="tab-phases" class="tab-content">
+
+    <div class="section-title">
+      <div class="dot" style="background: #34d399;"></div>
+      All 8 Phases — Detailed Breakdown
+    </div>
+
+    <div class="phase-grid">
+
+      <!-- ── PHASE 1 ── -->
+      <div class="phase-card" onclick="this.classList.toggle('collapsed')">
+        <div class="phase-header">
+          <div class="phase-header-left">
+            <div class="phase-number pn-1">1</div>
+            <div class="phase-title-group">
+              <h3>Backend Foundation</h3>
+              <div class="phase-subtitle">Express server · MongoDB schema · Auth · Cloudinary</div>
+            </div>
+          </div>
+          <div class="phase-header-right">
+            <span class="phase-duration-badge">Week 1–2</span>
+            <span class="phase-toggle">▾</span>
+          </div>
+        </div>
+        <div class="phase-body">
+          <div class="phase-body-grid">
+            <div class="task-block">
+              <div class="task-block-title tb-orange">Server Setup</div>
+              <div class="task-list">
+                <div class="task-item"><div class="task-check"></div> Initialize Express project with folder structure (routes/, models/, middleware/, config/)</div>
+                <div class="task-item"><div class="task-check"></div> Set up environment variables (.env) — MongoDB URI, JWT secret, Cloudinary keys</div>
+                <div class="task-item"><div class="task-check"></div> Configure CORS (allow web + mobile origins)</div>
+                <div class="task-item"><div class="task-check"></div> Add rate limiting (express-rate-limit)</div>
+                <div class="task-item"><div class="task-check"></div> Error handling middleware</div>
+              </div>
+            </div>
+            <div class="task-block">
+              <div class="task-block-title tb-orange">Database & Models</div>
+              <div class="task-list">
+                <div class="task-item"><div class="task-check"></div> Connect to MongoDB Atlas (free M0 cluster)</div>
+                <div class="task-item"><div class="task-check"></div> Create Mongoose models: School, SprayReport, Worker, Donor, Donation</div>
+                <div class="task-item"><div class="task-check"></div> Add 2dsphere geospatial index on School.location</div>
+                <div class="task-item"><div class="task-check"></div> Set up model validations and required fields</div>
+                <div class="task-item"><div class="task-check"></div> Create relationship refs between collections</div>
+              </div>
+            </div>
+            <div class="task-block">
+              <div class="task-block-title tb-orange">Authentication</div>
+              <div class="task-list">
+                <div class="task-item"><div class="task-check"></div> Password hashing with bcrypt</div>
+                <div class="task-item"><div class="task-check"></div> JWT token generation and verification</div>
+                <div class="task-item"><div class="task-check"></div> Auth middleware — protect routes, extract user from token</div>
+                <div class="task-item"><div class="task-check"></div> Role-based guards: admin, worker, donor</div>
+                <div class="task-item"><div class="task-check"></div> POST /api/auth/register, POST /api/auth/login, GET /api/auth/me</div>
+              </div>
+            </div>
+            <div class="task-block">
+              <div class="task-block-title tb-orange">Core Routes + Uploads</div>
+              <div class="task-list">
+                <div class="task-item"><div class="task-check"></div> CRUD: GET/POST/PUT /api/schools</div>
+                <div class="task-item"><div class="task-check"></div> POST /api/spray-reports (worker submits)</div>
+                <div class="task-item"><div class="task-check"></div> GET /api/spray-reports (filterable by school, worker, date)</div>
+                <div class="task-item"><div class="task-check"></div> POST /api/upload/image — Cloudinary integration with multer</div>
+                <div class="task-item"><div class="task-check"></div> Test all endpoints with Postman / Thunder Client</div>
+              </div>
+            </div>
+            <div class="deliverable-block">
+              <span class="deliverable-icon">✓</span>
+              <span class="deliverable-text">Deliverable: Working REST API. You can create schools, register workers, submit spray reports with photos, and authenticate — all via API calls. No UI needed yet.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── PHASE 2 ── -->
+      <div class="phase-card" onclick="this.classList.toggle('collapsed')">
+        <div class="phase-header">
+          <div class="phase-header-left">
+            <div class="phase-number pn-2">2</div>
+            <div class="phase-title-group">
+              <h3>Populate Real Data</h3>
+              <div class="phase-subtitle">School records · GPS coordinates · Seed script · MAP malaria data</div>
+            </div>
+          </div>
+          <div class="phase-header-right">
+            <span class="phase-duration-badge">Week 3</span>
+            <span class="phase-toggle">▾</span>
+          </div>
+        </div>
+        <div class="phase-body">
+          <div class="phase-body-grid">
+            <div class="task-block">
+              <div class="task-block-title tb-blue">School Data Collection</div>
+              <div class="task-list">
+                <div class="task-item"><div class="task-check"></div> Gather real school names and districts from Pilgrim Africa contacts</div>
+                <div class="task-item"><div class="task-check"></div> Look up GPS coordinates for each school (Google Maps / OpenStreetMap)</div>
+                <div class="task-item"><div class="task-check"></div> Collect room counts and student enrollment where available</div>
+                <div class="task-item"><div class="task-check"></div> Organize into structured JSON file (schools.json)</div>
+              </div>
+            </div>
+            <div class="task-block">
+              <div class="task-block-title tb-blue">Seed Script & Context Data</div>
+              <div class="task-list">
+                <div class="task-item"><div class="task-check"></div> Build seed.js script that loads schools.json into MongoDB</div>
+                <div class="task-item"><div class="task-check"></div> Create admin user and test worker accounts in seed</div>
+                <div class="task-item"><div class="task-check"></div> Pull Malaria Atlas Project data — district-level parasite rates</div>
+                <div class="task-item"><div class="task-check"></div> Store MAP data in MalariaData collection as context layer</div>
+                <div class="task-item"><div class="task-check"></div> Build GET /api/stats/map endpoint — returns GeoJSON FeatureCollection</div>
+              </div>
+            </div>
+            <div class="deliverable-block">
+              <span class="deliverable-icon">✓</span>
+              <span class="deliverable-text">Deliverable: Database populated with real schools and real coordinates. /api/stats/map returns GeoJSON ready for Mapbox. Every school is a plottable point.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── PHASE 3 ── -->
+      <div class="phase-card" onclick="this.classList.toggle('collapsed')">
+        <div class="phase-header">
+          <div class="phase-header-left">
+            <div class="phase-number pn-3">3</div>
+            <div class="phase-title-group">
+              <h3>Field Worker App (Expo)</h3>
+              <div class="phase-subtitle">Login · School list · Spray report form · Photo upload · Offline queue</div>
+            </div>
+          </div>
+          <div class="phase-header-right">
+            <span class="phase-duration-badge">Week 3–5</span>
+            <span class="phase-toggle">▾</span>
+          </div>
+        </div>
+        <div class="phase-body">
+          <div class="phase-body-grid">
+            <div class="task-block">
+              <div class="task-block-title tb-green">App Setup & Auth</div>
+              <div class="task-list">
+                <div class="task-item"><div class="task-check"></div> Initialize Expo project (managed workflow)</div>
+                <div class="task-item"><div class="task-check"></div> Set up navigation — React Navigation (stack navigator)</div>
+                <div class="task-item"><div class="task-check"></div> Login screen — email + password → hits /api/auth/login</div>
+                <div class="task-item"><div class="task-check"></div> Store JWT in SecureStore (expo-secure-store)</div>
+                <div class="task-item"><div class="task-check"></div> Auto-redirect to home if token exists</div>
+              </div>
+            </div>
+            <div class="task-block">
+              <div class="task-block-title tb-green">Core Screens (4 total)</div>
+              <div class="task-list">
+                <div class="task-item"><div class="task-check"></div> <strong>School List</strong> — pull assigned schools from API, tap to select</div>
+                <div class="task-item"><div class="task-check"></div> <strong>Spray Report Form</strong> — date picker, room count input, notes field</div>
+                <div class="task-item"><div class="task-check"></div> <strong>Photo Capture</strong> — camera access (expo-camera) for before/after photos</div>
+                <div class="task-item"><div class="task-check"></div> <strong>My Reports</strong> — list of past submissions from /api/spray-reports/mine</div>
+              </div>
+            </div>
+            <div class="task-block">
+              <div class="task-block-title tb-green">Offline & GPS</div>
+              <div class="task-list">
+                <div class="task-item"><div class="task-check"></div> Auto-capture GPS on submission (expo-location)</div>
+                <div class="task-item"><div class="task-check"></div> Offline queue — detect no internet → save report to AsyncStorage</div>
+                <div class="task-item"><div class="task-check"></div> Background sync — when connectivity returns, push queued reports</div>
+                <div class="task-item"><div class="task-check"></div> Visual indicator: "1 report pending upload"</div>
+              </div>
+            </div>
+            <div class="task-block">
+              <div class="task-block-title tb-green">Testing</div>
+              <div class="task-list">
+                <div class="task-item"><div class="task-check"></div> Test on Expo Go (iOS + Android)</div>
+                <div class="task-item"><div class="task-check"></div> Test photo uploads → verify they appear in Cloudinary</div>
+                <div class="task-item"><div class="task-check"></div> Test offline → airplane mode → submit → reconnect → verify sync</div>
+                <div class="task-item"><div class="task-check"></div> Test with real workers if possible (Uganda team)</div>
+              </div>
+            </div>
+            <div class="deliverable-block">
+              <span class="deliverable-icon">✓</span>
+              <span class="deliverable-text">Deliverable: Workers can download Expo Go, log in, and start submitting spray reports with photos from their phones. Data flows into MongoDB in real-time.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── PHASE 4 ── -->
+      <div class="phase-card" onclick="this.classList.toggle('collapsed')">
+        <div class="phase-header">
+          <div class="phase-header-left">
+            <div class="phase-number pn-4">4</div>
+            <div class="phase-title-group">
+              <h3>Interactive Map & Website</h3>
+              <div class="phase-subtitle">Mapbox GL JS · School profiles · Impact dashboard · Storytelling pages</div>
+            </div>
+          </div>
+          <div class="phase-header-right">
+            <span class="phase-duration-badge">Week 5–7</span>
+            <span class="phase-toggle">▾</span>
+          </div>
+        </div>
+        <div class="phase-body">
+          <div class="phase-body-grid">
+            <div class="task-block">
+              <div class="task-block-title tb-blue">Next.js Setup</div>
+              <div class="task-list">
+                <div class="task-item"><div class="task-check"></div> Initialize Next.js 15 project with App Router</div>
+                <div class="task-item"><div class="task-check"></div> Install Tailwind CSS + shadcn/ui components</div>
+                <div class="task-item"><div class="task-check"></div> Set up API service layer (axios/fetch wrapper for Express backend)</div>
+                <div class="task-item"><div class="task-check"></div> Global layout — nav, footer, responsive shell</div>
+                <div class="task-item"><div class="task-check"></div> Apply for Mapbox nonprofit program</div>
+              </div>
+            </div>
+            <div class="task-block">
+              <div class="task-block-title tb-blue">The Map (Centerpiece)</div>
+              <div class="task-list">
+                <div class="task-item"><div class="task-check"></div> Install react-map-gl + Mapbox GL JS</div>
+                <div class="task-item"><div class="task-check"></div> Create custom Mapbox Studio style (Pilgrim Protect branded)</div>
+                <div class="task-item"><div class="task-check"></div> Load GeoJSON from /api/stats/map → render school markers</div>
+                <div class="task-item"><div class="task-check"></div> Marker popups — school name, last spray date, student count, thumbnail</div>
+                <div class="task-item"><div class="task-check"></div> flyTo animations on marker click</div>
+                <div class="task-item"><div class="task-check"></div> Color-code markers by spray status (sprayed / pending / overdue)</div>
+                <div class="task-item"><div class="task-check"></div> District-level malaria context layer (choropleth from MAP data)</div>
+              </div>
+            </div>
+            <div class="task-block">
+              <div class="task-block-title tb-blue">School Profiles & Dashboard</div>
+              <div class="task-list">
+                <div class="task-item"><div class="task-check"></div> Dynamic route: /schools/[id] — full school profile page</div>
+                <div class="task-item"><div class="task-check"></div> Spray history timeline with photos from workers</div>
+                <div class="task-item"><div class="task-check"></div> School photo gallery (Cloudinary images)</div>
+                <div class="task-item"><div class="task-check"></div> Impact dashboard page — aggregate stats</div>
+                <div class="task-item"><div class="task-check"></div> Chart.js charts: spray activity over time, schools by district, rooms sprayed per month</div>
+              </div>
+            </div>
+            <div class="task-block">
+              <div class="task-block-title tb-blue">Content Pages</div>
+              <div class="task-list">
+                <div class="task-item"><div class="task-check"></div> Homepage — hero, map preview, impact stats, CTA</div>
+                <div class="task-item"><div class="task-check"></div> About page — Pilgrim Africa's mission, the malaria problem</div>
+                <div class="task-item"><div class="task-check"></div> Stories page — curated field narratives with worker photos</div>
+                <div class="task-item"><div class="task-check"></div> How It Works page — visual breakdown of the spray process</div>
+                <div class="task-item"><div class="task-check"></div> SEO: meta tags, Open Graph images, sitemap</div>
+              </div>
+            </div>
+            <div class="deliverable-block">
+              <span class="deliverable-icon">✓</span>
+              <span class="deliverable-text">Deliverable: pilgrimprotectstory.org is live with an interactive map showing real schools, real spray data, photo galleries, and an impact dashboard. No fake data anywhere.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── PHASE 5 ── -->
+      <div class="phase-card" onclick="this.classList.toggle('collapsed')">
+        <div class="phase-header">
+          <div class="phase-header-left">
+            <div class="phase-number pn-5">5</div>
+            <div class="phase-title-group">
+              <h3>Donations & Sponsorships (Stripe)</h3>
+              <div class="phase-subtitle">Checkout · Webhooks · Sponsor-a-School · Donor portal</div>
+            </div>
+          </div>
+          <div class="phase-header-right">
+            <span class="phase-duration-badge">Week 7–9</span>
+            <span class="phase-toggle">▾</span>
+          </div>
+        </div>
+        <div class="phase-body">
+          <div class="phase-body-grid">
+            <div class="task-block">
+              <div class="task-block-title tb-purple">Stripe Integration</div>
+              <div class="task-list">
+                <div class="task-item"><div class="task-check"></div> Create Stripe account, apply for nonprofit rate (2.2% + $0.30)</div>
+                <div class="task-item"><div class="task-check"></div> POST /api/donations/checkout — create Stripe Checkout session</div>
+                <div class="task-item"><div class="task-check"></div> Support one-time and recurring (monthly) donations</div>
+                <div class="task-item"><div class="task-check"></div> POST /api/donations/webhook — handle checkout.session.completed</div>
+                <div class="task-item"><div class="task-check"></div> On payment success: create Donation record, link Donor → School, update totals</div>
+              </div>
+            </div>
+            <div class="task-block">
+              <div class="task-block-title tb-purple">Donor Experience</div>
+              <div class="task-list">
+                <div class="task-item"><div class="task-check"></div> "Sponsor This School" button on school profiles and map popups</div>
+                <div class="task-item"><div class="task-check"></div> General donation option (not tied to specific school)</div>
+                <div class="task-item"><div class="task-check"></div> Donor registration / login (NextAuth.js on website)</div>
+                <div class="task-item"><div class="task-check"></div> Donor dashboard: sponsored schools, donation history, total impact</div>
+                <div class="task-item"><div class="task-check"></div> Success/thank you page after donation with social share links</div>
+              </div>
+            </div>
+            <div class="deliverable-block">
+              <span class="deliverable-icon">✓</span>
+              <span class="deliverable-text">Deliverable: Donors can sponsor a school directly from the map or school profile. Payments are processed, receipts are generated, and donors have a portal to track their impact.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── PHASE 6 ── -->
+      <div class="phase-card" onclick="this.classList.toggle('collapsed')">
+        <div class="phase-header">
+          <div class="phase-header-left">
+            <div class="phase-number pn-6">6</div>
+            <div class="phase-title-group">
+              <h3>Automated Emails (Brevo)</h3>
+              <div class="phase-subtitle">Welcome emails · Donation receipts · Sponsor updates · Monthly digest</div>
+            </div>
+          </div>
+          <div class="phase-header-right">
+            <span class="phase-duration-badge">Week 9–10</span>
+            <span class="phase-toggle">▾</span>
+          </div>
+        </div>
+        <div class="phase-body">
+          <div class="phase-body-grid">
+            <div class="task-block">
+              <div class="task-block-title tb-pink">Transactional Emails</div>
+              <div class="task-list">
+                <div class="task-item"><div class="task-check"></div> Set up Brevo account + API key</div>
+                <div class="task-item"><div class="task-check"></div> Design email templates in Brevo (branded to Pilgrim Protect)</div>
+                <div class="task-item"><div class="task-check"></div> Welcome email — triggered on donor registration</div>
+                <div class="task-item"><div class="task-check"></div> Donation receipt — triggered by Stripe webhook</div>
+                <div class="task-item"><div class="task-check"></div> Sponsor update — triggered when a worker submits a report for a sponsored school</div>
+              </div>
+            </div>
+            <div class="task-block">
+              <div class="task-block-title tb-pink">Engagement Emails</div>
+              <div class="task-list">
+                <div class="task-item"><div class="task-check"></div> Monthly impact digest — aggregate stats email to all donors</div>
+                <div class="task-item"><div class="task-check"></div> New school added notification — for donors who opted into updates</div>
+                <div class="task-item"><div class="task-check"></div> Unsubscribe handling (Brevo manages this automatically)</div>
+                <div class="task-item"><div class="task-check"></div> Test all email flows end-to-end</div>
+              </div>
+            </div>
+            <div class="deliverable-block">
+              <span class="deliverable-icon">✓</span>
+              <span class="deliverable-text">Deliverable: Donors get automatic emails at every key moment — signup, donation, and when their sponsored school gets sprayed. Monthly digest keeps them engaged.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── PHASE 7 ── -->
+      <div class="phase-card" onclick="this.classList.toggle('collapsed')">
+        <div class="phase-header">
+          <div class="phase-header-left">
+            <div class="phase-number pn-7">7</div>
+            <div class="phase-title-group">
+              <h3>Testing & QA</h3>
+              <div class="phase-subtitle">End-to-end testing · Mobile testing · Security audit · Performance</div>
+            </div>
+          </div>
+          <div class="phase-header-right">
+            <span class="phase-duration-badge">Week 10–11</span>
+            <span class="phase-toggle">▾</span>
+          </div>
+        </div>
+        <div class="phase-body">
+          <div class="phase-body-grid">
+            <div class="task-block">
+              <div class="task-block-title tb-orange">Full Flow Testing</div>
+              <div class="task-list">
+                <div class="task-item"><div class="task-check"></div> Worker submits report → data appears on website map within seconds</div>
+                <div class="task-item"><div class="task-check"></div> Donor sponsors school → payment processes → receipt email arrives</div>
+                <div class="task-item"><div class="task-check"></div> Worker submits report for sponsored school → donor gets update email</div>
+                <div class="task-item"><div class="task-check"></div> Offline submission → reconnect → data syncs → appears on map</div>
+                <div class="task-item"><div class="task-check"></div> Test all auth flows — register, login, token expiry, role restrictions</div>
+              </div>
+            </div>
+            <div class="task-block">
+              <div class="task-block-title tb-orange">Security & Performance</div>
+              <div class="task-list">
+                <div class="task-item"><div class="task-check"></div> Review all API endpoints for auth protection</div>
+                <div class="task-item"><div class="task-check"></div> Verify rate limiting is working</div>
+                <div class="task-item"><div class="task-check"></div> Test Stripe webhook signature verification</div>
+                <div class="task-item"><div class="task-check"></div> Lighthouse audit on website (aim for 90+ on all scores)</div>
+                <div class="task-item"><div class="task-check"></div> Test map performance with 50+ school markers</div>
+                <div class="task-item"><div class="task-check"></div> Test mobile app on low-end Android device (common in Uganda)</div>
+              </div>
+            </div>
+            <div class="deliverable-block">
+              <span class="deliverable-icon">✓</span>
+              <span class="deliverable-text">Deliverable: Every critical user flow tested end-to-end. No broken links, no auth leaks, no unhandled errors. Ready for real users.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── PHASE 8 ── -->
+      <div class="phase-card" onclick="this.classList.toggle('collapsed')">
+        <div class="phase-header">
+          <div class="phase-header-left">
+            <div class="phase-number pn-8">8</div>
+            <div class="phase-title-group">
+              <h3>Deploy & Launch</h3>
+              <div class="phase-subtitle">Vercel · Railway · Custom domain · DNS · Monitoring</div>
+            </div>
+          </div>
+          <div class="phase-header-right">
+            <span class="phase-duration-badge">Week 11–12</span>
+            <span class="phase-toggle">▾</span>
+          </div>
+        </div>
+        <div class="phase-body">
+          <div class="phase-body-grid">
+            <div class="task-block">
+              <div class="task-block-title tb-blue">Production Deployment</div>
+              <div class="task-list">
+                <div class="task-item"><div class="task-check"></div> Deploy Next.js frontend to Vercel</div>
+                <div class="task-item"><div class="task-check"></div> Deploy Express backend to Railway</div>
+                <div class="task-item"><div class="task-check"></div> Point pilgrimprotectstory.org → Vercel</div>
+                <div class="task-item"><div class="task-check"></div> Point api.pilgrimprotectstory.org → Railway</div>
+                <div class="task-item"><div class="task-check"></div> SSL certificates (automatic with Vercel + Railway)</div>
+                <div class="task-item"><div class="task-check"></div> Set production environment variables on both platforms</div>
+              </div>
+            </div>
+            <div class="task-block">
+              <div class="task-block-title tb-blue">Launch Checklist</div>
+              <div class="task-list">
+                <div class="task-item"><div class="task-check"></div> Switch Stripe from test mode to live mode</div>
+                <div class="task-item"><div class="task-check"></div> Verify Stripe webhook URL points to production</div>
+                <div class="task-item"><div class="task-check"></div> Verify Brevo is sending from correct domain</div>
+                <div class="task-item"><div class="task-check"></div> MongoDB Atlas — verify IP whitelist allows Railway</div>
+                <div class="task-item"><div class="task-check"></div> Publish Expo app to internal testing (EAS Build)</div>
+                <div class="task-item"><div class="task-check"></div> Set up basic uptime monitoring (UptimeRobot — free)</div>
+                <div class="task-item"><div class="task-check"></div> Distribute worker app to Uganda team via Expo Go / TestFlight</div>
+              </div>
+            </div>
+            <div class="deliverable-block">
+              <span class="deliverable-icon">✓</span>
+              <span class="deliverable-text">Deliverable: Everything is live. pilgrimprotectstory.org serves donors. Workers are submitting from Uganda. Donations are processing. Emails are sending. The map tells a real story.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════ TAB: ACCOUNTS & COSTS ═══════════ -->
+  <div id="tab-setup" class="tab-content">
+
+    <div class="section-title">
+      <div class="dot" style="background: #22c55e;"></div>
+      Accounts to Create (Before You Start)
+    </div>
+
+    <div class="accounts-grid">
+      <div class="account-card">
+        <div class="account-name">MongoDB Atlas</div>
+        <div class="account-tier">Free (M0 — 512MB)</div>
+        <div class="account-note">Create cluster → get connection URI</div>
+      </div>
+      <div class="account-card">
+        <div class="account-name">Cloudinary</div>
+        <div class="account-tier">Free (25GB bandwidth/mo)</div>
+        <div class="account-note">Get cloud name + API key + secret</div>
+      </div>
+      <div class="account-card">
+        <div class="account-name">Mapbox</div>
+        <div class="account-tier">Free (50K loads/mo)</div>
+        <div class="account-note">Get access token → apply for nonprofit</div>
+      </div>
+      <div class="account-card">
+        <div class="account-name">Stripe</div>
+        <div class="account-tier">2.2% + $0.30 (nonprofit)</div>
+        <div class="account-note">Apply for nonprofit rate → get API keys</div>
+      </div>
+      <div class="account-card">
+        <div class="account-name">Brevo</div>
+        <div class="account-tier">Free (300 emails/day)</div>
+        <div class="account-note">Get API key → set up sender domain</div>
+      </div>
+      <div class="account-card">
+        <div class="account-name">Vercel</div>
+        <div class="account-tier">Free (Hobby tier)</div>
+        <div class="account-note">Connect GitHub repo → auto-deploy</div>
+      </div>
+      <div class="account-card">
+        <div class="account-name">Railway</div>
+        <div class="account-tier">~$5/mo (usage-based)</div>
+        <div class="account-note">Deploy Express → custom domain</div>
+      </div>
+      <div class="account-card">
+        <div class="account-name">Expo (EAS)</div>
+        <div class="account-tier">Free (for dev builds)</div>
+        <div class="account-note">Create account → init project</div>
+      </div>
+      <div class="account-card">
+        <div class="account-name">GitHub</div>
+        <div class="account-tier">Free</div>
+        <div class="account-note">Monorepo: /api, /web, /mobile</div>
+      </div>
+      <div class="account-card">
+        <div class="account-name">UptimeRobot</div>
+        <div class="account-tier">Free (50 monitors)</div>
+        <div class="account-note">Monitor API + website uptime</div>
+      </div>
+    </div>
+
+    <div class="section-title">
+      <div class="dot" style="background: #f59e0b;"></div>
+      Monthly Cost Breakdown (Production)
+    </div>
+
+    <table class="cost-table">
+      <thead>
+        <tr>
+          <th>Service</th>
+          <th>Tier</th>
+          <th>Monthly Cost</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>MongoDB Atlas</td>
+          <td>M0 (Free)</td>
+          <td class="cost-free">$0</td>
+          <td>512MB — enough for early stage, upgrade to M2 ($9/mo) when needed</td>
+        </tr>
+        <tr>
+          <td>Cloudinary</td>
+          <td>Free</td>
+          <td class="cost-free">$0</td>
+          <td>25GB bandwidth, 25K transformations — monitor usage</td>
+        </tr>
+        <tr>
+          <td>Mapbox</td>
+          <td>Free / Nonprofit</td>
+          <td class="cost-free">$0</td>
+          <td>50K map loads free, nonprofit program gives more</td>
+        </tr>
+        <tr>
+          <td>Vercel</td>
+          <td>Hobby</td>
+          <td class="cost-free">$0</td>
+          <td>100GB bandwidth, serverless functions included</td>
+        </tr>
+        <tr>
+          <td>Railway</td>
+          <td>Usage-based</td>
+          <td class="cost-paid">~$5</td>
+          <td>Express server + could add Redis later if needed</td>
+        </tr>
+        <tr>
+          <td>Brevo</td>
+          <td>Free</td>
+          <td class="cost-free">$0</td>
+          <td>300 emails/day — plenty for early stage</td>
+        </tr>
+        <tr>
+          <td>Stripe</td>
+          <td>Nonprofit</td>
+          <td class="cost-paid">2.2% + $0.30/txn</td>
+          <td>Per transaction only, no monthly fee</td>
+        </tr>
+        <tr>
+          <td>Domain</td>
+          <td>pilgrimprotectstory.org</td>
+          <td class="cost-paid">~$1/mo</td>
+          <td>Annual renewal, already registered</td>
+        </tr>
+        <tr>
+          <td>UptimeRobot</td>
+          <td>Free</td>
+          <td class="cost-free">$0</td>
+          <td>5-minute check intervals</td>
+        </tr>
+        <tr>
+          <td><strong>Total</strong></td>
+          <td></td>
+          <td><strong class="cost-paid">~$6–7/mo + Stripe fees</strong></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+
+  <div class="footer">
+    Pilgrim Protect — pilgrimprotectstory.org — Master Rollout Plan — March 2026
+  </div>
+
+</div>
+
+<script>
+  function showTab(name) {
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + name).classList.add('active');
+    event.target.classList.add('active');
+  }
+
+  document.querySelectorAll('.phase-card').forEach(card => {
+    card.querySelector('.phase-header').addEventListener('click', (e) => {
+      e.stopPropagation();
+      card.classList.toggle('collapsed');
+    });
+    // Remove the outer onclick to avoid double-toggle
+    card.removeAttribute('onclick');
+  });
+</script>
+
+</body>
+</html>

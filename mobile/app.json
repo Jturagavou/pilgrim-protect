@@ -1,0 +1,44 @@
+{
+  "expo": {
+    "name": "Pilgrim Protect",
+    "slug": "pilgrim-protect-field",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#1B5E20"
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "org.pilgrimprotect.fieldworker",
+      "infoPlist": {
+        "NSCameraUsageDescription": "We need camera access to photograph sprayed classrooms.",
+        "NSPhotoLibraryUsageDescription": "We need photo library access to attach spray report photos.",
+        "NSLocationWhenInUseUsageDescription": "We capture your GPS location to verify spray report locations."
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/icon.png",
+        "backgroundColor": "#1B5E20"
+      },
+      "package": "org.pilgrimprotect.fieldworker",
+      "permissions": [
+        "CAMERA",
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION",
+        "READ_EXTERNAL_STORAGE"
+      ]
+    },
+    "plugins": [
+      "expo-camera",
+      "expo-location",
+      "expo-image-picker",
+      "expo-secure-store"
+    ]
+  }
+}
