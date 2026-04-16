@@ -40,3 +40,7 @@ Thumbs.db
 
 # Auto-memory (Claude internal)
 .auto-memory/
+
+# Audit / transient logs
+audit-report.md
+mcp-shell.log
