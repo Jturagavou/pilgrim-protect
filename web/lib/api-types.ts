@@ -477,6 +477,42 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/stats": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Homepage summary — schools + students + $ raised vs. 100k goal */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Summary stats */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["SummaryStats"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/stats/impact": {
         parameters: {
             query?: never;
@@ -484,7 +520,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** Aggregate impact counters */
+        /** Legacy dashboard impact counters */
         get: {
             parameters: {
                 query?: never;
@@ -777,6 +813,23 @@ export interface components {
             totalRoomsSprayed: number;
             totalStudentsProtected: number;
             totalSprayReports: number;
+        };
+        SummaryStats: {
+            /** @description Number of schools with an IRS spray completed */
+            schoolsProtected: number;
+            /** @description Sum of studentCount across protected schools */
+            studentsCovered: number;
+            /** @description Completed donations sum, in whole dollars */
+            dollarsRaised: number;
+            /** @description Student protection goal (currently 100000) */
+            goal: number;
+            /**
+             * Format: float
+             * @description studentsCovered / goal, clamped to [0, 1]
+             */
+            progressPct: number;
+            /** Format: date-time */
+            updatedAt: string;
         };
         TimelinePoint: {
             /** @description YYYY-MM */

@@ -1,17 +1,23 @@
 import { Router, type RequestHandler } from "express";
 import School from "../../models/School";
 import SprayReport from "../../models/SprayReport";
+import Donation from "../../models/Donation";
 
 const router = Router();
+
+// v1 "school is protected" definition — once the v2 sponsorshipStatus
+// migration lands, swap this for { sponsorshipStatus: { $in: PROTECTED_V2 } }.
+const PROTECTED_STATUSES = ["active", "completed"] as const;
+const GOAL_STUDENTS = 100_000;
+
+interface TotalAgg {
+  _id: null;
+  total: number;
+}
 
 interface SchoolReportCount {
   _id: { toString(): string };
   count: number;
-}
-
-interface RoomsAgg {
-  _id: null;
-  total: number;
 }
 
 interface TimelineAgg {
@@ -20,21 +26,56 @@ interface TimelineAgg {
   reportsCount: number;
 }
 
-// GET /api/stats/impact — public aggregate stats
+// GET /api/v1/stats — homepage summary (schools + students + $ raised + 100k progress)
+const summary: RequestHandler = async (_req, res, next) => {
+  try {
+    const [schoolsProtected, studentsAgg, donationsAgg] = await Promise.all([
+      School.countDocuments({ status: { $in: PROTECTED_STATUSES } }),
+      School.aggregate<TotalAgg>([
+        { $match: { status: { $in: PROTECTED_STATUSES } } },
+        { $group: { _id: null, total: { $sum: "$studentCount" } } },
+      ]),
+      Donation.aggregate<TotalAgg>([
+        { $match: { status: "completed" } },
+        { $group: { _id: null, total: { $sum: "$amount" } } },
+      ]),
+    ]);
+
+    const studentsCovered = studentsAgg[0]?.total ?? 0;
+    // Donation.amount is stored in cents — homepage wants dollars.
+    const dollarsRaised = Math.round((donationsAgg[0]?.total ?? 0) / 100);
+    const goal = GOAL_STUDENTS;
+    const progressPct = Math.min(1, studentsCovered / goal);
+
+    res.json({
+      schoolsProtected,
+      studentsCovered,
+      dollarsRaised,
+      goal,
+      progressPct,
+      updatedAt: new Date().toISOString(),
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+// GET /api/v1/stats/impact — legacy dashboard metrics (kept for backward compat
+// until the dashboard page migrates to the /stats summary endpoint).
 const impact: RequestHandler = async (_req, res, next) => {
   try {
     const totalSchools = await School.countDocuments();
     const totalSprayReports = await SprayReport.countDocuments();
 
-    const roomsAgg = (await SprayReport.aggregate([
+    const roomsAgg = await SprayReport.aggregate<TotalAgg>([
       { $group: { _id: null, total: { $sum: "$roomsSprayed" } } },
-    ])) as RoomsAgg[];
+    ]);
     const totalRoomsSprayed = roomsAgg.length > 0 ? roomsAgg[0].total : 0;
 
-    const studentsAgg = (await School.aggregate([
-      { $match: { status: { $in: ["active", "completed"] } } },
+    const studentsAgg = await School.aggregate<TotalAgg>([
+      { $match: { status: { $in: PROTECTED_STATUSES } } },
       { $group: { _id: null, total: { $sum: "$studentCount" } } },
-    ])) as RoomsAgg[];
+    ]);
     const totalStudentsProtected =
       studentsAgg.length > 0 ? studentsAgg[0].total : 0;
 
@@ -120,6 +161,7 @@ const timeline: RequestHandler = async (_req, res, next) => {
   }
 };
 
+router.get("/", summary);
 router.get("/impact", impact);
 router.get("/map", map);
 router.get("/timeline", timeline);

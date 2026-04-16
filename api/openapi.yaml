@@ -280,10 +280,23 @@ paths:
         "401":
           $ref: "#/components/responses/Unauthorized"
 
+  /api/v1/stats:
+    get:
+      tags: [stats]
+      summary: Homepage summary — schools + students + $ raised vs. 100k goal
+      security: []
+      responses:
+        "200":
+          description: Summary stats
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SummaryStats"
+
   /api/v1/stats/impact:
     get:
       tags: [stats]
-      summary: Aggregate impact counters
+      summary: Legacy dashboard impact counters
       security: []
       responses:
         "200":
@@ -606,6 +619,33 @@ components:
         totalRoomsSprayed: { type: integer }
         totalStudentsProtected: { type: integer }
         totalSprayReports: { type: integer }
+
+    SummaryStats:
+      type: object
+      required:
+        [schoolsProtected, studentsCovered, dollarsRaised, goal, progressPct, updatedAt]
+      properties:
+        schoolsProtected:
+          type: integer
+          description: Number of schools with an IRS spray completed
+        studentsCovered:
+          type: integer
+          description: Sum of studentCount across protected schools
+        dollarsRaised:
+          type: integer
+          description: Completed donations sum, in whole dollars
+        goal:
+          type: integer
+          description: Student protection goal (currently 100000)
+        progressPct:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 1
+          description: studentsCovered / goal, clamped to [0, 1]
+        updatedAt:
+          type: string
+          format: date-time
 
     TimelinePoint:
       type: object
