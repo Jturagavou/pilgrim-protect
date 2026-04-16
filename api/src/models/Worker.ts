@@ -1,7 +1,11 @@
 import { Schema, model, Types, type Document } from "mongoose";
 import bcrypt from "bcryptjs";
+import { USER_ROLES, type UserRole } from "../types/shared";
 
-export type WorkerRole = "worker" | "supervisor" | "admin";
+// Workers carry the three non-donor roles. v1 UI only surfaces field_worker
+// and admin, but the enum locks in all four v2 values so no schema migration
+// is needed when super_admin ships in v2.
+export type WorkerRole = Exclude<UserRole, "donor">;
 
 export interface IWorker extends Document {
   _id: Types.ObjectId;
@@ -45,8 +49,9 @@ const workerSchema = new Schema<IWorker>(
     ],
     role: {
       type: String,
-      enum: ["worker", "supervisor", "admin"],
-      default: "worker",
+      // Full 4-role enum for v2-readiness; donors live in the Donor model.
+      enum: USER_ROLES,
+      default: "field_worker",
     },
     active: { type: Boolean, default: true },
   },

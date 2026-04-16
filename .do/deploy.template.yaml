@@ -1,0 +1,86 @@
+# DigitalOcean App Platform — "Deploy to DO" button template.
+# Replace REPO_URL with the forked repo when you click the button, then
+# update any secrets in the DO dashboard after first deploy.
+#
+# Usage:
+#   https://cloud.digitalocean.com/apps/new?repo=<REPO_URL>&refcode=pilgrim
+
+name: pilgrim-protect
+region: nyc
+
+services:
+  - name: api
+    github:
+      repo: REPO_URL
+      branch: main
+      deploy_on_push: true
+    source_dir: /api
+    build_command: npm ci && npm run build
+    run_command: node dist/server.js
+    http_port: 8080
+    instance_size_slug: basic-xxs
+    instance_count: 1
+    envs:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: "8080"
+      - key: API_VERSION
+        value: v1
+      - key: LOG_LEVEL
+        value: info
+      - key: ALLOWED_ORIGINS
+        value: ${_self.PUBLIC_URL}
+      - key: MONGODB_URI
+        type: SECRET
+      - key: JWT_SECRET
+        type: SECRET
+      - key: JWT_EXPIRE
+        value: 30d
+      - key: STRIPE_SECRET_KEY
+        type: SECRET
+      - key: CLOUDINARY_CLOUD_NAME
+        type: SECRET
+      - key: CLOUDINARY_API_KEY
+        type: SECRET
+      - key: CLOUDINARY_API_SECRET
+        type: SECRET
+      - key: BREVO_API_KEY
+        type: SECRET
+      - key: MAPBOX_TOKEN
+        type: SECRET
+      - key: SENTRY_DSN
+        type: SECRET
+    health_check:
+      http_path: /health
+
+  - name: web
+    github:
+      repo: REPO_URL
+      branch: main
+      deploy_on_push: true
+    source_dir: /web
+    build_command: npm ci && npm run build
+    run_command: npm start
+    http_port: 3000
+    instance_size_slug: basic-xxs
+    instance_count: 1
+    envs:
+      - key: NODE_ENV
+        value: production
+      - key: NEXT_PUBLIC_API_URL
+        value: ${api.PUBLIC_URL}/api/v1
+      - key: NEXT_PUBLIC_API_VERSION
+        value: v1
+      - key: NEXT_PUBLIC_MAPBOX_TOKEN
+        type: SECRET
+      - key: NEXTAUTH_URL
+        value: ${_self.PUBLIC_URL}
+      - key: NEXTAUTH_SECRET
+        type: SECRET
+      - key: STRIPE_PUBLISHABLE_KEY
+        type: SECRET
+      - key: CLOUDINARY_CLOUD_NAME
+        value: pilgrim-protect
+      - key: NEXT_PUBLIC_SENTRY_DSN
+        type: SECRET

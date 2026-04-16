@@ -1,6 +1,6 @@
 import { Router, type RequestHandler } from "express";
-import Donation from "../models/Donation";
-import { protect, authorize } from "../middleware/auth";
+import Donation from "../../models/Donation";
+import { protect, authorize } from "../../middleware/auth";
 
 const router = Router();
 

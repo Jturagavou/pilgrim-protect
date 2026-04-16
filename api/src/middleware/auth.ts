@@ -31,16 +31,16 @@ export const protect: RequestHandler = async (req, res, next) => {
     }
     const decoded = jwt.verify(token, secret) as AuthPayload;
 
-    // Try to find user in Worker or Donor collection based on role
+    // Donors live in the Donor collection; field_worker/admin/super_admin in Worker.
     let user = null;
-    if (
-      decoded.role === "worker" ||
-      decoded.role === "supervisor" ||
-      decoded.role === "admin"
+    if (decoded.role === "donor") {
+      user = await Donor.findById(decoded.id);
+    } else if (
+      decoded.role === "field_worker" ||
+      decoded.role === "admin" ||
+      decoded.role === "super_admin"
     ) {
       user = await Worker.findById(decoded.id);
-    } else if (decoded.role === "donor") {
-      user = await Donor.findById(decoded.id);
     }
 
     if (!user) {

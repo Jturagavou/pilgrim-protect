@@ -1,12 +1,13 @@
 import { Router, type RequestHandler } from "express";
 import jwt, { type SignOptions } from "jsonwebtoken";
-import Worker from "../models/Worker";
-import Donor from "../models/Donor";
-import { protect } from "../middleware/auth";
+import Worker from "../../models/Worker";
+import Donor from "../../models/Donor";
+import { protect } from "../../middleware/auth";
+import type { UserRole } from "../../types/shared";
 
 const router = Router();
 
-type RoleKind = "worker" | "supervisor" | "admin" | "donor";
+type RoleKind = UserRole;
 
 // Generate JWT token
 function generateToken(id: string, role: RoleKind): string {
@@ -35,12 +36,14 @@ const register: RequestHandler = async (req, res, next) => {
       return;
     }
 
-    if (!["worker", "donor"].includes(role)) {
-      res.status(400).json({ error: 'Role must be "worker" or "donor"' });
+    if (!["field_worker", "donor"].includes(role)) {
+      res.status(400).json({
+        error: 'Role must be "field_worker" or "donor"',
+      });
       return;
     }
 
-    if (role === "worker") {
+    if (role === "field_worker") {
       const existing = await Worker.findOne({ email });
       if (existing) {
         res.status(400).json({ error: "Email already registered" });
@@ -50,16 +53,16 @@ const register: RequestHandler = async (req, res, next) => {
         name,
         email,
         password,
-        role: "worker",
+        role: "field_worker",
       });
-      const token = generateToken(user._id.toString(), "worker");
+      const token = generateToken(user._id.toString(), "field_worker");
       res.status(201).json({
         token,
         user: {
           _id: user._id,
           name: user.name,
           email: user.email,
-          role: "worker",
+          role: "field_worker",
         },
       });
       return;

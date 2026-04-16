@@ -1,6 +1,6 @@
 import { Router, type RequestHandler } from "express";
-import School from "../models/School";
-import SprayReport from "../models/SprayReport";
+import School from "../../models/School";
+import SprayReport from "../../models/SprayReport";
 
 const router = Router();
 

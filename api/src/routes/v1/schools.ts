@@ -1,7 +1,7 @@
 import { Router, type RequestHandler } from "express";
-import School from "../models/School";
-import SprayReport from "../models/SprayReport";
-import { protect, authorize } from "../middleware/auth";
+import School from "../../models/School";
+import SprayReport from "../../models/SprayReport";
+import { protect, authorize } from "../../middleware/auth";
 
 const router = Router();
 
@@ -79,7 +79,7 @@ const updateSchool: RequestHandler = async (req, res, next) => {
 
 router.get("/", listSchools);
 router.get("/:id", getSchool);
-router.post("/", protect, authorize("admin"), createSchool);
-router.put("/:id", protect, authorize("admin"), updateSchool);
+router.post("/", protect, authorize("admin", "super_admin"), createSchool);
+router.put("/:id", protect, authorize("admin", "super_admin"), updateSchool);
 
 export default router;

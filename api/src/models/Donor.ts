@@ -1,11 +1,13 @@
 import { Schema, model, Types, type Document } from "mongoose";
 import bcrypt from "bcryptjs";
+import { USER_ROLES } from "../types/shared";
 
 export interface IDonor extends Document {
   _id: Types.ObjectId;
   name: string;
   email: string;
   password: string;
+  role: "donor";
   stripeCustomerId: string;
   sponsoredSchools: Types.ObjectId[];
   totalDonated: number;
@@ -33,6 +35,11 @@ const donorSchema = new Schema<IDonor>(
       required: [true, "Password is required"],
       minlength: 6,
       select: false,
+    },
+    role: {
+      type: String,
+      enum: USER_ROLES,
+      default: "donor",
     },
     stripeCustomerId: { type: String, default: "" },
     sponsoredSchools: [

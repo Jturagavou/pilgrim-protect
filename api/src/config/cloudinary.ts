@@ -1,4 +1,5 @@
 import { v2 as cloudinary } from "cloudinary";
+import { logger } from "../lib/logger";
 
 export const isMockMode =
   !process.env.CLOUDINARY_CLOUD_NAME ||
@@ -10,9 +11,9 @@ if (!isMockMode) {
     api_key: process.env.CLOUDINARY_API_KEY,
     api_secret: process.env.CLOUDINARY_API_SECRET,
   });
-  console.log("Cloudinary configured (live mode)");
+  logger.info({ cloudinary: "live" }, "Cloudinary configured");
 } else {
-  console.log("Cloudinary running in mock mode");
+  logger.info({ cloudinary: "mock" }, "Cloudinary running in mock mode");
 }
 
 export { cloudinary };

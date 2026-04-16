@@ -1,13 +1,13 @@
 import { Router, type RequestHandler } from "express";
-import SprayReport from "../models/SprayReport";
+import SprayReport from "../../models/SprayReport";
+import School from "../../models/School";
+import { protect, authorize } from "../../middleware/auth";
 
 interface ReportFilter {
   school?: string;
   worker?: string;
   date?: { $gte?: Date; $lte?: Date };
 }
-import School from "../models/School";
-import { protect, authorize } from "../middleware/auth";
 
 const router = Router();
 
@@ -85,14 +85,14 @@ const myReports: RequestHandler = async (req, res, next) => {
 router.post(
   "/",
   protect,
-  authorize("worker", "supervisor", "admin"),
+  authorize("field_worker", "admin", "super_admin"),
   createReport
 );
 router.get("/", listReports);
 router.get(
   "/mine",
   protect,
-  authorize("worker", "supervisor", "admin"),
+  authorize("field_worker", "admin", "super_admin"),
   myReports
 );
 

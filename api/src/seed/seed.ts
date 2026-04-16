@@ -10,17 +10,20 @@ import Worker from "../models/Worker";
 import Donor from "../models/Donor";
 import SprayReport from "../models/SprayReport";
 import Donation from "../models/Donation";
+import { logger } from "../lib/logger";
 
 import schoolsData from "./schools.json";
 
 const MONGO_URI =
-  process.env.MONGO_URI || "mongodb://localhost:27017/pilgrim-protect";
+  process.env.MONGODB_URI ||
+  process.env.MONGO_URI ||
+  "mongodb://localhost:27017/pilgrim-protect";
 
 async function seed(): Promise<void> {
   try {
-    console.log("Connecting to MongoDB...");
+    logger.info("Connecting to MongoDB...");
     await mongoose.connect(MONGO_URI);
-    console.log("Connected. Clearing existing data...");
+    logger.info("Connected. Clearing existing data...");
 
     await Promise.all([
       School.deleteMany({}),
@@ -29,11 +32,11 @@ async function seed(): Promise<void> {
       SprayReport.deleteMany({}),
       Donation.deleteMany({}),
     ]);
-    console.log("Collections cleared.");
+    logger.info("Collections cleared.");
 
     // --- Seed Schools ---
     const schools = await School.insertMany(schoolsData);
-    console.log(`Seeded ${schools.length} schools.`);
+    logger.info({ count: schools.length }, "Seeded schools");
 
     // --- Seed Workers ---
     const worker1 = await Worker.create({
@@ -41,7 +44,7 @@ async function seed(): Promise<void> {
       email: "worker1@test.com",
       phone: "+256701000001",
       password: "password123",
-      role: "worker",
+      role: "field_worker",
       assignedSchools: [schools[0]._id, schools[1]._id, schools[2]._id],
       active: true,
     });
@@ -51,7 +54,7 @@ async function seed(): Promise<void> {
       email: "worker2@test.com",
       phone: "+256701000002",
       password: "password123",
-      role: "worker",
+      role: "field_worker",
       assignedSchools: [schools[3]._id, schools[4]._id, schools[5]._id],
       active: true,
     });
@@ -66,7 +69,7 @@ async function seed(): Promise<void> {
       active: true,
     });
 
-    console.log("Seeded 2 workers + 1 admin.");
+    logger.info("Seeded 2 field workers + 1 admin");
 
     // --- Seed Donor ---
     const donor = await Donor.create({
@@ -78,7 +81,7 @@ async function seed(): Promise<void> {
       totalDonated: 15000, // $150.00 in cents
       receiveUpdates: true,
     });
-    console.log("Seeded 1 donor.");
+    logger.info("Seeded 1 donor");
 
     await School.findByIdAndUpdate(schools[0]._id, { sponsor: donor._id });
 
@@ -144,7 +147,7 @@ async function seed(): Promise<void> {
     ];
 
     const reports = await SprayReport.insertMany(reportData);
-    console.log(`Seeded ${reports.length} spray reports.`);
+    logger.info({ count: reports.length }, "Seeded spray reports");
 
     // Update lastSprayDate on schools that were sprayed
     await School.findByIdAndUpdate(schools[0]._id, {
@@ -174,21 +177,24 @@ async function seed(): Promise<void> {
       recurring: false,
       status: "completed",
     });
-    console.log("Seeded 1 donation.");
+    logger.info("Seeded 1 donation");
 
-    // --- Summary ---
-    console.log("\n--- Seed Complete ---");
-    console.log("Test accounts:");
-    console.log("  Worker 1: worker1@test.com / password123");
-    console.log("  Worker 2: worker2@test.com / password123");
-    console.log("  Admin:    admin@test.com   / password123");
-    console.log("  Donor:    donor@test.com   / password123");
-    console.log("--------------------\n");
+    logger.info(
+      {
+        accounts: {
+          field_worker_1: "worker1@test.com / password123",
+          field_worker_2: "worker2@test.com / password123",
+          admin: "admin@test.com / password123",
+          donor: "donor@test.com / password123",
+        },
+      },
+      "Seed complete"
+    );
 
     await mongoose.connection.close();
     process.exit(0);
   } catch (error) {
-    console.error("Seed error:", error);
+    logger.error({ err: error }, "Seed error");
     await mongoose.connection.close();
     process.exit(1);
   }

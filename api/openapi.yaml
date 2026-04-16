@@ -1,0 +1,657 @@
+openapi: 3.1.0
+info:
+  title: Pilgrim Protect API
+  version: "1.0.0"
+  description: |
+    Public + authenticated API for the Pilgrim Protect donor website and
+    field-worker mobile app. All v1 endpoints live under `/api/v1/*`.
+    The `/health` endpoint is unversioned by design.
+servers:
+  - url: https://pilgrimprotectstory.org
+    description: Production
+  - url: http://localhost:8080
+    description: Local dev
+
+tags:
+  - name: health
+  - name: auth
+  - name: schools
+  - name: spray-reports
+  - name: donations
+  - name: stats
+  - name: upload
+
+security:
+  - bearerAuth: []
+
+paths:
+  /health:
+    get:
+      tags: [health]
+      summary: Liveness/readiness probe
+      security: []
+      responses:
+        "200":
+          description: Service is healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthResponse"
+
+  /api/v1/auth/register:
+    post:
+      tags: [auth]
+      summary: Register as a donor or field worker
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RegisterRequest"
+      responses:
+        "201":
+          description: Account created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthResponse"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+
+  /api/v1/auth/login:
+    post:
+      tags: [auth]
+      summary: Authenticate with email + password
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginRequest"
+      responses:
+        "200":
+          description: Authenticated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthResponse"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
+  /api/v1/auth/me:
+    get:
+      tags: [auth]
+      summary: Current authenticated user
+      responses:
+        "200":
+          description: Current user
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    $ref: "#/components/schemas/User"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
+  /api/v1/schools:
+    get:
+      tags: [schools]
+      summary: List all schools
+      security: []
+      responses:
+        "200":
+          description: Array of schools
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/School"
+    post:
+      tags: [schools]
+      summary: Create a school (admin only)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SchoolInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/School"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+
+  /api/v1/schools/{id}:
+    get:
+      tags: [schools]
+      summary: Get a single school with its spray reports
+      security: []
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      responses:
+        "200":
+          description: School plus embedded sprayReports
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SchoolWithReports"
+        "404":
+          $ref: "#/components/responses/NotFound"
+    put:
+      tags: [schools]
+      summary: Update a school (admin only)
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SchoolInput"
+      responses:
+        "200":
+          description: Updated school
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/School"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+  /api/v1/spray-reports:
+    get:
+      tags: [spray-reports]
+      summary: List spray reports (filterable)
+      security: []
+      parameters:
+        - in: query
+          name: school
+          schema: { type: string }
+        - in: query
+          name: worker
+          schema: { type: string }
+        - in: query
+          name: startDate
+          schema: { type: string, format: date }
+        - in: query
+          name: endDate
+          schema: { type: string, format: date }
+      responses:
+        "200":
+          description: Array of spray reports
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/SprayReport"
+    post:
+      tags: [spray-reports]
+      summary: Submit a new spray report (field worker+)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SprayReportInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SprayReport"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+
+  /api/v1/spray-reports/mine:
+    get:
+      tags: [spray-reports]
+      summary: Current worker's own reports
+      responses:
+        "200":
+          description: Array of the caller's spray reports
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/SprayReport"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
+  /api/v1/donations/checkout:
+    post:
+      tags: [donations]
+      summary: Create a (mock) Stripe checkout session
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CheckoutRequest"
+      responses:
+        "200":
+          description: Checkout session URL
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [sessionUrl]
+                properties:
+                  sessionUrl:
+                    type: string
+                    format: uri
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
+  /api/v1/donations/mine:
+    get:
+      tags: [donations]
+      summary: Current donor's donations
+      responses:
+        "200":
+          description: Array of donations
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Donation"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
+  /api/v1/stats/impact:
+    get:
+      tags: [stats]
+      summary: Aggregate impact counters
+      security: []
+      responses:
+        "200":
+          description: Impact stats
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ImpactStats"
+
+  /api/v1/stats/map:
+    get:
+      tags: [stats]
+      summary: Schools as a GeoJSON FeatureCollection
+      security: []
+      responses:
+        "200":
+          description: FeatureCollection of schools
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MapFeatureCollection"
+
+  /api/v1/stats/timeline:
+    get:
+      tags: [stats]
+      summary: Monthly spray activity timeline
+      security: []
+      responses:
+        "200":
+          description: Array of monthly buckets
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/TimelinePoint"
+
+  /api/v1/upload/image:
+    post:
+      tags: [upload]
+      summary: Upload an image to Cloudinary
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required: [image]
+              properties:
+                image:
+                  type: string
+                  format: binary
+      responses:
+        "200":
+          description: Upload succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [url]
+                properties:
+                  url:
+                    type: string
+                    format: uri
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  parameters:
+    IdParam:
+      in: path
+      name: id
+      required: true
+      schema:
+        type: string
+
+  responses:
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
+    Unauthorized:
+      description: Authentication required or invalid
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
+    Forbidden:
+      description: Authenticated but not authorized
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
+
+  schemas:
+    ErrorResponse:
+      type: object
+      required: [error]
+      properties:
+        error:
+          type: string
+
+    HealthResponse:
+      type: object
+      required: [status, version, ts]
+      properties:
+        status:
+          type: string
+          example: ok
+        version:
+          type: string
+          example: v1
+        ts:
+          type: integer
+          format: int64
+
+    UserRole:
+      type: string
+      enum: [donor, field_worker, admin, super_admin]
+
+    User:
+      type: object
+      required: [_id, name, email, role]
+      properties:
+        _id: { type: string }
+        name: { type: string }
+        email: { type: string, format: email }
+        role: { $ref: "#/components/schemas/UserRole" }
+
+    RegisterRequest:
+      type: object
+      required: [name, email, password, role]
+      properties:
+        name: { type: string }
+        email: { type: string, format: email }
+        password: { type: string, minLength: 6 }
+        role:
+          type: string
+          enum: [donor, field_worker]
+
+    LoginRequest:
+      type: object
+      required: [email, password]
+      properties:
+        email: { type: string, format: email }
+        password: { type: string }
+
+    AuthResponse:
+      type: object
+      required: [token, user]
+      properties:
+        token: { type: string }
+        user: { $ref: "#/components/schemas/User" }
+
+    SchoolStatus:
+      type: string
+      enum: [pending, active, completed]
+
+    GeoPoint:
+      type: object
+      required: [type, coordinates]
+      properties:
+        type:
+          type: string
+          enum: [Point]
+        coordinates:
+          type: array
+          items: { type: number }
+          minItems: 2
+          maxItems: 2
+
+    School:
+      type: object
+      required: [_id, name, district, location, totalRooms, studentCount, photos, status]
+      properties:
+        _id: { type: string }
+        name: { type: string }
+        district: { type: string }
+        location: { $ref: "#/components/schemas/GeoPoint" }
+        totalRooms: { type: integer }
+        studentCount: { type: integer }
+        photos:
+          type: array
+          items: { type: string, format: uri }
+        sponsor:
+          oneOf:
+            - { type: string }
+            - { type: object, properties: { name: { type: string }, email: { type: string } } }
+            - { type: "null" }
+        status: { $ref: "#/components/schemas/SchoolStatus" }
+        lastSprayDate:
+          type: string
+          format: date-time
+          nullable: true
+        createdAt: { type: string, format: date-time }
+        updatedAt: { type: string, format: date-time }
+
+    SchoolInput:
+      type: object
+      required: [name, district, location]
+      properties:
+        name: { type: string }
+        district: { type: string }
+        location: { $ref: "#/components/schemas/GeoPoint" }
+        totalRooms: { type: integer }
+        studentCount: { type: integer }
+
+    SchoolWithReports:
+      allOf:
+        - $ref: "#/components/schemas/School"
+        - type: object
+          properties:
+            sprayReports:
+              type: array
+              items: { $ref: "#/components/schemas/SprayReport" }
+
+    SprayReport:
+      type: object
+      required: [_id, school, worker, date, roomsSprayed, photos, verified]
+      properties:
+        _id: { type: string }
+        school:
+          oneOf:
+            - { type: string }
+            - { type: object, properties: { _id: { type: string }, name: { type: string }, district: { type: string } } }
+        worker:
+          oneOf:
+            - { type: string }
+            - { type: object, properties: { _id: { type: string }, name: { type: string } } }
+        date: { type: string, format: date-time }
+        roomsSprayed: { type: integer }
+        photos:
+          type: array
+          items: { type: string, format: uri }
+        notes: { type: string }
+        gpsCoords:
+          type: object
+          properties:
+            lat: { type: number }
+            lng: { type: number }
+        verified: { type: boolean }
+        createdAt: { type: string, format: date-time }
+
+    SprayReportInput:
+      type: object
+      required: [school, date, roomsSprayed]
+      properties:
+        school: { type: string }
+        date: { type: string, format: date-time }
+        roomsSprayed: { type: integer }
+        photos:
+          type: array
+          items: { type: string, format: uri }
+        notes: { type: string }
+        gpsCoords:
+          type: object
+          properties:
+            lat: { type: number }
+            lng: { type: number }
+
+    DonationStatus:
+      type: string
+      enum: [pending, completed, failed]
+
+    Donation:
+      type: object
+      required: [_id, amount, createdAt]
+      properties:
+        _id: { type: string }
+        donor: { type: string }
+        school:
+          oneOf:
+            - { type: string }
+            - { type: object, properties: { _id: { type: string }, name: { type: string }, district: { type: string } } }
+            - { type: "null" }
+        amount:
+          type: integer
+          description: Amount in cents
+        currency: { type: string }
+        stripePaymentId: { type: string }
+        recurring: { type: boolean }
+        status: { $ref: "#/components/schemas/DonationStatus" }
+        createdAt: { type: string, format: date-time }
+
+    CheckoutRequest:
+      type: object
+      required: [amount]
+      properties:
+        schoolId:
+          type: string
+          nullable: true
+        amount:
+          type: integer
+          description: Amount in cents
+        recurring:
+          type: boolean
+
+    ImpactStats:
+      type: object
+      required:
+        [totalSchools, totalRoomsSprayed, totalStudentsProtected, totalSprayReports]
+      properties:
+        totalSchools: { type: integer }
+        totalRoomsSprayed: { type: integer }
+        totalStudentsProtected: { type: integer }
+        totalSprayReports: { type: integer }
+
+    TimelinePoint:
+      type: object
+      required: [month, roomsSprayed, reportsCount]
+      properties:
+        month:
+          type: string
+          description: "YYYY-MM"
+        roomsSprayed: { type: integer }
+        reportsCount: { type: integer }
+
+    MapFeatureCollection:
+      type: object
+      required: [type, features]
+      properties:
+        type:
+          type: string
+          enum: [FeatureCollection]
+        features:
+          type: array
+          items: { $ref: "#/components/schemas/MapFeature" }
+
+    MapFeature:
+      type: object
+      required: [type, geometry, properties]
+      properties:
+        type:
+          type: string
+          enum: [Feature]
+        geometry: { $ref: "#/components/schemas/GeoPoint" }
+        properties:
+          type: object
+          required: [_id, name, district]
+          properties:
+            _id: { type: string }
+            name: { type: string }
+            district: { type: string }
+            studentCount: { type: integer }
+            totalRooms: { type: integer }
+            status: { $ref: "#/components/schemas/SchoolStatus" }
+            lastSprayDate:
+              type: string
+              format: date-time
+              nullable: true
+            totalSprayReports: { type: integer }
+            thumbnailUrl:
+              type: string
+              format: uri
+              nullable: true

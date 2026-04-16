@@ -1,4 +1,5 @@
 import type { ErrorRequestHandler } from "express";
+import { logger } from "../lib/logger";
 
 interface ErrorWithStatus extends Error {
   statusCode?: number;
@@ -8,10 +9,12 @@ interface ErrorWithStatus extends Error {
   value?: unknown;
 }
 
-export const errorHandler: ErrorRequestHandler = (err, _req, res, _next) => {
+export const errorHandler: ErrorRequestHandler = (err, req, res, _next) => {
   const error = err as ErrorWithStatus;
-  console.error("Error:", error.message);
-  console.error(error.stack);
+  (req.log ?? logger).error(
+    { err: error, stack: error.stack },
+    error.message || "Unhandled error"
+  );
 
   // Mongoose validation error
   if (error.name === "ValidationError" && error.errors) {

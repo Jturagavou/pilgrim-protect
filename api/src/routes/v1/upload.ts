@@ -1,8 +1,8 @@
 import { Router, type RequestHandler } from "express";
 import multer from "multer";
 import type { UploadApiResponse } from "cloudinary";
-import { cloudinary, isMockMode } from "../config/cloudinary";
-import { protect } from "../middleware/auth";
+import { cloudinary, isMockMode } from "../../config/cloudinary";
+import { protect } from "../../middleware/auth";
 
 const router = Router();
 

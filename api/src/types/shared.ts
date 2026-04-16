@@ -12,6 +12,13 @@ export type SponsorshipStatus =
 
 export type UserRole = "donor" | "field_worker" | "admin" | "super_admin";
 
+export const USER_ROLES = [
+  "donor",
+  "field_worker",
+  "admin",
+  "super_admin",
+] as const satisfies readonly UserRole[];
+
 export interface School {
   _id: string;
   name: string;
