@@ -8,11 +8,11 @@ export default function Footer() {
           {/* Brand */}
           <div className="md:col-span-2">
             <div className="flex items-center gap-2 mb-3">
-              <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
-                <span className="text-primary-foreground font-bold text-sm">PP</span>
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-secondary">
+                <span className="text-sm font-bold text-secondary-foreground">PP</span>
               </div>
               <span className="text-lg font-bold text-background">
-                Pilgrim Protect
+                Pilgrim <span className="text-secondary">Protect</span>
               </span>
             </div>
             <p className="text-sm text-muted-foreground max-w-sm">

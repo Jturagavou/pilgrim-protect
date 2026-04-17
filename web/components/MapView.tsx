@@ -129,13 +129,13 @@ export default function MapView({
               <div className="flex gap-2 mt-3">
                 <a
                   href={`/schools/${popupInfo.properties._id}`}
-                  className="flex-1 text-center text-xs font-medium bg-primary text-primary-foreground rounded px-2 py-1 hover:bg-primary/90 transition-colors"
+                  className="flex-1 text-center text-xs font-medium rounded border border-border bg-card px-2 py-1 text-ink transition-colors hover:bg-muted"
                 >
                   View Profile
                 </a>
                 <a
                   href={`/donate?school=${popupInfo.properties._id}`}
-                  className="flex-1 text-center text-xs font-medium border border-primary text-primary rounded px-2 py-1 hover:bg-primary/10 transition-colors"
+                  className="flex-1 text-center text-xs font-medium rounded bg-secondary px-2 py-1 text-secondary-foreground transition-colors hover:bg-secondary/90"
                 >
                   Sponsor
                 </a>

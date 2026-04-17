@@ -99,7 +99,7 @@ function DonateContent() {
             href={base}
             target="_blank"
             rel="noopener noreferrer"
-            className={cn(buttonVariants({ variant: "default" }), "flex-1 justify-center")}
+            className={cn(buttonVariants({ variant: "secondary" }), "flex-1 justify-center")}
           >
             Give on pilgrimafrica.org
           </a>

@@ -59,13 +59,13 @@ export default function SchoolCard({ school }: SchoolCardProps) {
         <div className="flex gap-2 mt-3">
           <Link
             href={`/schools/${school._id}`}
-            className="flex-1 text-center text-xs font-medium bg-primary text-primary-foreground rounded-lg px-3 py-1.5 hover:bg-primary/90 transition-colors"
+            className="flex-1 text-center text-xs font-medium rounded-lg border border-border bg-card px-3 py-1.5 text-ink transition-colors hover:bg-muted"
           >
             View Profile
           </Link>
           <Link
             href={`/donate?school=${school._id}`}
-            className="flex-1 text-center text-xs font-medium border border-primary text-primary rounded-lg px-3 py-1.5 hover:bg-primary/10 transition-colors"
+            className="flex-1 text-center text-xs font-medium rounded-lg bg-secondary px-3 py-1.5 text-secondary-foreground transition-colors hover:bg-secondary/90"
           >
             Sponsor
           </Link>

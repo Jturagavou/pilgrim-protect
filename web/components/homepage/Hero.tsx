@@ -94,7 +94,7 @@ export function Hero({ stats }: HeroProps) {
             >
               <Link
                 href="/donate"
-                className="inline-flex items-center gap-2 rounded-lg bg-pilgrim-blue px-5 py-3 font-medium text-white shadow-sm transition-colors hover:bg-pilgrim-blue/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pilgrim-blue focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
+                className="inline-flex items-center gap-2 rounded-lg bg-secondary px-5 py-3 font-medium text-secondary-foreground shadow-sm transition-colors hover:bg-secondary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
               >
                 Sponsor a school
                 <ArrowRight className="size-4" aria-hidden />
@@ -200,7 +200,7 @@ function HeroStatCard({
         aria-valuenow={stats.studentsCovered}
       >
         <motion.div
-          className="h-full rounded-full bg-pilgrim-blue"
+          className="h-full rounded-full bg-secondary"
           style={{ transformOrigin: "0% 50%" }}
           initial={{ scaleX: 0 }}
           animate={{ scaleX: pct }}

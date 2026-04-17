@@ -5,9 +5,9 @@ import Link from "next/link";
 export default function DonateSuccessPage() {
   return (
     <div className="max-w-lg mx-auto px-4 py-20 text-center">
-      <div className="w-16 h-16 bg-primary/15 rounded-full flex items-center justify-center mx-auto mb-6">
+      <div className="w-16 h-16 bg-secondary/15 rounded-full flex items-center justify-center mx-auto mb-6">
         <svg
-          className="w-8 h-8 text-primary"
+          className="w-8 h-8 text-secondary"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -30,7 +30,7 @@ export default function DonateSuccessPage() {
       <div className="flex flex-col sm:flex-row gap-3 justify-center mt-8">
         <Link
           href="/map"
-          className="px-6 py-2.5 bg-primary text-primary-foreground font-medium rounded-lg hover:bg-primary/90 transition-colors"
+          className="px-6 py-2.5 bg-secondary text-secondary-foreground font-medium rounded-lg hover:bg-secondary/90 transition-colors"
         >
           See schools on the map
         </Link>

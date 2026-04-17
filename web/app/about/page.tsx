@@ -107,13 +107,13 @@ export default function AboutPage() {
         <div className="flex flex-wrap gap-3 justify-center mt-5">
           <Link
             href="/donate"
-            className="px-6 py-2.5 bg-primary text-primary-foreground font-medium rounded-lg hover:bg-primary/90 transition-colors"
+            className="px-6 py-2.5 bg-secondary text-secondary-foreground font-medium rounded-lg hover:bg-secondary/90 transition-colors"
           >
             Donate Now
           </Link>
           <Link
             href="/map"
-            className="px-6 py-2.5 border border-primary text-primary font-medium rounded-lg hover:bg-primary/10 transition-colors"
+            className="px-6 py-2.5 border border-border text-ink font-medium rounded-lg hover:bg-paper-depth transition-colors"
           >
             Explore the Map
           </Link>

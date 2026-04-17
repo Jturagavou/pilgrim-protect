@@ -87,7 +87,7 @@ export default function PortalPage() {
             <p className="text-muted-foreground">You haven't made any donations yet.</p>
             <Link
               href="/donate"
-              className="inline-flex mt-4 px-5 py-2 bg-primary text-primary-foreground font-medium rounded-lg hover:bg-primary/90 transition-colors"
+              className="inline-flex mt-4 px-5 py-2 bg-secondary text-secondary-foreground font-medium rounded-lg hover:bg-secondary/90 transition-colors"
             >
               Make Your First Donation
             </Link>
