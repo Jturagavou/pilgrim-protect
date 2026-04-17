@@ -40,13 +40,13 @@ export function daysSince(dateStr: string | null | undefined): number {
 export function statusColor(status: LegacyStatus | string): string {
   switch (status) {
     case "active":
-      return "bg-green-500";
+      return "bg-pilgrim-olive";
     case "pending":
-      return "bg-orange-500";
+      return "bg-secondary";
     case "overdue":
-      return "bg-red-500";
+      return "bg-destructive";
     default:
-      return "bg-gray-400";
+      return "bg-muted-foreground";
   }
 }
 

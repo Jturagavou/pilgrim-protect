@@ -53,11 +53,11 @@ export default function ImpactCounter({
 
   return (
     <div ref={ref} className="text-center">
-      {icon && <div className="text-emerald-600 mb-2 flex justify-center">{icon}</div>}
-      <div className="text-3xl sm:text-4xl font-bold text-gray-900">
+      {icon && <div className="text-primary mb-2 flex justify-center">{icon}</div>}
+      <div className="text-3xl sm:text-4xl font-bold text-ink">
         {formatNumber(count)}
       </div>
-      <div className="text-sm text-gray-500 mt-1">{label}</div>
+      <div className="text-sm text-muted-foreground mt-1">{label}</div>
     </div>
   );
 }

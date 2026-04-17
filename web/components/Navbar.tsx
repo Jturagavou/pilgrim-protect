@@ -31,16 +31,16 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-gray-100">
+    <nav className="sticky top-0 z-50 bg-card/95 backdrop-blur border-b border-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-full bg-emerald-600 flex items-center justify-center">
-              <span className="text-white font-bold text-sm">PP</span>
+            <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
+              <span className="text-primary-foreground font-bold text-sm">PP</span>
             </div>
-            <span className="text-lg font-bold text-gray-900">
-              Pilgrim <span className="text-emerald-600">Protect</span>
+            <span className="text-lg font-bold text-ink">
+              Pilgrim <span className="text-primary">Protect</span>
             </span>
           </Link>
 
@@ -50,7 +50,7 @@ export default function Navbar() {
               <Link
                 key={l.href}
                 href={l.href}
-                className="text-sm font-medium text-gray-600 hover:text-emerald-600 transition-colors"
+                className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
               >
                 {l.label}
               </Link>
@@ -61,7 +61,7 @@ export default function Navbar() {
                 sessionUser?.role === "super_admin" ? (
                   <Link
                     href="/admin"
-                    className="text-sm font-medium text-emerald-600 hover:text-emerald-700"
+                    className="text-sm font-medium text-primary hover:text-primary/80"
                   >
                     Admin
                   </Link>
@@ -69,14 +69,14 @@ export default function Navbar() {
                 {sessionUser?.role === "donor" ? (
                   <Link
                     href="/portal"
-                    className="text-sm font-medium text-emerald-600 hover:text-emerald-700"
+                    className="text-sm font-medium text-primary hover:text-primary/80"
                   >
                     My Portal
                   </Link>
                 ) : null}
                 <button
                   onClick={handleLogout}
-                  className="text-sm font-medium text-gray-500 hover:text-red-500"
+                  className="text-sm font-medium text-muted-foreground hover:text-destructive"
                 >
                   Logout
                 </button>
@@ -84,7 +84,7 @@ export default function Navbar() {
             ) : (
               <Link
                 href="/auth/login"
-                className="text-sm font-medium text-emerald-600 hover:text-emerald-700"
+                className="text-sm font-medium text-primary hover:text-primary/80"
               >
                 Sign In
               </Link>
@@ -94,7 +94,7 @@ export default function Navbar() {
           {/* Mobile hamburger */}
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className="md:hidden p-2 text-gray-600"
+            className="md:hidden p-2 text-muted-foreground"
             aria-label="Toggle menu"
           >
             <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -116,7 +116,7 @@ export default function Navbar() {
               key={l.href}
               href={l.href}
               onClick={() => setMenuOpen(false)}
-              className="block py-2 text-sm font-medium text-gray-600 hover:text-emerald-600"
+              className="block py-2 text-sm font-medium text-muted-foreground hover:text-primary"
             >
               {l.label}
             </Link>
@@ -128,7 +128,7 @@ export default function Navbar() {
                 <Link
                   href="/admin"
                   onClick={() => setMenuOpen(false)}
-                  className="block py-2 text-sm font-medium text-emerald-600"
+                  className="block py-2 text-sm font-medium text-primary"
                 >
                   Admin
                 </Link>
@@ -137,7 +137,7 @@ export default function Navbar() {
                 <Link
                   href="/portal"
                   onClick={() => setMenuOpen(false)}
-                  className="block py-2 text-sm font-medium text-emerald-600"
+                  className="block py-2 text-sm font-medium text-primary"
                 >
                   My Portal
                 </Link>
@@ -147,7 +147,7 @@ export default function Navbar() {
               </button>
             </>
           ) : (
-            <Link href="/auth/login" onClick={() => setMenuOpen(false)} className="block py-2 text-sm font-medium text-emerald-600">
+            <Link href="/auth/login" onClick={() => setMenuOpen(false)} className="block py-2 text-sm font-medium text-primary">
               Sign In
             </Link>
           )}

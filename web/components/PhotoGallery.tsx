@@ -11,8 +11,8 @@ export default function PhotoGallery({ photos = [] }: PhotoGalleryProps) {
 
   if (!photos.length) {
     return (
-      <div className="bg-gradient-to-br from-emerald-50 to-emerald-100 rounded-xl h-48 flex items-center justify-center">
-        <p className="text-sm text-emerald-400">No photos available yet</p>
+      <div className="bg-gradient-to-br from-paper-depth to-muted rounded-xl h-48 flex items-center justify-center border border-border">
+        <p className="text-sm text-muted-foreground">No photos available yet</p>
       </div>
     );
   }
@@ -24,7 +24,7 @@ export default function PhotoGallery({ photos = [] }: PhotoGalleryProps) {
           <button
             key={i}
             onClick={() => setSelected(url)}
-            className="relative aspect-[4/3] rounded-lg overflow-hidden bg-gray-100 hover:opacity-90 transition-opacity"
+            className="relative aspect-[4/3] rounded-lg overflow-hidden bg-muted hover:opacity-90 transition-opacity"
           >
             <img
               src={url}

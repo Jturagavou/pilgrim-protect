@@ -50,16 +50,16 @@ export default function DashboardPage() {
       {
         label: "Rooms Sprayed",
         data: timeline.map((t) => t.roomsSprayed),
-        borderColor: "#059669",
-        backgroundColor: "rgba(5, 150, 105, 0.1)",
+        borderColor: "#0050bd",
+        backgroundColor: "rgba(0, 80, 189, 0.12)",
         fill: true,
         tension: 0.3,
       },
       {
         label: "Reports Filed",
         data: timeline.map((t) => t.reportsCount),
-        borderColor: "#f59e0b",
-        backgroundColor: "rgba(245, 158, 11, 0.1)",
+        borderColor: "#fb6202",
+        backgroundColor: "rgba(251, 98, 2, 0.12)",
         fill: true,
         tension: 0.3,
       },
@@ -79,7 +79,7 @@ export default function DashboardPage() {
       {
         label: "Total Rooms",
         data: districts.map((d) => districtMap[d]),
-        backgroundColor: "#34d399",
+        backgroundColor: "#617d0e",
         borderRadius: 4,
       },
     ],
@@ -107,8 +107,8 @@ export default function DashboardPage() {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <h1 className="text-3xl font-bold text-gray-900 mb-2">Impact Dashboard</h1>
-      <p className="text-gray-500 mb-8">
+      <h1 className="text-3xl font-bold text-ink mb-2">Impact Dashboard</h1>
+      <p className="text-muted-foreground mb-8">
         Real-time overview of Pilgrim Protect's spraying program across Uganda
       </p>
 
@@ -124,35 +124,35 @@ export default function DashboardPage() {
 
       {/* Charts */}
       <div className="grid md:grid-cols-2 gap-8">
-        <div className="bg-white border rounded-xl p-6 shadow-sm">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">
+        <div className="bg-card border border-border rounded-xl p-6 shadow-sm">
+          <h2 className="text-lg font-semibold text-ink mb-4">
             Spray Activity Over Time
           </h2>
           {timeline.length > 0 ? (
             <Line data={lineData} options={lineOptions} />
           ) : (
-            <p className="text-gray-400 text-sm">Loading...</p>
+            <p className="text-muted-foreground text-sm">Loading...</p>
           )}
         </div>
 
-        <div className="bg-white border rounded-xl p-6 shadow-sm">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">
+        <div className="bg-card border border-border rounded-xl p-6 shadow-sm">
+          <h2 className="text-lg font-semibold text-ink mb-4">
             Rooms by District
           </h2>
           {districts.length > 0 ? (
             <Bar data={barData} options={barOptions} />
           ) : (
-            <p className="text-gray-400 text-sm">Loading...</p>
+            <p className="text-muted-foreground text-sm">Loading...</p>
           )}
         </div>
       </div>
 
       {/* Schools table */}
       <div className="mt-10">
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">All Schools</h2>
-        <div className="overflow-x-auto border rounded-xl">
+        <h2 className="text-lg font-semibold text-ink mb-4">All Schools</h2>
+        <div className="overflow-x-auto border border-border rounded-xl">
           <table className="w-full text-sm">
-            <thead className="bg-gray-50 text-gray-600">
+            <thead className="bg-muted text-muted-foreground">
               <tr>
                 <th className="text-left px-4 py-3 font-medium">School</th>
                 <th className="text-left px-4 py-3 font-medium">District</th>
@@ -163,30 +163,30 @@ export default function DashboardPage() {
             </thead>
             <tbody className="divide-y">
               {schools.map((s) => (
-                <tr key={s._id} className="hover:bg-gray-50">
+                <tr key={s._id} className="hover:bg-muted/50">
                   <td className="px-4 py-3">
                     <a
                       href={`/schools/${s._id}`}
-                      className="text-emerald-600 hover:underline font-medium"
+                      className="text-primary hover:underline font-medium"
                     >
                       {s.name}
                     </a>
                   </td>
-                  <td className="px-4 py-3 text-gray-600">{s.district}</td>
-                  <td className="px-4 py-3 text-right text-gray-600">
+                  <td className="px-4 py-3 text-muted-foreground">{s.district}</td>
+                  <td className="px-4 py-3 text-right text-muted-foreground">
                     {formatNumber(s.studentCount)}
                   </td>
-                  <td className="px-4 py-3 text-right text-gray-600">
+                  <td className="px-4 py-3 text-right text-muted-foreground">
                     {s.totalRooms}
                   </td>
                   <td className="px-4 py-3 text-center">
                     <span
                       className={`inline-flex px-2 py-0.5 rounded-full text-xs font-medium text-white ${
                         s.status === "active"
-                          ? "bg-green-500"
+                          ? "bg-pilgrim-olive"
                           : s.status === "pending"
-                          ? "bg-orange-500"
-                          : "bg-red-500"
+                          ? "bg-secondary"
+                          : "bg-destructive"
                       }`}
                     >
                       {s.status}

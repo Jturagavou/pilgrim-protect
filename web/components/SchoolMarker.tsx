@@ -11,12 +11,13 @@ interface SchoolMarkerProps {
 // Individual school marker component for custom rendering on map
 export default function SchoolMarker({ status, name, onClick }: SchoolMarkerProps) {
   const colors: Record<LegacyStatus, string> = {
-    active: "bg-green-500 ring-green-200",
-    pending: "bg-orange-500 ring-orange-200",
-    overdue: "bg-red-500 ring-red-200",
+    active: "bg-pilgrim-olive ring-pilgrim-olive/30",
+    pending: "bg-secondary ring-secondary/30",
+    overdue: "bg-destructive ring-destructive/30",
   };
 
-  const colorClass = colors[status as LegacyStatus] || "bg-gray-400 ring-gray-200";
+  const colorClass =
+    colors[status as LegacyStatus] || "bg-muted-foreground ring-muted-foreground/25";
 
   return (
     <button

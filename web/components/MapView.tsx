@@ -20,13 +20,13 @@ const MAP_STYLE = getMapboxStyle();
 function markerColor(status: LegacyStatus | string): string {
   switch (status) {
     case "active":
-      return "#22c55e"; // green
+      return "#617d0e"; // pilgrim olive
     case "pending":
-      return "#f97316"; // orange
+      return "#fb6202"; // pilgrim orange
     case "overdue":
-      return "#ef4444"; // red
+      return "#dc2626"; // destructive
     default:
-      return "#9ca3af";
+      return "#758696"; // muted
   }
 }
 
@@ -116,26 +116,26 @@ export default function MapView({
             className="pilgrim-popup"
           >
             <div className="p-1 min-w-[200px]">
-              <h3 className="font-semibold text-gray-900 text-sm">
+              <h3 className="font-semibold text-ink text-sm">
                 {popupInfo.properties.name}
               </h3>
-              <p className="text-xs text-gray-500 mt-0.5">
+              <p className="text-xs text-muted-foreground mt-0.5">
                 {popupInfo.properties.district} District
               </p>
-              <div className="flex gap-3 mt-2 text-xs text-gray-600">
+              <div className="flex gap-3 mt-2 text-xs text-muted-foreground">
                 <span>{popupInfo.properties.studentCount} students</span>
                 <span>{popupInfo.properties.totalRooms} rooms</span>
               </div>
               <div className="flex gap-2 mt-3">
                 <a
                   href={`/schools/${popupInfo.properties._id}`}
-                  className="flex-1 text-center text-xs font-medium bg-emerald-600 text-white rounded px-2 py-1 hover:bg-emerald-700 transition-colors"
+                  className="flex-1 text-center text-xs font-medium bg-primary text-primary-foreground rounded px-2 py-1 hover:bg-primary/90 transition-colors"
                 >
                   View Profile
                 </a>
                 <a
                   href={`/donate?school=${popupInfo.properties._id}`}
-                  className="flex-1 text-center text-xs font-medium border border-emerald-600 text-emerald-600 rounded px-2 py-1 hover:bg-emerald-50 transition-colors"
+                  className="flex-1 text-center text-xs font-medium border border-primary text-primary rounded px-2 py-1 hover:bg-primary/10 transition-colors"
                 >
                   Sponsor
                 </a>

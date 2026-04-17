@@ -73,10 +73,10 @@ export default function StoriesPage() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <div className="text-center mb-12">
-        <h1 className="text-3xl font-bold text-gray-900">
+        <h1 className="text-3xl font-bold text-ink">
           Stories from the Field
         </h1>
-        <p className="text-gray-500 mt-2 max-w-xl mx-auto">
+        <p className="text-muted-foreground mt-2 max-w-xl mx-auto">
           Behind every spray report is a real person working to protect children.
           These are their stories.
         </p>
@@ -86,10 +86,10 @@ export default function StoriesPage() {
         {stories.map((story) => (
           <article
             key={story.id}
-            className="bg-white border rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow"
+            className="bg-card border border-border rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow"
           >
             {/* Header with worker avatar */}
-            <div className="bg-gradient-to-r from-emerald-600 to-emerald-700 px-5 py-4">
+            <div className="bg-gradient-to-r from-primary to-primary/85 px-5 py-4">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center text-white font-bold text-sm">
                   {story.worker
@@ -99,7 +99,7 @@ export default function StoriesPage() {
                 </div>
                 <div>
                   <p className="text-white font-semibold text-sm">{story.worker}</p>
-                  <p className="text-emerald-200 text-xs">
+                  <p className="text-primary-foreground/80 text-xs">
                     {story.district} &middot; {story.date}
                   </p>
                 </div>
@@ -107,12 +107,12 @@ export default function StoriesPage() {
             </div>
 
             <div className="p-5">
-              <h3 className="font-semibold text-gray-900 mb-2">{story.title}</h3>
-              <p className="text-sm text-gray-600 leading-relaxed">
+              <h3 className="font-semibold text-ink mb-2">{story.title}</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">
                 {story.excerpt}
               </p>
-              <blockquote className="mt-4 pl-3 border-l-2 border-emerald-300">
-                <p className="text-sm text-gray-500 italic">
+              <blockquote className="mt-4 pl-3 border-l-2 border-primary/40">
+                <p className="text-sm text-muted-foreground italic">
                   &ldquo;{story.quote}&rdquo;
                 </p>
               </blockquote>

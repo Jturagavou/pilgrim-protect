@@ -16,7 +16,7 @@ This file is the **source of truth in-repo** for what “v1 pilot” shipped. Th
 | Area | Status |
 |------|--------|
 | API `/api/v1` + OpenAPI | Shipped |
-| Brand theme (globals, fonts, motion) | Shipped |
+| Brand theme (globals, fonts, motion) | Shipped — parent palette (`PILGRIM-BRAND-THEME.md`); pages use semantic tokens (`primary`, `ink`, `muted-foreground`, not Tailwind emerald) |
 | Homepage: 100k progress + stat counters | Shipped |
 | Map: district filter, gap pins, AnimatePresence | Shipped |
 | Map: custom Mapbox Studio style | **Optional** — set `NEXT_PUBLIC_MAPBOX_STYLE` (see [`LOCAL-DEV.md`](./LOCAL-DEV.md)) |
