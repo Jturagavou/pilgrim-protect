@@ -1,0 +1,121 @@
+institution_name,district,latitude,longitude,city_region_osm,distance_km_to_centroid,assigned_by
+Kodili Primary School,Kumi,1.1640236,33.9325245,Bulalaka,32.94,nearest_centroid_v1
+Budadiri Comprehensive Secondary School,Kumi,1.168051,34.3390464,Budadiri Town Council,55.66,nearest_centroid_v1
+Abilaep Primary School,Kumi,1.3592634,34.1366574,Abilaep,25.31,nearest_centroid_v1
+Elgon Junior Christian Primary School,Kumi,1.2115041,34.3219222,Buhugu,51.37,nearest_centroid_v1
+Agule Primary school,Kumi,1.2864408,33.7084057,Agule Subcounty,31.54,nearest_centroid_v1
+Orimai Primary School,Katakwi,1.7316613,33.9074321,Agule,19.38,nearest_centroid_v1
+Saint Regina Secondary School,Kumi,1.1887641,33.7505187,Okarebwok,36.35,nearest_centroid_v1
+Kadachari Primary School,Kumi,1.4950264,34.1089251,Koreng,19.98,nearest_centroid_v1
+Buhugu Secondary School,Kumi,1.2376648,34.2872118,N/A,46.55,nearest_centroid_v1
+Achuna Primary School,Amuria,1.9837874,33.4890407,Chele A,17.26,nearest_centroid_v1
+Alemtom Primary School,Soroti,1.4268672,33.4780939,Atapar,34.13,nearest_centroid_v1
+Saint Paul Primary School,Katakwi,1.9076215,33.9592219,Angopet,1.53,nearest_centroid_v1
+Apapa Primary School,Kumi,1.1813689,33.6261084,Kareu,46.07,nearest_centroid_v1
+Bulaago Senior Secondary School,Kumi,1.2498278,34.3654222,Suguta,53.5,nearest_centroid_v1
+Chemanga Secondary School,Kumi,1.3801085,34.5040344,Chemanga,64.14,nearest_centroid_v1
+Saint Benedict's Nursery,Soroti,1.2223701,33.3637999,Bukokola A,60.15,nearest_centroid_v1
+Amononeno Primary School,Amuria,2.0898511,33.2842753,Amononeno A,41.26,nearest_centroid_v1
+Ngatangata Primary School,Kumi,1.4178799,34.4253902,Ngatangata,54.98,nearest_centroid_v1
+Convent,Kumi,1.3269707,34.3844169,Gamatui,52.37,nearest_centroid_v1
+Butongole Primary School,Soroti,1.2704797,33.12697,Butongole,72.21,nearest_centroid_v1
+Musas Primary School,Moroto,2.4834338,34.694696,Akimabul,6.49,nearest_centroid_v1
+Akoboi Primary School,Katakwi,1.8582337,33.9526557,Akoboi,4.44,nearest_centroid_v1
+Akero Primary School,Kumi,1.3159911,34.1252475,Akero,26.76,nearest_centroid_v1
+Arengesiep Secondary School,Moroto,2.0676792,34.5786032,Arengesiep,52.84,nearest_centroid_v1
+Samanzi Primary School,Kumi,1.2993124,34.3034757,Bulegeni,44.95,nearest_centroid_v1
+Kokorio Primary School,Katakwi,1.6889885,33.9209426,Kokorio,23.54,nearest_centroid_v1
+Bumugisha Primary School,Kumi,1.2718909,34.3225663,Nabisuluka,48.15,nearest_centroid_v1
+Victory Secondary School,Kumi,1.161422,33.7145731,Nansenye,41.13,nearest_centroid_v1
+Primary School,Amuria,2.7242294,33.6480005,N/A,80.87,nearest_centroid_v1
+Mugarama Primary School,Soroti,1.392167,33.2226051,Mugarama B,55.34,nearest_centroid_v1
+Hillary Storm Nursery And Primary School,Kumi,1.4105421,33.988001,Akalabai,8.28,nearest_centroid_v1
+Tuban Bright Day and Boarding Primary School,Kumi,1.3946218,34.4110411,Kaptul,53.68,nearest_centroid_v1
+Ococia Girls Secondary School,Amuria,2.0562756,33.4695117,Ococia Central,20.46,nearest_centroid_v1
+Church of Uganda Vocational Training Institute,Soroti,1.7284256,33.6118858,A2 Cell,2.76,nearest_centroid_v1
+Abia Primary School,Amuria,1.9758831,33.6099266,Opolin,4.44,nearest_centroid_v1
+Blossom Nursery and Primary School,Kumi,1.3997106,34.460085,Kokwomurya,59.02,nearest_centroid_v1
+Akisim Primary School,Amuria,2.1099527,33.6767186,Aroro,13.08,nearest_centroid_v1
+Kachaboi Primary School,Kumi,1.2585419,34.0945331,Mukura,28.76,nearest_centroid_v1
+Amin Tenyo Primary School,Amuria,2.464253,33.2081514,Anyomi,71.01,nearest_centroid_v1
+Kitukiro Primary School,Soroti,1.150911,33.2870597,Bunabala,71.23,nearest_centroid_v1
+Namisuni Primary School,Kumi,1.296097,34.3572623,Namisuni,50.61,nearest_centroid_v1
+Amolo Primary School,Katakwi,1.8627582,33.8214771,Omunyal,16.5,nearest_centroid_v1
+Amrwongora Primary School,Katakwi,1.9460121,34.0844315,Amorwongora,14.28,nearest_centroid_v1
+Lwala Girls Primary School,Soroti,1.8584966,33.2793547,Acet,40.69,nearest_centroid_v1
+Global Ark Nursery and Primary School,Kumi,1.4728243,33.7906398,Ngora Inst. Complex C,15.84,nearest_centroid_v1
+Alukot Primary School,Amuria,2.384688,33.4774421,Alunya,46.9,nearest_centroid_v1
+Owii Comm Primary School,Soroti,1.6336546,33.3289664,Madoch,32.3,nearest_centroid_v1
+Moru Primary School,Amuria,1.9668491,33.3704279,Moru,30.56,nearest_centroid_v1
+Charity Nursery and Primary school,Kumi,1.2593702,33.980902,Kidongole,22.98,nearest_centroid_v1
+Buwakhanyuyi Primary School,Kumi,1.3302864,34.2715026,Buwakhanyunyi A,40.35,nearest_centroid_v1
+Saint Paul Primary School,Kumi,1.3104758,34.7071356,Kongta,87.7,nearest_centroid_v1
+Kataabok Primary School,Moroto,1.7636942,34.8558555,Katabok,88.27,nearest_centroid_v1
+Kachilo Primary School,Soroti,1.7283183,33.3744292,Kachiro,26.44,nearest_centroid_v1
+Go Stardard Primary School,Kumi,1.4805634,33.9379337,Osioda,2.33,nearest_centroid_v1
+Kaserem Secondary School,Kumi,1.3198352,34.3307011,Asikenwo,46.93,nearest_centroid_v1
+school compound,Kumi,1.1836495,33.7133058,N/A,39.25,nearest_centroid_v1
+Primary School,Kumi,1.1967581,33.8132331,N/A,32.17,nearest_centroid_v1
+Mukongoro High School,Kumi,1.3208911,33.8800592,Mukongoro,16.57,nearest_centroid_v1
+Budadiri Girls Secondary School,Kumi,1.1726765,34.3302798,Budadiri Town Council,54.56,nearest_centroid_v1
+Otuboi Township Primary School,Amuria,1.9150708,33.3004599,Otuboi Township,39.23,nearest_centroid_v1
+Soti Primary School,Kumi,1.2386931,34.3381327,Soti T/c,51.38,nearest_centroid_v1
+Primary School,Amuria,2.6082087,33.7334827,N/A,68.69,nearest_centroid_v1
+Nawaikorot Techical School,Moroto,2.4710506,34.474912,Nawaikorot .a,22.45,nearest_centroid_v1
+Atangwata Primary School,Amuria,2.5230074,33.4146992,N/A,63.79,nearest_centroid_v1
+Primary School,Moroto,1.7578241,34.7763344,N/A,87.24,nearest_centroid_v1
+Moroto Rural Training Centre,Moroto,2.5348479,34.6589402,N/A,0.86,nearest_centroid_v1
+Adilang Secondary School,Amuria,2.7439759,33.4811693,Jerusalem,85.0,nearest_centroid_v1
+Saint Andrews School,Moroto,2.360674,34.536839,Naitakosowan,24.14,nearest_centroid_v1
+Takaramyam Primary School,Amuria,2.1330653,33.6974478,Takaramyam B,16.26,nearest_centroid_v1
+Fal School,Amuria,2.7892425,33.7283611,N/A,88.59,nearest_centroid_v1
+Saint Michael Secondary School,Amuria,1.8926611,33.7546099,Oimai,16.92,nearest_centroid_v1
+Malera Technical School,Kumi,1.437995,34.1287039,Kakori,21.94,nearest_centroid_v1
+Okocho Primary School,Katakwi,2.1241824,34.0498536,Okocho,27.04,nearest_centroid_v1
+Getom Primary School,Katakwi,1.8701544,33.8890297,Getom,9.04,nearest_centroid_v1
+Saint Kizito Mulali,Soroti,1.2458793,33.3390871,Bukose-bunangwe,59.19,nearest_centroid_v1
+Buwanyanga Primary School,Kumi,1.2617234,34.2702736,Buwanyanga A,43.55,nearest_centroid_v1
+Dokolo Primary School,Soroti,1.7062883,33.576039,Dokolo,3.9,nearest_centroid_v1
+New Hope Nursery and Primary School,Kumi,1.3080729,34.3079478,Bulegeni,45.03,nearest_centroid_v1
+Akado Primary School,Soroti,1.6866914,33.1144967,Kakado,55.22,nearest_centroid_v1
+King's Primary School,Kumi,1.4114125,34.3499768,Bunatunga,46.71,nearest_centroid_v1
+Omugenys-Odela Primary School,Soroti,1.738569,33.7688044,Mugenya,17.96,nearest_centroid_v1
+Bukumbale Primary School,Kumi,1.1924329,34.2412641,Bukiyi,45.44,nearest_centroid_v1
+Top Hills Primary School,Kumi,1.3748553,34.4392303,Chepkwutar,57.11,nearest_centroid_v1
+Green Light Primary School,Kumi,1.347644,34.3830004,Kapkweiminy,51.61,nearest_centroid_v1
+Kotolut Primary School,Kumi,1.2780938,33.9750408,Kotolut,20.8,nearest_centroid_v1
+Odepai Primary School,Kumi,1.1583068,33.7915375,Odepai,37.06,nearest_centroid_v1
+Aminit Madera Primary School,Soroti,1.605872,33.6394167,Madera Central Cell,11.32,nearest_centroid_v1
+Saint Stephen's College,Kumi,1.1624855,33.7058732,Industrial Area,41.62,nearest_centroid_v1
+Kalalaka Primary School,Kumi,1.1899503,33.944433,Butebo,30.09,nearest_centroid_v1
+Tamula Moslem Primary School,Kumi,1.3631098,34.0295439,N/A,15.26,nearest_centroid_v1
+Green Field Nursery and Primary School,Kumi,1.1534769,33.794849,Puti-puti,37.4,nearest_centroid_v1
+Omurang Primary School,Kumi,1.3686743,33.8769208,Omurang,11.92,nearest_centroid_v1
+Amusi Primary school,Kumi,1.1658444,34.1579951,Mbale,41.23,nearest_centroid_v1
+Okunguro Primary School,Kumi,1.5915224,33.8422478,Doyoro,17.71,nearest_centroid_v1
+Kanyum Nursery & Primary School,Kumi,1.3813301,33.9169139,Oput,8.95,nearest_centroid_v1
+Katakwi Township Primary School,Katakwi,1.9167993,33.9522794,Dokomer,2.8,nearest_centroid_v1
+Piswa Primary School,Kumi,1.3659083,34.5263211,Kapkureson,66.83,nearest_centroid_v1
+Abalang Primary School,Amuria,1.8957727,33.2230672,Aoya B,48.09,nearest_centroid_v1
+Lomurunyange Primary School,Katakwi,1.7714223,34.5283279,Lomorunyange,63.99,nearest_centroid_v1
+Aluga Primary School,Amuria,2.4873435,33.4693342,Aluga,57.87,nearest_centroid_v1
+Kolir Comprehensive Secondary School,Kumi,1.3133286,34.1630817,Kolir Town,30.39,nearest_centroid_v1
+Apeduru Primary School,Amuria,2.0967214,33.7024552,Apeduru,12.86,nearest_centroid_v1
+Cholicholi Primary School,Katakwi,2.171067,34.2899869,Cholichol,47.24,nearest_centroid_v1
+Primary School,Amuria,2.3756921,33.6171962,N/A,42.21,nearest_centroid_v1
+Okokolako Primary School,Amuria,2.200634,33.3437319,Okokolako,40.31,nearest_centroid_v1
+Namalu Seed Secondary School,Katakwi,1.8671567,34.6122613,Nakasian,71.87,nearest_centroid_v1
+Primary School,Amuria,2.3314567,33.1536181,Ocabu,65.95,nearest_centroid_v1
+Ateuso Primary School,Amuria,2.1350853,33.5111277,Ateuso,21.29,nearest_centroid_v1
+Saint Clare Nursery and Primary School,Kumi,1.4656777,33.7718667,Osigiria,17.88,nearest_centroid_v1
+Sironko District Committee,Kumi,1.2180817,34.2978144,Buhugu,48.72,nearest_centroid_v1
+Okulonyo Primary School,Soroti,1.5681462,33.4517503,Omolok,23.24,nearest_centroid_v1
+Kakere-Gagama Primary school,Kumi,1.3292335,34.0212792,Bukedea,17.59,nearest_centroid_v1
+Sun Rise High School,Soroti,1.497833,33.5509541,Oburiokori II,23.83,nearest_centroid_v1
+Omoro Secondary School,Amuria,2.2388576,33.3883477,Akao Idebe,39.1,nearest_centroid_v1
+Saint Claver Secondary School,Kumi,1.4941706,33.9473725,Boma North,4.11,nearest_centroid_v1
+Omuru Primary School,Amuria,2.5957032,33.8053944,Opeidukanith,68.95,nearest_centroid_v1
+Ajonyi Primary School,Soroti,1.8004858,33.5273523,Ajonyi-a,14.23,nearest_centroid_v1
+Buyobo Primary School,Kumi,1.1514631,34.3041661,Buyobo,53.72,nearest_centroid_v1
+Alpha Nursery and Primary School,Kumi,1.2862639,34.3372873,Masabasi,48.97,nearest_centroid_v1
+Kaurikekaine Primary School,Katakwi,2.1690498,34.2193733,Kaurikiakine,41.41,nearest_centroid_v1
