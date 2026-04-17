@@ -2,8 +2,14 @@ import axios from 'axios';
 import { getToken } from './auth';
 import { mockLogin, mockGetSchools, mockGetMyReports, mockSubmitReport, mockUploadImage } from '../mock/mockData';
 
-// Use env var or fallback to localhost
-const BASE_URL = process.env.EXPO_PUBLIC_API_URL || 'http://192.168.1.1:5000/api';
+// Must match Express: /api/v1 on PORT (default 8080). Use your LAN IP for a physical device.
+const BASE_URL =
+  process.env.EXPO_PUBLIC_API_URL || 'http://192.168.1.1:8080/api/v1';
+
+function healthCheckUrl() {
+  const base = BASE_URL.replace(/\/api\/v\d+\/?$/i, '');
+  return `${base}/health`;
+}
 
 // Track whether we're in mock mode
 let useMock = false;
@@ -41,7 +47,7 @@ API.interceptors.response.use(
 export async function initApi() {
   if (!__DEV__) return;
   try {
-    await axios.get(`${BASE_URL}/auth/me`, { timeout: 3000 });
+    await axios.get(healthCheckUrl(), { timeout: 3000 });
   } catch {
     console.log('[API] Backend not available — mock mode enabled');
     useMock = true;

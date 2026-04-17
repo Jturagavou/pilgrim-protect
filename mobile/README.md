@@ -35,8 +35,8 @@ Copy `.env.example` to `.env` and set your backend IP:
 
 ```bash
 cp .env.example .env
-# Edit EXPO_PUBLIC_API_URL to your machine's local IP
-# e.g. EXPO_PUBLIC_API_URL=http://192.168.1.42:5000/api
+# Edit EXPO_PUBLIC_API_URL to your machine's LAN IP + API port + /api/v1
+# e.g. EXPO_PUBLIC_API_URL=http://192.168.1.42:8080/api/v1
 ```
 
 ### Mock Mode
@@ -58,7 +58,7 @@ Reports are automatically saved locally when there's no internet connection. A b
 
 ## Connecting to Backend
 
-This app connects to the Pilgrim Protect Express API (port 5000). Both this app and the Next.js website connect to the same backend independently.
+This app connects to the same Pilgrim Protect Express API as the web app (`/api/v1`, default port **8080**). Point `EXPO_PUBLIC_API_URL` at your machine’s LAN address so Expo Go on a phone can reach it.
 
 ## Project Structure
 

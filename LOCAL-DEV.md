@@ -100,6 +100,10 @@ Then open **http://localhost:3000**.
 
 Stop with **Ctrl+C** (stops API + web started by the script).
 
+### Field worker app (Expo)
+
+From `mobile/`, set `EXPO_PUBLIC_API_URL` to `http://<your-LAN-IP>:8080/api/v1` (see `mobile/README.md`). The API must be reachable from the phone; `localhost` will not work in Expo Go.
+
 ### Two terminals (alternative)
 
 ```bash
