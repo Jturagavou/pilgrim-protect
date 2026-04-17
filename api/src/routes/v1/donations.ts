@@ -4,36 +4,12 @@ import { protect, authorize } from "../../middleware/auth";
 
 const router = Router();
 
-// POST /api/donations/checkout — mock Stripe checkout
-const checkout: RequestHandler = async (req, res, next) => {
-  try {
-    const { schoolId, amount, recurring } = req.body as {
-      schoolId?: string | null;
-      amount?: number;
-      recurring?: boolean;
-    };
-
-    if (!amount || amount <= 0) {
-      res
-        .status(400)
-        .json({ error: "Amount must be a positive number (in cents)" });
-      return;
-    }
-
-    const donation = await Donation.create({
-      donor: req.user!._id,
-      school: schoolId || null,
-      amount,
-      recurring: recurring || false,
-      stripePaymentId: `mock_pi_${Date.now()}`,
-      status: "completed",
-    });
-
-    const sessionUrl = `https://checkout.stripe.com/mock/session_${donation._id}`;
-    res.json({ sessionUrl });
-  } catch (error) {
-    next(error);
-  }
+// POST /api/donations/checkout — not enabled in v1 pilot (no Stripe)
+const checkout: RequestHandler = (_req, res) => {
+  res.status(410).json({
+    error:
+      "Online card checkout is not enabled in the v1 pilot. Use Pilgrim Africa’s main giving channels (see the Donate page).",
+  });
 };
 
 // GET /api/donations/mine — donor's own donations

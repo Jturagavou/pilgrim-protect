@@ -1,68 +1,82 @@
+/** Created with Cursor — AI-assisted. */
+
 "use client";
 
 import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { fetchSchools, createCheckout } from "@/lib/api";
+import Link from "next/link";
+import { fetchSchools } from "@/lib/api";
 import type { MockSchool } from "@/lib/types";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
-const AMOUNTS = [10, 25, 50, 100, 250];
+const DEFAULT_GIVING_URL = "https://pilgrimafrica.org";
 
-function DonateForm() {
+function givingUrl(): string {
+  if (typeof process.env.NEXT_PUBLIC_EXTERNAL_GIVING_URL === "string") {
+    return process.env.NEXT_PUBLIC_EXTERNAL_GIVING_URL.replace(/\/+$/, "");
+  }
+  return DEFAULT_GIVING_URL;
+}
+
+function DonateContent() {
   const searchParams = useSearchParams();
   const preselectedSchool = searchParams.get("school");
 
   const [schools, setSchools] = useState<MockSchool[]>([]);
-  const [selectedSchool, setSelectedSchool] = useState<string>(preselectedSchool || "general");
-  const [amount, setAmount] = useState<number>(50);
-  const [customAmount, setCustomAmount] = useState<string>("");
-  const [recurring, setRecurring] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [selectedSchool, setSelectedSchool] = useState<string>(
+    preselectedSchool || "general"
+  );
 
   useEffect(() => {
     fetchSchools().then(setSchools).catch(console.error);
   }, []);
 
-  const finalAmount = customAmount ? Number(customAmount) : amount;
+  const base = givingUrl();
+  const schoolName =
+    selectedSchool === "general"
+      ? null
+      : schools.find((s) => s._id === selectedSchool)?.name ?? null;
 
-  async function handleDonate() {
-    if (!finalAmount || finalAmount < 1) return;
-    setLoading(true);
-    try {
-      const { sessionUrl } = await createCheckout({
-        schoolId: selectedSchool === "general" ? null : selectedSchool,
-        amount: finalAmount,
-        recurring,
-      });
-      window.location.href = sessionUrl;
-    } catch (err) {
-      console.error(err);
-      alert("Something went wrong. Please try again.");
-    } finally {
-      setLoading(false);
-    }
-  }
+  const mailBody = [
+    "I would like to support Pilgrim Protect / indoor residual spraying for schools in Uganda.",
+    schoolName ? `School of interest: ${schoolName}` : "",
+    "",
+    "(Pilot v1: online card giving opens on Pilgrim Africa’s main site — not yet wired in this demo.)",
+  ]
+    .filter(Boolean)
+    .join("\n");
+
+  const mailto = `mailto:info@pilgrimafrica.org?subject=${encodeURIComponent(
+    "Pilgrim Protect — sponsor inquiry"
+  )}&body=${encodeURIComponent(mailBody)}`;
 
   return (
     <div className="max-w-2xl mx-auto px-4 sm:px-6 py-12">
       <div className="text-center mb-10">
-        <h1 className="text-3xl font-bold text-gray-900">Make a Donation</h1>
-        <p className="text-gray-500 mt-2">
-          Your contribution directly funds malaria prevention spraying at Ugandan schools
+        <h1 className="font-display text-3xl text-ink">Give toward the work</h1>
+        <p className="text-muted-foreground mt-2 leading-relaxed">
+          The v1 pilot does not process card payments on this site. Give
+          through Pilgrim Africa’s established channels, or email us with the
+          school you care about.
         </p>
       </div>
 
-      <div className="bg-white border rounded-xl p-6 shadow-sm space-y-6">
-        {/* School selection */}
+      <div className="rounded-xl border border-border bg-card p-6 shadow-sm space-y-6">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Choose a school to sponsor
+          <label
+            htmlFor="school"
+            className="block text-sm font-medium text-ink mb-2"
+          >
+            School you have in mind (optional)
           </label>
           <select
+            id="school"
             value={selectedSchool}
             onChange={(e) => setSelectedSchool(e.target.value)}
-            className="w-full border rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            className="w-full border border-input rounded-lg px-3 py-2.5 text-sm bg-background focus:outline-none focus:ring-2 focus:ring-ring"
           >
-            <option value="general">General Fund (highest need)</option>
+            <option value="general">General — where need is greatest</option>
             {schools.map((s) => (
               <option key={s._id} value={s._id}>
                 {s.name} — {s.district}
@@ -71,89 +85,46 @@ function DonateForm() {
           </select>
         </div>
 
-        {/* Amount selection */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Select amount
-          </label>
-          <div className="grid grid-cols-5 gap-2">
-            {AMOUNTS.map((a) => (
-              <button
-                key={a}
-                onClick={() => {
-                  setAmount(a);
-                  setCustomAmount("");
-                }}
-                className={`py-2.5 rounded-lg text-sm font-medium transition-colors ${
-                  amount === a && !customAmount
-                    ? "bg-emerald-600 text-white"
-                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                }`}
-              >
-                ${a}
-              </button>
-            ))}
-          </div>
-          <div className="mt-3">
-            <input
-              type="number"
-              placeholder="Custom amount..."
-              value={customAmount}
-              onChange={(e) => setCustomAmount(e.target.value)}
-              className="w-full border rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
-              min="1"
-            />
-          </div>
+        <div className="rounded-lg border border-border bg-paper-soft p-4 text-sm text-muted-foreground">
+          <p>
+            <strong className="text-ink">Why not Stripe here?</strong> v1
+            proves the map, school stories, and sponsor journey. Pilgrim’s
+            finance team continues to use their main donation infrastructure
+            until we intentionally add card checkout in a later release.
+          </p>
         </div>
 
-        {/* Recurring toggle */}
-        <div className="flex items-center gap-3">
-          <button
-            onClick={() => setRecurring(!recurring)}
-            className={`relative w-11 h-6 rounded-full transition-colors ${
-              recurring ? "bg-emerald-600" : "bg-gray-300"
-            }`}
+        <div className="flex flex-col sm:flex-row gap-3">
+          <a
+            href={base}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={cn(buttonVariants({ variant: "default" }), "flex-1 justify-center")}
           >
-            <span
-              className={`absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full shadow transition-transform ${
-                recurring ? "translate-x-5" : ""
-              }`}
-            />
-          </button>
-          <span className="text-sm text-gray-700">Make this a monthly donation</span>
+            Give on pilgrimafrica.org
+          </a>
+          <a
+            href={mailto}
+            className={cn(buttonVariants({ variant: "outline" }), "flex-1 justify-center")}
+          >
+            Email us to sponsor
+          </a>
         </div>
 
-        {/* Summary */}
-        <div className="bg-emerald-50 rounded-lg p-4">
-          <div className="flex justify-between text-sm">
-            <span className="text-gray-600">Amount:</span>
-            <span className="font-semibold text-gray-900">
-              ${finalAmount || 0}
-              {recurring ? "/month" : " one-time"}
-            </span>
-          </div>
-          <div className="flex justify-between text-sm mt-1">
-            <span className="text-gray-600">To:</span>
-            <span className="font-semibold text-gray-900">
-              {selectedSchool === "general"
-                ? "General Fund"
-                : schools.find((s) => s._id === selectedSchool)?.name || "Selected school"}
-            </span>
-          </div>
-        </div>
-
-        {/* Donate button */}
-        <button
-          onClick={handleDonate}
-          disabled={loading || !finalAmount}
-          className="w-full py-3 bg-emerald-600 text-white font-semibold rounded-lg hover:bg-emerald-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          {loading ? "Processing..." : `Donate $${finalAmount || 0}`}
-        </button>
-
-        <p className="text-xs text-gray-400 text-center">
-          Payments are processed securely via Stripe. Pilgrim Africa is a registered 501(c)(3) nonprofit.
+        <p className="text-xs text-muted-foreground text-center">
+          Pilgrim Africa is a registered 501(c)(3) nonprofit. Configure{" "}
+          <code className="text-[11px]">NEXT_PUBLIC_EXTERNAL_GIVING_URL</code>{" "}
+          to point at your live giving page.
         </p>
+
+        <div className="text-center pt-2">
+          <Link
+            href="/map"
+            className="text-sm font-medium text-primary underline-offset-4 hover:underline"
+          >
+            Explore schools on the map
+          </Link>
+        </div>
       </div>
     </div>
   );
@@ -164,11 +135,11 @@ export default function DonatePage() {
     <Suspense
       fallback={
         <div className="flex items-center justify-center min-h-[60vh]">
-          <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-emerald-600" />
+          <div className="animate-spin rounded-full h-10 w-10 border-2 border-primary border-t-transparent" />
         </div>
       }
     >
-      <DonateForm />
+      <DonateContent />
     </Suspense>
   );
 }

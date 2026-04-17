@@ -21,7 +21,13 @@ export default function LoginPage() {
     try {
       const { token, user } = await loginDonor({ email, password });
       saveAuth(token, user);
-      router.push("/portal");
+      if (user.role === "admin" || user.role === "super_admin") {
+        router.push("/admin");
+      } else if (user.role === "field_worker") {
+        router.push("/dashboard");
+      } else {
+        router.push("/portal");
+      }
     } catch (err: unknown) {
       const message = axios.isAxiosError(err)
         ? err.response?.data?.message

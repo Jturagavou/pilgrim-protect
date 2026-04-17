@@ -7,6 +7,7 @@ Use this when you want **localhost** previews of everything we build before anyt
 | URL | What |
 |-----|------|
 | **http://localhost:3000** | Next.js donor site (home, map, schools, etc.) |
+| **http://localhost:3000/admin** | School admin (CRUD, CSV import, photos) — log in as **admin@test.com** / **password123** after seed |
 | **http://localhost:8080/api/v1/...** | Express API (same contract as production) |
 | **MongoDB** | Local `mongodb://localhost:27017/pilgrim-protect` (or Atlas) |
 
@@ -60,6 +61,7 @@ Edit `web/.env.local`:
 - **`NEXT_PUBLIC_MAPBOX_TOKEN`** — required for the map; from [Mapbox](https://account.mapbox.com/)
 - **`NEXT_PUBLIC_MOCK=false`** — so the site uses the **real API** and database (recommended while we build)
 - **`NEXT_PUBLIC_API_URL=http://localhost:8080/api/v1`** — already correct if API is on 8080
+- **`NEXT_PUBLIC_EXTERNAL_GIVING_URL`** (optional) — main Pilgrim Africa giving page linked from `/donate` (v1 has no card checkout on this site)
 
 ### 3. Install dependencies
 

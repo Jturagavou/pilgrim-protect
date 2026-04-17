@@ -132,6 +132,47 @@ paths:
         "403":
           $ref: "#/components/responses/Forbidden"
 
+  /api/v1/schools/bulk:
+    post:
+      tags: [schools]
+      summary: Bulk create schools from an array (admin only)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [schools]
+              properties:
+                schools:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/SchoolInput"
+      responses:
+        "201":
+          description: Created count and any per-row errors
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  created: { type: integer }
+                  schools:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/School"
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        index: { type: integer }
+                        message: { type: string }
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+
   /api/v1/schools/{id}:
     get:
       tags: [schools]
@@ -166,6 +207,20 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/School"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+    delete:
+      tags: [schools]
+      summary: Delete a school (admin only)
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      responses:
+        "204":
+          description: Deleted
         "401":
           $ref: "#/components/responses/Unauthorized"
         "403":
@@ -240,7 +295,8 @@ paths:
   /api/v1/donations/checkout:
     post:
       tags: [donations]
-      summary: Create a (mock) Stripe checkout session
+      summary: Card checkout (not enabled in v1 pilot)
+      description: Returns 410 Gone — use Pilgrim Africa’s external giving channels for v1.
       requestBody:
         required: true
         content:
@@ -248,19 +304,14 @@ paths:
             schema:
               $ref: "#/components/schemas/CheckoutRequest"
       responses:
-        "200":
-          description: Checkout session URL
+        "410":
+          description: Checkout not enabled in v1
           content:
             application/json:
               schema:
                 type: object
-                required: [sessionUrl]
                 properties:
-                  sessionUrl:
-                    type: string
-                    format: uri
-        "400":
-          $ref: "#/components/responses/BadRequest"
+                  error: { type: string }
         "401":
           $ref: "#/components/responses/Unauthorized"
 
@@ -512,13 +563,36 @@ components:
 
     SchoolInput:
       type: object
-      required: [name, district, location]
+      required: [name, district]
       properties:
         name: { type: string }
         district: { type: string }
+        subCounty: { type: string }
         location: { $ref: "#/components/schemas/GeoPoint" }
+        lat: { type: number }
+        lng: { type: number }
         totalRooms: { type: integer }
         studentCount: { type: integer }
+        netsCount: { type: integer }
+        hasMalariaClub: { type: boolean }
+        photos:
+          type: array
+          items: { type: string, format: uri }
+        sponsorshipStatus:
+          type: string
+          enum:
+            - needs-funding
+            - funded
+            - contracted
+            - checked-in
+            - data-gathered
+        fundingProgress:
+          type: object
+          properties:
+            raised: { type: integer, description: Amount in cents }
+            goal: { type: integer, description: Goal in cents }
+        notes: { type: string }
+        status: { type: string, enum: [pending, active, completed] }
 
     SchoolWithReports:
       allOf:

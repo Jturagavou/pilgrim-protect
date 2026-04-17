@@ -223,6 +223,57 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/schools/bulk": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Bulk create schools from an array (admin only) */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": {
+                        schools: components["schemas"]["SchoolInput"][];
+                    };
+                };
+            };
+            responses: {
+                /** @description Created count and any per-row errors */
+                201: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            created?: number;
+                            schools?: components["schemas"]["School"][];
+                            errors?: {
+                                index?: number;
+                                message?: string;
+                            }[];
+                        };
+                    };
+                };
+                401: components["responses"]["Unauthorized"];
+                403: components["responses"]["Forbidden"];
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/schools/{id}": {
         parameters: {
             query?: never;
@@ -285,7 +336,30 @@ export interface paths {
             };
         };
         post?: never;
-        delete?: never;
+        /** Delete a school (admin only) */
+        delete: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: components["parameters"]["IdParam"];
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Deleted */
+                204: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                401: components["responses"]["Unauthorized"];
+                403: components["responses"]["Forbidden"];
+                404: components["responses"]["NotFound"];
+            };
+        };
         options?: never;
         head?: never;
         patch?: never;
@@ -404,7 +478,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** Create a (mock) Stripe checkout session */
+        /**
+         * Card checkout (not enabled in v1 pilot)
+         * @description Returns 410 Gone — use Pilgrim Africa’s external giving channels for v1.
+         */
         post: {
             parameters: {
                 query?: never;
@@ -418,20 +495,18 @@ export interface paths {
                 };
             };
             responses: {
-                /** @description Checkout session URL */
-                200: {
+                401: components["responses"]["Unauthorized"];
+                /** @description Checkout not enabled in v1 */
+                410: {
                     headers: {
                         [name: string]: unknown;
                     };
                     content: {
                         "application/json": {
-                            /** Format: uri */
-                            sessionUrl: string;
+                            error?: string;
                         };
                     };
                 };
-                400: components["responses"]["BadRequest"];
-                401: components["responses"]["Unauthorized"];
             };
         };
         delete?: never;
@@ -740,9 +815,26 @@ export interface components {
         SchoolInput: {
             name: string;
             district: string;
-            location: components["schemas"]["GeoPoint"];
+            subCounty?: string;
+            location?: components["schemas"]["GeoPoint"];
+            lat?: number;
+            lng?: number;
             totalRooms?: number;
             studentCount?: number;
+            netsCount?: number;
+            hasMalariaClub?: boolean;
+            photos?: string[];
+            /** @enum {string} */
+            sponsorshipStatus?: "needs-funding" | "funded" | "contracted" | "checked-in" | "data-gathered";
+            fundingProgress?: {
+                /** @description Amount in cents */
+                raised?: number;
+                /** @description Goal in cents */
+                goal?: number;
+            };
+            notes?: string;
+            /** @enum {string} */
+            status?: "pending" | "active" | "completed";
         };
         SchoolWithReports: components["schemas"]["School"] & {
             sprayReports?: components["schemas"]["SprayReport"][];

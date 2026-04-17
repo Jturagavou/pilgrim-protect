@@ -1,14 +1,20 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
-import { isLoggedIn, clearAuth } from "@/lib/auth";
+import { useEffect, useState } from "react";
+import { isLoggedIn, clearAuth, getUser } from "@/lib/auth";
+import type { User } from "@/lib/types";
 import { useRouter } from "next/navigation";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [sessionUser, setSessionUser] = useState<User | null>(null);
   const router = useRouter();
   const loggedIn = typeof window !== "undefined" ? isLoggedIn() : false;
+
+  useEffect(() => {
+    setSessionUser(getUser());
+  }, [loggedIn]);
 
   function handleLogout() {
     clearAuth();
@@ -51,12 +57,23 @@ export default function Navbar() {
             ))}
             {loggedIn ? (
               <>
-                <Link
-                  href="/portal"
-                  className="text-sm font-medium text-emerald-600 hover:text-emerald-700"
-                >
-                  My Portal
-                </Link>
+                {sessionUser?.role === "admin" ||
+                sessionUser?.role === "super_admin" ? (
+                  <Link
+                    href="/admin"
+                    className="text-sm font-medium text-emerald-600 hover:text-emerald-700"
+                  >
+                    Admin
+                  </Link>
+                ) : null}
+                {sessionUser?.role === "donor" ? (
+                  <Link
+                    href="/portal"
+                    className="text-sm font-medium text-emerald-600 hover:text-emerald-700"
+                  >
+                    My Portal
+                  </Link>
+                ) : null}
                 <button
                   onClick={handleLogout}
                   className="text-sm font-medium text-gray-500 hover:text-red-500"
@@ -106,9 +123,25 @@ export default function Navbar() {
           ))}
           {loggedIn ? (
             <>
-              <Link href="/portal" onClick={() => setMenuOpen(false)} className="block py-2 text-sm font-medium text-emerald-600">
-                My Portal
-              </Link>
+              {sessionUser?.role === "admin" ||
+              sessionUser?.role === "super_admin" ? (
+                <Link
+                  href="/admin"
+                  onClick={() => setMenuOpen(false)}
+                  className="block py-2 text-sm font-medium text-emerald-600"
+                >
+                  Admin
+                </Link>
+              ) : null}
+              {sessionUser?.role === "donor" ? (
+                <Link
+                  href="/portal"
+                  onClick={() => setMenuOpen(false)}
+                  className="block py-2 text-sm font-medium text-emerald-600"
+                >
+                  My Portal
+                </Link>
+              ) : null}
               <button onClick={handleLogout} className="block py-2 text-sm font-medium text-red-500">
                 Logout
               </button>

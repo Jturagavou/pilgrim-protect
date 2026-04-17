@@ -24,11 +24,12 @@ export interface AuthResponse {
   user: User;
 }
 
-export interface CheckoutResponse {
-  sessionUrl: string;
-}
-
 const isMock = process.env.NEXT_PUBLIC_MOCK === "true";
+
+/** True when the Next app uses bundled mock data instead of the Express API. */
+export function isMockMode(): boolean {
+  return isMock;
+}
 
 const API: AxiosInstance = axios.create({
   baseURL:
@@ -129,29 +130,85 @@ export async function fetchMe(): Promise<{ user: User }> {
 
 // ── Donation endpoints ──
 
-export interface CheckoutInput {
-  schoolId: string | null;
-  amount: number;
-  recurring: boolean;
-}
-
-export async function createCheckout({
-  schoolId,
-  amount,
-  recurring,
-}: CheckoutInput): Promise<CheckoutResponse> {
-  if (isMock) return { sessionUrl: "/donate/success?mock=true" };
-  const { data } = await API.post<CheckoutResponse>("/donations/checkout", {
-    schoolId,
-    amount,
-    recurring,
-  });
-  return data;
-}
-
 export async function fetchMyDonations(): Promise<Donation[]> {
   if (isMock) return mockDonations;
   const { data } = await API.get<Donation[]>("/donations/mine");
+  return data;
+}
+
+// ── Admin / school mutations (require live API + admin token) ──
+
+export interface SchoolMutationPayload {
+  name?: string;
+  district?: string;
+  subCounty?: string;
+  lat?: number;
+  lng?: number;
+  location?: { type: "Point"; coordinates: [number, number] };
+  totalRooms?: number;
+  studentCount?: number;
+  netsCount?: number;
+  hasMalariaClub?: boolean;
+  photos?: string[];
+  sponsorshipStatus?: string;
+  fundingProgress?: { raised: number; goal: number };
+  notes?: string;
+  status?: string;
+}
+
+function requireLiveApi(): void {
+  if (isMock) {
+    throw new Error(
+      "Set NEXT_PUBLIC_MOCK=false and run the API to create or edit schools."
+    );
+  }
+}
+
+export async function createSchool(
+  body: SchoolMutationPayload
+): Promise<MockSchool> {
+  requireLiveApi();
+  const { data } = await API.post<MockSchool>("/schools", body);
+  return data;
+}
+
+export async function updateSchool(
+  id: string,
+  body: SchoolMutationPayload
+): Promise<MockSchool> {
+  requireLiveApi();
+  const { data } = await API.put<MockSchool>(`/schools/${id}`, body);
+  return data;
+}
+
+export async function deleteSchool(id: string): Promise<void> {
+  requireLiveApi();
+  await API.delete(`/schools/${id}`);
+}
+
+export async function bulkCreateSchools(
+  schools: SchoolMutationPayload[]
+): Promise<{
+  created: number;
+  schools: MockSchool[];
+  errors: { index: number; message: string }[];
+}> {
+  requireLiveApi();
+  const { data } = await API.post<{
+    created: number;
+    schools: MockSchool[];
+    errors: { index: number; message: string }[];
+  }>("/schools/bulk", { schools });
+  return data;
+}
+
+export async function uploadSchoolImage(file: File): Promise<{ url: string }> {
+  requireLiveApi();
+  const form = new FormData();
+  form.append("image", file);
+  const { data } = await API.post<{ url: string }>("/upload/image", form, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
   return data;
 }
 

@@ -66,6 +66,7 @@ export interface SchoolProfileSchool {
   fundingProgress?: { raised: number; goal: number };
   lastSprayDate: string | null;
   sprayReports: MockSprayReport[];
+  notes?: string;
 }
 
 export interface MapFeatureProperties {

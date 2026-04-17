@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { fetchMe, fetchMyDonations } from "@/lib/api";
-import { isLoggedIn } from "@/lib/auth";
+import { getUser, isLoggedIn } from "@/lib/auth";
 import { formatDate, formatCurrency } from "@/lib/formatters";
 import type { Donation, User } from "@/lib/types";
 
@@ -17,6 +17,12 @@ export default function PortalPage() {
   useEffect(() => {
     if (!isLoggedIn()) {
       router.push("/auth/login");
+      return;
+    }
+    const u = getUser();
+    if (u && u.role !== "donor") {
+      if (u.role === "field_worker") router.replace("/dashboard");
+      else router.replace("/admin");
       return;
     }
     Promise.all([fetchMe(), fetchMyDonations()])
