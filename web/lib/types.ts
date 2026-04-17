@@ -46,6 +46,28 @@ export interface MockSchool {
   sprayReports: MockSprayReport[];
 }
 
+/** API + seed shape for /schools/[id] (v2 fields optional for legacy mock). */
+export interface SchoolProfileSchool {
+  _id: string;
+  name: string;
+  district: string;
+  subCounty?: string;
+  location: { type: "Point"; coordinates: [number, number] };
+  lat?: number;
+  lng?: number;
+  totalRooms: number;
+  studentCount: number;
+  netsCount?: number;
+  hasMalariaClub?: boolean;
+  photos: string[];
+  sponsor: MockSponsor | null;
+  status: LegacyStatus | string;
+  sponsorshipStatus?: SponsorshipStatus | string;
+  fundingProgress?: { raised: number; goal: number };
+  lastSprayDate: string | null;
+  sprayReports: MockSprayReport[];
+}
+
 export interface MapFeatureProperties {
   _id: string;
   name: string;

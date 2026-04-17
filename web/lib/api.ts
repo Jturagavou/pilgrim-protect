@@ -14,6 +14,7 @@ import type {
   ImpactStats,
   MapFeatureCollection,
   MockSchool,
+  SchoolProfileSchool,
   TimelinePoint,
   User,
 } from "./types";
@@ -72,9 +73,11 @@ export async function fetchSchools(): Promise<MockSchool[]> {
   return data;
 }
 
-export async function fetchSchoolById(id: string): Promise<MockSchool | null> {
-  if (isMock) return getMockSchoolById(id);
-  const { data } = await API.get<MockSchool>(`/schools/${id}`);
+export async function fetchSchoolById(
+  id: string
+): Promise<SchoolProfileSchool | null> {
+  if (isMock) return getMockSchoolById(id) as SchoolProfileSchool | null;
+  const { data } = await API.get<SchoolProfileSchool>(`/schools/${id}`);
   return data;
 }
 

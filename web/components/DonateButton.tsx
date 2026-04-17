@@ -18,7 +18,7 @@ export default function DonateButton({
   size = "default",
 }: DonateButtonProps) {
   const base =
-    "inline-flex items-center justify-center font-semibold rounded-lg transition-colors bg-emerald-600 text-white hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2";
+    "inline-flex items-center justify-center font-semibold rounded-lg transition-colors bg-primary text-primary-foreground hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background";
 
   const sizes: Record<DonateButtonSize, string> = {
     sm: "text-xs px-3 py-1.5",
