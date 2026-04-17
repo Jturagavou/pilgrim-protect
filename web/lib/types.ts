@@ -5,6 +5,15 @@
 
 export type LegacyStatus = "active" | "pending" | "overdue";
 
+export type SponsorshipStatus =
+  | "needs-funding"
+  | "funded"
+  | "contracted"
+  | "checked-in"
+  | "data-gathered";
+
+export type MapGapState = "helped" | "struggling";
+
 export interface MockWorker {
   name: string;
 }
@@ -41,10 +50,19 @@ export interface MapFeatureProperties {
   _id: string;
   name: string;
   district: string;
+  subCounty?: string;
   studentCount: number;
   totalRooms: number;
-  status: LegacyStatus;
-  lastSprayDate: string;
+  /** Legacy spray lifecycle — kept for dashboard compat */
+  status: LegacyStatus | string;
+  /** v2 pipeline */
+  sponsorshipStatus?: SponsorshipStatus | string;
+  gapState?: MapGapState;
+  netsCount?: number;
+  hasMalariaClub?: boolean;
+  lat?: number;
+  lng?: number;
+  lastSprayDate: string | null;
   totalSprayReports: number;
   thumbnailUrl: string | null;
 }

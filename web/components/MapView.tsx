@@ -9,11 +9,12 @@ import Map, {
   type MarkerEvent,
 } from "react-map-gl/mapbox";
 import "mapbox-gl/dist/mapbox-gl.css";
+import { pinFill } from "@/lib/mapLabels";
 import type { LegacyStatus, MapFeature } from "@/lib/types";
 
 const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
 
-// Marker color by status
+// Marker color by legacy spray status (school profile / older data)
 function markerColor(status: LegacyStatus | string): string {
   switch (status) {
     case "active":
@@ -69,7 +70,7 @@ export default function MapView({
           zoom: initialZoom,
         }}
         mapboxAccessToken={MAPBOX_TOKEN}
-        mapStyle="mapbox://styles/mapbox/streets-v12"
+        mapStyle="mapbox://styles/mapbox/light-v11"
         style={{ width: "100%", height: "100%" }}
         interactive={interactive}
         attributionControl={!compact}
@@ -92,7 +93,11 @@ export default function MapView({
             >
               <div
                 className="w-4 h-4 rounded-full border-2 border-white shadow-lg cursor-pointer hover:scale-125 transition-transform"
-                style={{ backgroundColor: markerColor(p.status) }}
+                style={{
+                  backgroundColor: p.gapState
+                    ? pinFill(p)
+                    : markerColor(p.status as LegacyStatus),
+                }}
                 title={p.name}
               />
             </Marker>

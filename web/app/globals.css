@@ -21,6 +21,16 @@
   --pilgrim-orange: #fb6202;
   --pilgrim-olive: #617d0e;
 
+  /* === Map: donor gap view (WCAG-friendly green vs orange; deuteranopia-safe pair) === */
+  --map-state-helped: #3d6827;
+  --map-state-struggling: #c2410c;
+  --map-state-neutral: #64748b;
+  --map-phase-funded: #86a84f;
+  --map-phase-contracted: #617d0e;
+  --map-phase-checked-in: #4d6224;
+  --map-phase-data-gathered: #2f4a12;
+  --map-on-phase-badge: #ffffff;
+
   /* === Semantic tokens (shadcn contract) === */
   --background: var(--paper);
   --foreground: var(--ink);
@@ -118,6 +128,15 @@
   --color-pilgrim-blue: var(--pilgrim-blue);
   --color-pilgrim-orange: var(--pilgrim-orange);
   --color-pilgrim-olive: var(--pilgrim-olive);
+
+  --color-state-helped: var(--map-state-helped);
+  --color-state-struggling: var(--map-state-struggling);
+  --color-state-neutral: var(--map-state-neutral);
+  --color-phase-funded: var(--map-phase-funded);
+  --color-phase-contracted: var(--map-phase-contracted);
+  --color-phase-checked-in: var(--map-phase-checked-in);
+  --color-phase-data-gathered: var(--map-phase-data-gathered);
+  --color-on-phase-badge: var(--map-on-phase-badge);
 
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);

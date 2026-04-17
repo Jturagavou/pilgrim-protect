@@ -30,7 +30,9 @@ export interface CheckoutResponse {
 const isMock = process.env.NEXT_PUBLIC_MOCK === "true";
 
 const API: AxiosInstance = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api",
+  baseURL:
+    process.env.NEXT_PUBLIC_API_URL?.replace(/\/+$/, "") ||
+    "http://localhost:8080/api/v1",
 });
 
 // Attach auth token to every request
