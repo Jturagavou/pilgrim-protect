@@ -59,6 +59,7 @@ cp .env.local.example .env.local
 Edit `web/.env.local`:
 
 - **`NEXT_PUBLIC_MAPBOX_TOKEN`** — required for the map; from [Mapbox](https://account.mapbox.com/)
+- **`NEXT_PUBLIC_MAPBOX_STYLE`** (optional) — custom [Mapbox Studio](https://studio.mapbox.com/) style URL; defaults to `mapbox://styles/mapbox/light-v11` (see [`web/lib/mapStyle.ts`](./web/lib/mapStyle.ts))
 - **`NEXT_PUBLIC_MOCK=false`** — so the site uses the **real API** and database (recommended while we build)
 - **`NEXT_PUBLIC_API_URL=http://localhost:8080/api/v1`** — already correct if API is on 8080
 - **`NEXT_PUBLIC_EXTERNAL_GIVING_URL`** (optional) — main Pilgrim Africa giving page linked from `/donate` (v1 has no card checkout on this site)

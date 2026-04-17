@@ -11,8 +11,10 @@ import Map, {
 import "mapbox-gl/dist/mapbox-gl.css";
 import { pinFill } from "@/lib/mapLabels";
 import type { LegacyStatus, MapFeature } from "@/lib/types";
+import { getMapboxStyle } from "@/lib/mapStyle";
 
 const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
+const MAP_STYLE = getMapboxStyle();
 
 // Marker color by legacy spray status (school profile / older data)
 function markerColor(status: LegacyStatus | string): string {
@@ -70,7 +72,7 @@ export default function MapView({
           zoom: initialZoom,
         }}
         mapboxAccessToken={MAPBOX_TOKEN}
-        mapStyle="mapbox://styles/mapbox/light-v11"
+        mapStyle={MAP_STYLE}
         style={{ width: "100%", height: "100%" }}
         interactive={interactive}
         attributionControl={!compact}

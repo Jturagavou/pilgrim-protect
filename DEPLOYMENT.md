@@ -8,6 +8,8 @@ Deployment is triggered from the DO dashboard; all configuration lives in
 > **TL;DR** — push to `main` → DO detects `.do/app.yaml` → both services build
 > and deploy. First-time setup takes ~15 minutes.
 
+After deploy, run the checklist in **[`SMOKE_TESTS.md`](./SMOKE_TESTS.md)**. v1 pilot scope (no in-app Stripe) is summarized in **[`SPEC_STATUS.md`](./SPEC_STATUS.md)**.
+
 ## 1 · Prerequisites
 
 - A DigitalOcean account with billing enabled
@@ -17,7 +19,7 @@ Deployment is triggered from the DO dashboard; all configuration lives in
   - A MongoDB database — easiest: **DO Managed MongoDB** (~$15/mo for a dev
     cluster). You can also point at MongoDB Atlas.
   - A Cloudinary account (free tier is fine)
-  - A Stripe account (use test keys for the staging preview)
+  - Stripe — **optional for v1 pilot** (in-app checkout is disabled; keep keys only if you use Stripe elsewhere later)
   - A Mapbox account (public token)
   - A Brevo (ex-Sendinblue) account for transactional email
   - A Sentry project (one for `api`, one for `web`) — optional but highly

@@ -12,6 +12,8 @@ Mobile app for field workers to log malaria prevention spray reports at Ugandan 
 - **AsyncStorage** (offline queue)
 - **Axios** (API calls)
 
+**→ [MOBILE_MVP.md](./MOBILE_MVP.md)** — v1 field-worker scope vs deferred v1.5+ features.
+
 ## Setup
 
 ### Prerequisites

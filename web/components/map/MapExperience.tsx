@@ -17,9 +17,10 @@ import { pinFill } from "@/lib/mapLabels";
 import type { MapFeature } from "@/lib/types";
 import DistrictFilter from "./DistrictFilter";
 import SchoolPopup from "./SchoolPopup";
+import { getMapboxStyle } from "@/lib/mapStyle";
 
 const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
-const MAP_STYLE = "mapbox://styles/mapbox/light-v11";
+const MAP_STYLE = getMapboxStyle();
 
 interface MapExperienceProps {
   schools: MapFeature[];
