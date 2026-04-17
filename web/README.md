@@ -1,6 +1,8 @@
 # Pilgrim Protect — Donor Website
 
-The donor-facing website for Pilgrim Protect, a malaria prevention platform for Uganda. Built with Next.js 15, Tailwind CSS, shadcn/ui, Mapbox GL JS, and Chart.js.
+The donor-facing website for Pilgrim Protect, a malaria prevention platform for Uganda. Built with Next.js 16, Tailwind CSS, shadcn/ui, Mapbox GL JS, and Chart.js.
+
+**Full stack on your Mac (API + Mongo + env):** see **[../LOCAL-DEV.md](../LOCAL-DEV.md)** in the repo root.
 
 ## Quick Start
 
@@ -11,7 +13,7 @@ npm install
 # Copy environment file
 cp .env.local.example .env.local
 
-# Run in development mode (mock data enabled by default)
+# Run in development mode — set NEXT_PUBLIC_MOCK=true in .env.local for UI-only (no API)
 npm run dev
 ```
 

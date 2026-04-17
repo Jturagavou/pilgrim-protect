@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 # ────────────────────────────────────────────────
 # Pilgrim Protect — Dev Start Script
-# Starts all three services: API (5000), Web (3000), Mobile (Expo)
+# Starts API (default PORT from api/.env, usually 8080) + Web (3000).
+# Optional: --seed (seed DB first), --mobile (Expo).
+# See LOCAL-DEV.md
 # ────────────────────────────────────────────────
 set -e
 
@@ -23,10 +25,25 @@ command -v node >/dev/null 2>&1 || { echo "Node.js is required but not installed
 # ── Check MongoDB ──
 if ! nc -z localhost 27017 2>/dev/null; then
   echo -e "${YELLOW}⚠  MongoDB not detected on port 27017${NC}"
-  echo "   Make sure MongoDB is running (local or Atlas)."
-  echo "   Or set MONGO_URI in api/.env to your MongoDB Atlas connection string."
+  echo "   Start Mongo (brew), or: docker compose up mongo -d"
+  echo "   Or set MONGODB_URI in api/.env to Atlas."
   echo ""
 fi
+
+if [ ! -f "$ROOT_DIR/web/.env.local" ]; then
+  echo -e "${YELLOW}⚠  web/.env.local missing${NC}"
+  echo "   cp web/.env.local.example web/.env.local  (add Mapbox token for /map)"
+  echo ""
+fi
+
+RUN_SEED=false
+RUN_MOBILE=false
+for arg in "$@"; do
+  case "$arg" in
+    --seed) RUN_SEED=true ;;
+    --mobile) RUN_MOBILE=true ;;
+  esac
+done
 
 # ── Install dependencies (if needed) ──
 echo -e "${CYAN}Installing dependencies...${NC}"
@@ -36,7 +53,7 @@ echo -e "${CYAN}Installing dependencies...${NC}"
 wait
 
 # ── Seed database (optional) ──
-if [ "$1" = "--seed" ]; then
+if [ "$RUN_SEED" = true ]; then
   echo -e "${CYAN}Seeding database...${NC}"
   (cd "$ROOT_DIR/api" && npm run seed)
 fi
@@ -44,9 +61,9 @@ fi
 # ── Start services ──
 echo ""
 echo -e "${GREEN}Starting services...${NC}"
-echo -e "  API:    ${CYAN}http://localhost:5000${NC}"
+echo -e "  API:    ${CYAN}http://localhost:8080${NC}  (set PORT in api/.env if different)"
 echo -e "  Web:    ${CYAN}http://localhost:3000${NC}"
-echo -e "  Mobile: ${CYAN}Expo Dev Server${NC}"
+echo -e "  Health: ${CYAN}curl http://localhost:8080/health${NC}"
 echo ""
 
 # Start API
@@ -60,8 +77,8 @@ sleep 3
 (cd "$ROOT_DIR/web" && npm run dev) &
 WEB_PID=$!
 
-# Start Mobile (optional — only if --mobile flag is passed)
-if [ "$1" = "--mobile" ] || [ "$2" = "--mobile" ]; then
+# Start Mobile (optional)
+if [ "$RUN_MOBILE" = true ]; then
   (cd "$ROOT_DIR/mobile" && npx expo start) &
   MOBILE_PID=$!
 fi
