@@ -1,13 +1,13 @@
 import { Router, type RequestHandler } from "express";
-import School from "../../models/School";
+import School, { HELPED_STATUSES } from "../../models/School";
 import SprayReport from "../../models/SprayReport";
 import Donation from "../../models/Donation";
 
 const router = Router();
 
-// v1 "school is protected" definition — once the v2 sponsorshipStatus
-// migration lands, swap this for { sponsorshipStatus: { $in: PROTECTED_V2 } }.
-const PROTECTED_STATUSES = ["active", "completed"] as const;
+// v1 "school is protected" — now sourced from the v2 sponsorshipStatus enum.
+// Legacy `status` kept alongside in the map response for the old dashboard.
+const PROTECTED_LEGACY = ["active", "completed"] as const;
 const GOAL_STUDENTS = 100_000;
 
 interface TotalAgg {
@@ -29,10 +29,19 @@ interface TimelineAgg {
 // GET /api/v1/stats — homepage summary (schools + students + $ raised + 100k progress)
 const summary: RequestHandler = async (_req, res, next) => {
   try {
+    // Prefer sponsorshipStatus; fall back to legacy `status` for any
+    // unmigrated rows (pre-prompt-05 seed data).
+    const helpedMatch = {
+      $or: [
+        { sponsorshipStatus: { $in: HELPED_STATUSES } },
+        { status: { $in: PROTECTED_LEGACY } },
+      ],
+    };
+
     const [schoolsProtected, studentsAgg, donationsAgg] = await Promise.all([
-      School.countDocuments({ status: { $in: PROTECTED_STATUSES } }),
+      School.countDocuments(helpedMatch),
       School.aggregate<TotalAgg>([
-        { $match: { status: { $in: PROTECTED_STATUSES } } },
+        { $match: helpedMatch },
         { $group: { _id: null, total: { $sum: "$studentCount" } } },
       ]),
       Donation.aggregate<TotalAgg>([
@@ -73,7 +82,14 @@ const impact: RequestHandler = async (_req, res, next) => {
     const totalRoomsSprayed = roomsAgg.length > 0 ? roomsAgg[0].total : 0;
 
     const studentsAgg = await School.aggregate<TotalAgg>([
-      { $match: { status: { $in: PROTECTED_STATUSES } } },
+      {
+        $match: {
+          $or: [
+            { sponsorshipStatus: { $in: HELPED_STATUSES } },
+            { status: { $in: PROTECTED_LEGACY } },
+          ],
+        },
+      },
       { $group: { _id: null, total: { $sum: "$studentCount" } } },
     ]);
     const totalStudentsProtected =
@@ -104,24 +120,35 @@ const map: RequestHandler = async (_req, res, next) => {
       countMap[r._id.toString()] = r.count;
     });
 
-    const features = schools.map((school) => ({
-      type: "Feature",
-      geometry: {
-        type: "Point",
-        coordinates: school.location.coordinates,
-      },
-      properties: {
-        _id: school._id,
-        name: school.name,
-        district: school.district,
-        studentCount: school.studentCount,
-        totalRooms: school.totalRooms,
-        status: school.status,
-        lastSprayDate: school.lastSprayDate,
-        totalSprayReports: countMap[school._id.toString()] || 0,
-        thumbnailUrl: school.photos.length > 0 ? school.photos[0] : null,
-      },
-    }));
+    const features = schools.map((school) => {
+      const helped = HELPED_STATUSES.includes(school.sponsorshipStatus);
+      return {
+        type: "Feature",
+        geometry: {
+          type: "Point",
+          coordinates: school.location.coordinates,
+        },
+        properties: {
+          _id: school._id,
+          name: school.name,
+          district: school.district,
+          subCounty: school.subCounty,
+          studentCount: school.studentCount,
+          totalRooms: school.totalRooms,
+          netsCount: school.netsCount,
+          hasMalariaClub: school.hasMalariaClub,
+          sponsorshipStatus: school.sponsorshipStatus,
+          gapState: helped ? "helped" : "struggling",
+          // Legacy field — retained for the /dashboard page until prompt 07.
+          status: school.status,
+          lat: school.lat,
+          lng: school.lng,
+          lastSprayDate: school.lastSprayDate,
+          totalSprayReports: countMap[school._id.toString()] || 0,
+          thumbnailUrl: school.photos.length > 0 ? school.photos[0] : null,
+        },
+      };
+    });
 
     res.json({
       type: "FeatureCollection",

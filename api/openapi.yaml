@@ -668,6 +668,14 @@ components:
           type: array
           items: { $ref: "#/components/schemas/MapFeature" }
 
+    SponsorshipStatus:
+      type: string
+      enum: [needs-funding, funded, contracted, checked-in, data-gathered]
+
+    GapState:
+      type: string
+      enum: [helped, struggling]
+
     MapFeature:
       type: object
       required: [type, geometry, properties]
@@ -678,14 +686,22 @@ components:
         geometry: { $ref: "#/components/schemas/GeoPoint" }
         properties:
           type: object
-          required: [_id, name, district]
+          required: [_id, name, district, sponsorshipStatus, gapState, lat, lng]
           properties:
             _id: { type: string }
             name: { type: string }
             district: { type: string }
+            subCounty: { type: string }
             studentCount: { type: integer }
             totalRooms: { type: integer }
+            netsCount: { type: integer }
+            hasMalariaClub: { type: boolean }
+            sponsorshipStatus: { $ref: "#/components/schemas/SponsorshipStatus" }
+            gapState: { $ref: "#/components/schemas/GapState" }
+            # Legacy — see /dashboard page. Removed in prompt 07.
             status: { $ref: "#/components/schemas/SchoolStatus" }
+            lat: { type: number }
+            lng: { type: number }
             lastSprayDate:
               type: string
               format: date-time

@@ -8,6 +8,7 @@
     "dev": "tsx watch src/server.ts",
     "build": "tsc",
     "seed": "tsx src/seed/seed.ts",
+    "migrate:sponsorship": "tsx src/scripts/migrate-status-to-sponsorship.ts",
     "typecheck": "tsc --noEmit"
   },
   "keywords": [

@@ -842,6 +842,10 @@ export interface components {
             type: "FeatureCollection";
             features: components["schemas"]["MapFeature"][];
         };
+        /** @enum {string} */
+        SponsorshipStatus: "needs-funding" | "funded" | "contracted" | "checked-in" | "data-gathered";
+        /** @enum {string} */
+        GapState: "helped" | "struggling";
         MapFeature: {
             /** @enum {string} */
             type: "Feature";
@@ -850,9 +854,16 @@ export interface components {
                 _id: string;
                 name: string;
                 district: string;
+                subCounty?: string;
                 studentCount?: number;
                 totalRooms?: number;
+                netsCount?: number;
+                hasMalariaClub?: boolean;
+                sponsorshipStatus: components["schemas"]["SponsorshipStatus"];
+                gapState: components["schemas"]["GapState"];
                 status?: components["schemas"]["SchoolStatus"];
+                lat: number;
+                lng: number;
                 /** Format: date-time */
                 lastSprayDate?: string | null;
                 totalSprayReports?: number;
