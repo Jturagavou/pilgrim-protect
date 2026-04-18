@@ -30,8 +30,6 @@ services:
         type: SECRET
       - key: JWT_EXPIRE
         value: 30d
-      - key: STRIPE_SECRET_KEY
-        type: SECRET
       - key: CLOUDINARY_CLOUD_NAME
         type: SECRET
       - key: CLOUDINARY_API_KEY
@@ -61,17 +59,18 @@ services:
     envs:
       - key: NODE_ENV
         value: production
+      # NEXT_PUBLIC_* is inlined at `next build` — must be present at build + run (DO default is often runtime-only).
       - key: NEXT_PUBLIC_API_URL
         value: ${api.PUBLIC_URL}/api/v1
+        scope: RUN_AND_BUILD_TIME
       - key: NEXT_PUBLIC_API_VERSION
         value: v1
       - key: NEXT_PUBLIC_MAPBOX_TOKEN
         type: SECRET
+        scope: RUN_AND_BUILD_TIME
       - key: NEXTAUTH_URL
         value: https://pilgrimprotectstory.org
       - key: NEXTAUTH_SECRET
-        type: SECRET
-      - key: STRIPE_PUBLISHABLE_KEY
         type: SECRET
       - key: CLOUDINARY_CLOUD_NAME
         value: pilgrim-protect

@@ -9,11 +9,11 @@ import Map, {
   type MarkerEvent,
 } from "react-map-gl/mapbox";
 import "mapbox-gl/dist/mapbox-gl.css";
+import { usePublicMapboxToken } from "@/components/map/MapboxTokenProvider";
 import { pinFill } from "@/lib/mapLabels";
 import type { LegacyStatus, MapFeature } from "@/lib/types";
 import { getMapboxStyle } from "@/lib/mapStyle";
 
-const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
 const MAP_STYLE = getMapboxStyle();
 
 // Marker color by legacy spray status (school profile / older data)
@@ -38,6 +38,8 @@ interface MapViewProps {
   className?: string;
   interactive?: boolean;
   compact?: boolean;
+  /** Prefer passing from a Server Component; falls back to NEXT_PUBLIC_MAPBOX_TOKEN. */
+  mapboxAccessToken?: string;
 }
 
 export default function MapView({
@@ -48,7 +50,13 @@ export default function MapView({
   className = "",
   interactive = true,
   compact = false,
+  mapboxAccessToken: mapboxTokenProp,
 }: MapViewProps) {
+  const tokenFromLayout = usePublicMapboxToken();
+  const mapboxAccessToken =
+    mapboxTokenProp?.trim() ||
+    tokenFromLayout.trim() ||
+    (process.env.NEXT_PUBLIC_MAPBOX_TOKEN ?? "").trim();
   const mapRef = useRef<MapRef | null>(null);
   const [popupInfo, setPopupInfo] = useState<MapFeature | null>(null);
 
@@ -62,6 +70,25 @@ export default function MapView({
     [onSchoolClick]
   );
 
+  if (!mapboxAccessToken) {
+    return (
+      <div
+        className={`flex min-h-[200px] items-center justify-center rounded-xl border border-border bg-muted/30 p-6 text-center text-sm text-muted-foreground ${className}`}
+      >
+        Map preview unavailable — add{" "}
+        <code className="mx-1 rounded bg-muted px-1 py-0.5 font-mono text-xs">
+          NEXT_PUBLIC_MAPBOX_TOKEN
+        </code>{" "}
+        or{" "}
+        <code className="mx-1 rounded bg-muted px-1 py-0.5 font-mono text-xs">
+          MAPBOX_TOKEN
+        </code>{" "}
+        to <code className="mx-1 rounded bg-muted px-1 py-0.5 font-mono text-xs">web/.env.local</code>{" "}
+        and restart the dev server.
+      </div>
+    );
+  }
+
   return (
     <div className={`relative ${className}`}>
       <Map
@@ -71,7 +98,7 @@ export default function MapView({
           latitude: initialCenter[1],
           zoom: initialZoom,
         }}
-        mapboxAccessToken={MAPBOX_TOKEN}
+        mapboxAccessToken={mapboxAccessToken}
         mapStyle={MAP_STYLE}
         style={{ width: "100%", height: "100%" }}
         interactive={interactive}

@@ -1,20 +1,32 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { isLoggedIn, clearAuth, getUser } from "@/lib/auth";
+import { useState, useSyncExternalStore } from "react";
 import type { User } from "@/lib/types";
+import { clearAuth, getUser } from "@/lib/auth";
 import { useRouter } from "next/navigation";
+import BrandLogo from "@/components/BrandLogo";
+
+function subscribeToAuthChange(onStoreChange: () => void) {
+  if (typeof window === "undefined") {
+    return () => {};
+  }
+
+  const handler = () => onStoreChange();
+  window.addEventListener("storage", handler);
+  return () => window.removeEventListener("storage", handler);
+}
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [sessionUser, setSessionUser] = useState<User | null>(null);
+  const sessionUser = useSyncExternalStore(
+    subscribeToAuthChange,
+    () => getUser() as User | null,
+    () => null
+  );
   const router = useRouter();
-  const loggedIn = typeof window !== "undefined" ? isLoggedIn() : false;
 
-  useEffect(() => {
-    setSessionUser(getUser());
-  }, [loggedIn]);
+  const loggedIn = !!sessionUser;
 
   function handleLogout() {
     clearAuth();
@@ -31,17 +43,11 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="sticky top-0 z-50 border-b border-white/10 bg-ink-deep text-white backdrop-blur">
+    <nav className="sticky top-0 z-50 border-b border-white/10 bg-[#5b5957]/95 text-white backdrop-blur">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo — dark bar + orange accent (pilgrimafrica.org parity) */}
-          <Link href="/" className="flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-secondary">
-              <span className="text-sm font-bold text-secondary-foreground">PP</span>
-            </div>
-            <span className="text-lg font-bold text-white">
-              Pilgrim <span className="text-secondary">Protect</span>
-            </span>
+        <div className="flex items-center justify-between h-18">
+          <Link href="/" className="flex items-center gap-2" aria-label="Pilgrim Protect home">
+            <BrandLogo compact light />
           </Link>
 
           {/* Desktop links */}
@@ -50,7 +56,7 @@ export default function Navbar() {
               <Link
                 key={l.href}
                 href={l.href}
-                className="text-sm font-medium text-white/90 transition-colors hover:text-white"
+                className="text-sm font-semibold text-white/88 transition-colors hover:text-pilgrim-gold"
               >
                 {l.label}
               </Link>
@@ -61,7 +67,7 @@ export default function Navbar() {
                 sessionUser?.role === "super_admin" ? (
                   <Link
                     href="/admin"
-                    className="text-sm font-medium text-white/90 transition-colors hover:text-white"
+                    className="text-sm font-semibold text-white/88 transition-colors hover:text-pilgrim-gold"
                   >
                     Admin
                   </Link>
@@ -69,14 +75,14 @@ export default function Navbar() {
                 {sessionUser?.role === "donor" ? (
                   <Link
                     href="/portal"
-                    className="text-sm font-medium text-white/90 transition-colors hover:text-white"
+                    className="text-sm font-semibold text-white/88 transition-colors hover:text-pilgrim-gold"
                   >
                     My Portal
                   </Link>
                 ) : null}
                 <button
                   onClick={handleLogout}
-                  className="text-sm font-medium text-white/70 transition-colors hover:text-red-300"
+                  className="text-sm font-semibold text-white/72 transition-colors hover:text-orange-200"
                 >
                   Logout
                 </button>
@@ -84,7 +90,7 @@ export default function Navbar() {
             ) : (
               <Link
                 href="/auth/login"
-                className="text-sm font-medium text-white/90 transition-colors hover:text-white"
+                className="text-sm font-semibold text-white/88 transition-colors hover:text-pilgrim-gold"
               >
                 Sign In
               </Link>
@@ -94,7 +100,7 @@ export default function Navbar() {
           {/* Mobile hamburger */}
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className="md:hidden p-2 text-white/90 hover:text-white"
+            className="md:hidden p-2 text-white/90 hover:text-pilgrim-gold"
             aria-label="Toggle menu"
           >
             <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -110,13 +116,13 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {menuOpen && (
-        <div className="md:hidden border-t border-white/10 bg-ink-deep px-4 pb-4">
+        <div className="md:hidden border-t border-white/10 bg-[#5b5957] px-4 pb-4">
           {links.map((l) => (
             <Link
               key={l.href}
               href={l.href}
               onClick={() => setMenuOpen(false)}
-              className="block py-2 text-sm font-medium text-white/90 hover:text-white"
+              className="block py-2 text-sm font-semibold text-white/90 hover:text-pilgrim-gold"
             >
               {l.label}
             </Link>
@@ -128,7 +134,7 @@ export default function Navbar() {
                 <Link
                   href="/admin"
                   onClick={() => setMenuOpen(false)}
-                  className="block py-2 text-sm font-medium text-white/90 hover:text-white"
+                  className="block py-2 text-sm font-semibold text-white/90 hover:text-pilgrim-gold"
                 >
                   Admin
                 </Link>
@@ -137,17 +143,17 @@ export default function Navbar() {
                 <Link
                   href="/portal"
                   onClick={() => setMenuOpen(false)}
-                  className="block py-2 text-sm font-medium text-white/90 hover:text-white"
+                  className="block py-2 text-sm font-semibold text-white/90 hover:text-pilgrim-gold"
                 >
                   My Portal
                 </Link>
               ) : null}
-              <button onClick={handleLogout} className="block py-2 text-sm font-medium text-red-300 hover:text-red-200">
+              <button onClick={handleLogout} className="block py-2 text-sm font-semibold text-orange-200 hover:text-pilgrim-gold">
                 Logout
               </button>
             </>
           ) : (
-            <Link href="/auth/login" onClick={() => setMenuOpen(false)} className="block py-2 text-sm font-medium text-white/90 hover:text-white">
+            <Link href="/auth/login" onClick={() => setMenuOpen(false)} className="block py-2 text-sm font-semibold text-white/90 hover:text-pilgrim-gold">
               Sign In
             </Link>
           )}

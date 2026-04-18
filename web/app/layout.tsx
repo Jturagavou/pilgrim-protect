@@ -4,11 +4,16 @@ import { Montserrat, Roboto, Oswald, Inconsolata } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { MapboxTokenProvider } from "@/components/map/MapboxTokenProvider";
+import { getPublicMapboxToken } from "@/lib/mapboxToken";
+
+/** Ensures env (e.g. NEXT_PUBLIC_MAPBOX_TOKEN) is read per request — avoids a static layout cached with an empty token. */
+export const dynamic = "force-dynamic";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
-  weight: ["400", "600", "700", "800"],
-  variable: "--font-display",
+  weight: ["500", "600", "700", "800"],
+  variable: "--font-condensed",
 });
 
 const roboto = Roboto({
@@ -19,8 +24,8 @@ const roboto = Roboto({
 
 const oswald = Oswald({
   subsets: ["latin"],
-  weight: ["500", "600"],
-  variable: "--font-condensed",
+  weight: ["500", "600", "700"],
+  variable: "--font-display",
 });
 
 const inconsolata = Inconsolata({
@@ -36,15 +41,18 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
+  const mapboxToken = getPublicMapboxToken();
   return (
     <html
       lang="en"
       className={`${montserrat.variable} ${roboto.variable} ${oswald.variable} ${inconsolata.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-background text-foreground font-sans">
-        <Navbar />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        <MapboxTokenProvider token={mapboxToken}>
+          <Navbar />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </MapboxTokenProvider>
       </body>
     </html>
   );

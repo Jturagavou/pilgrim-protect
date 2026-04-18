@@ -10,6 +10,7 @@ import {
 } from "./mockData";
 import { getToken } from "./auth";
 import type {
+  AdminSprayReport,
   Donation,
   ImpactStats,
   MapFeatureCollection,
@@ -31,14 +32,31 @@ export function isMockMode(): boolean {
   return isMock;
 }
 
-const API: AxiosInstance = axios.create({
-  baseURL:
+/** Set after `/api/public/runtime-config` in production when build baked a wrong/empty NEXT_PUBLIC_API_URL. */
+let clientApiBaseOverride: string | null = null;
+
+export function setClientApiBaseUrl(url: string | null): void {
+  const t = url?.trim().replace(/\/+$/, "") ?? "";
+  clientApiBaseOverride = t || null;
+}
+
+function effectiveApiBaseUrl(): string {
+  if (typeof window !== "undefined" && clientApiBaseOverride) {
+    return clientApiBaseOverride;
+  }
+  return (
     process.env.NEXT_PUBLIC_API_URL?.replace(/\/+$/, "") ||
-    "http://localhost:8080/api/v1",
+    "http://localhost:8080/api/v1"
+  );
+}
+
+const API: AxiosInstance = axios.create({
+  baseURL: effectiveApiBaseUrl(),
 });
 
-// Attach auth token to every request
+// Attach auth token + correct API base (runtime override wins in the browser)
 API.interceptors.request.use((config) => {
+  config.baseURL = effectiveApiBaseUrl();
   if (typeof window !== "undefined") {
     const token = getToken();
     if (token) {
@@ -154,6 +172,9 @@ export interface SchoolMutationPayload {
   fundingProgress?: { raised: number; goal: number };
   notes?: string;
   status?: string;
+  source?: string;
+  sourceFile?: string;
+  importedAt?: string;
 }
 
 function requireLiveApi(): void {
@@ -209,6 +230,31 @@ export async function uploadSchoolImage(file: File): Promise<{ url: string }> {
   const { data } = await API.post<{ url: string }>("/upload/image", form, {
     headers: { "Content-Type": "multipart/form-data" },
   });
+  return data;
+}
+
+export async function fetchSprayReports(params?: {
+  school?: string;
+  worker?: string;
+  startDate?: string;
+  endDate?: string;
+}): Promise<AdminSprayReport[]> {
+  requireLiveApi();
+  const { data } = await API.get<AdminSprayReport[]>("/spray-reports", {
+    params,
+  });
+  return data;
+}
+
+export async function verifySprayReport(
+  id: string,
+  verified = true
+): Promise<AdminSprayReport> {
+  requireLiveApi();
+  const { data } = await API.patch<AdminSprayReport>(
+    `/spray-reports/${id}/verify`,
+    { verified }
+  );
   return data;
 }
 

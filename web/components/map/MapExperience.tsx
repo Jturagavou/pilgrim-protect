@@ -17,20 +17,43 @@ import { pinFill } from "@/lib/mapLabels";
 import type { MapFeature } from "@/lib/types";
 import DistrictFilter from "./DistrictFilter";
 import SchoolPopup from "./SchoolPopup";
+import { usePublicMapboxToken } from "@/components/map/MapboxTokenProvider";
 import { getMapboxStyle } from "@/lib/mapStyle";
 
-const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
 const MAP_STYLE = getMapboxStyle();
+
+function hasValidCoordinates(f: MapFeature): boolean {
+  const c = f.geometry?.coordinates;
+  return (
+    Array.isArray(c) &&
+    c.length >= 2 &&
+    Number.isFinite(c[0]) &&
+    Number.isFinite(c[1])
+  );
+}
 
 interface MapExperienceProps {
   schools: MapFeature[];
   districts: string[];
+  /** Set by the server `map` page from `NEXT_PUBLIC_MAPBOX_TOKEN` (reliable) or pass from env. */
+  mapboxToken: string;
 }
 
 export default function MapExperience({
-  schools,
+  schools: schoolsProp,
   districts,
+  mapboxToken,
 }: MapExperienceProps) {
+  const tokenFromLayout = usePublicMapboxToken();
+  // Reference NEXT_PUBLIC_* here directly — Next inlines it into the client bundle (helpers can stay empty).
+  const accessToken =
+    mapboxToken.trim() ||
+    tokenFromLayout.trim() ||
+    (process.env.NEXT_PUBLIC_MAPBOX_TOKEN ?? "").trim();
+  const schools = useMemo(
+    () => schoolsProp.filter(hasValidCoordinates),
+    [schoolsProp]
+  );
   const mapRef = useRef<MapRef | null>(null);
   const reduceMotion = useReducedMotion();
   const [activeDistrict, setActiveDistrict] = useState<string | null>(null);
@@ -88,6 +111,26 @@ export default function MapExperience({
     [flyTo]
   );
 
+  if (!accessToken) {
+    return (
+      <div className="flex min-h-[50vh] items-center justify-center bg-background p-8">
+        <p className="max-w-md text-center text-muted-foreground">
+          Add{" "}
+          <code className="rounded bg-muted px-1 py-0.5 font-mono text-sm">
+            NEXT_PUBLIC_MAPBOX_TOKEN
+          </code>{" "}
+          or{" "}
+          <code className="rounded bg-muted px-1 py-0.5 font-mono text-sm">
+            MAPBOX_TOKEN
+          </code>{" "}
+          to <code className="rounded bg-muted px-1 py-0.5 font-mono text-sm">web/.env.local</code>{" "}
+          (or <code className="rounded bg-muted px-1 py-0.5 font-mono text-sm">web/.env</code>), then
+          restart the dev server or rebuild for production.
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col lg:flex-row h-[calc(100vh-4rem)] min-h-0 bg-background">
       <aside className="flex flex-col shrink-0 border-b border-border lg:border-b-0 lg:border-r lg:border-border lg:w-96 max-h-[48vh] lg:max-h-none overflow-hidden bg-card">
@@ -132,6 +175,17 @@ export default function MapExperience({
             <span className="font-medium text-ink">{strugglingN}</span>
             {" still need funding"}
           </p>
+
+          <div className="rounded-xl border border-border bg-paper-soft p-3 text-sm text-muted-foreground">
+            {activeDistrict ? (
+              <>
+                <span className="font-medium text-ink">{activeDistrict}</span>
+                {" is currently in focus. Select a school to see where support, reporting, and field follow-through connect."}
+              </>
+            ) : (
+              "Select a district or a school to compare program progress across the map."
+            )}
+          </div>
         </div>
 
         <div className="flex-1 overflow-y-auto px-4 pb-4 space-y-2 min-h-0">
@@ -180,7 +234,7 @@ export default function MapExperience({
             latitude: 1.37,
             zoom: 6,
           }}
-          mapboxAccessToken={MAPBOX_TOKEN}
+          mapboxAccessToken={accessToken}
           mapStyle={MAP_STYLE}
           style={{ width: "100%", height: "100%" }}
           attributionControl
@@ -230,7 +284,7 @@ export default function MapExperience({
             })}
           </AnimatePresence>
 
-          {popupInfo && (
+          {popupInfo && hasValidCoordinates(popupInfo) && (
             <Popup
               longitude={popupInfo.geometry.coordinates[0]}
               latitude={popupInfo.geometry.coordinates[1]}
