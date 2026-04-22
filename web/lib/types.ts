@@ -14,6 +14,23 @@ export type SponsorshipStatus =
 
 export type MapGapState = "helped" | "struggling";
 
+export type SchoolDataSource =
+  | "seed"
+  | "manual"
+  | "manual-csv"
+  | "master-csv"
+  | "unknown";
+
+export type SchoolCompleteness = "ready" | "needs-enrichment" | "manual-review";
+
+export interface SchoolDataQuality {
+  source: SchoolDataSource;
+  imported: boolean;
+  completeness: SchoolCompleteness;
+  missingFields: string[];
+  summary: string;
+}
+
 export interface MockWorker {
   name: string;
 }
@@ -32,6 +49,18 @@ export interface MockSprayReport {
   verified: boolean;
 }
 
+export interface AdminSprayReport {
+  _id: string;
+  date: string;
+  roomsSprayed: number;
+  photos: string[];
+  notes: string;
+  verified: boolean;
+  gpsCoords?: { lat?: number; lng?: number };
+  school?: { _id?: string; name: string; district?: string };
+  worker?: { _id?: string; name: string };
+}
+
 export interface MockSchool {
   _id: string;
   name: string;
@@ -44,6 +73,7 @@ export interface MockSchool {
   status: LegacyStatus;
   lastSprayDate: string;
   sprayReports: MockSprayReport[];
+  dataQuality?: SchoolDataQuality;
 }
 
 /** API + seed shape for /schools/[id] (v2 fields optional for legacy mock). */
@@ -67,6 +97,10 @@ export interface SchoolProfileSchool {
   lastSprayDate: string | null;
   sprayReports: MockSprayReport[];
   notes?: string;
+  source?: SchoolDataSource;
+  sourceFile?: string;
+  importedAt?: string | null;
+  dataQuality?: SchoolDataQuality;
 }
 
 export interface MapFeatureProperties {
