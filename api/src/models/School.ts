@@ -13,6 +13,13 @@ export type SponsorshipStatus =
   | "checked-in"
   | "data-gathered";
 
+export type SchoolSource =
+  | "seed"
+  | "manual"
+  | "manual-csv"
+  | "master-csv"
+  | "unknown";
+
 export const SPONSORSHIP_STATUSES = [
   "needs-funding",
   "funded",
@@ -59,6 +66,9 @@ export interface ISchool extends Document {
   status: SchoolStatus;
   lastSprayDate: Date | null;
   notes?: string;
+  source?: SchoolSource;
+  sourceFile?: string;
+  importedAt?: Date | null;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -130,6 +140,14 @@ const schoolSchema = new Schema<ISchool>(
     },
     lastSprayDate: { type: Date, default: null },
     notes: { type: String },
+    source: {
+      type: String,
+      enum: ["seed", "manual", "manual-csv", "master-csv", "unknown"],
+      default: "unknown",
+      index: true,
+    },
+    sourceFile: { type: String, trim: true },
+    importedAt: { type: Date, default: null },
   },
   { timestamps: true }
 );
