@@ -82,3 +82,24 @@ services:
         value: pilgrim-protect
       - key: NEXT_PUBLIC_SENTRY_DSN
         type: SECRET
+
+ingress:
+  rules:
+    # This Next.js route must hit the web service before the broader /api backend route.
+    - component:
+        name: web
+        preserve_path_prefix: true
+      match:
+        path:
+          prefix: /api/public/runtime-config
+    - component:
+        name: api
+        preserve_path_prefix: true
+      match:
+        path:
+          prefix: /api
+    - component:
+        name: web
+      match:
+        path:
+          prefix: /
