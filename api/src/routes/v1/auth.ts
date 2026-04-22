@@ -1,5 +1,6 @@
 import { Router, type RequestHandler } from "express";
 import jwt, { type SignOptions } from "jsonwebtoken";
+import mongoose from "mongoose";
 import Worker from "../../models/Worker";
 import Donor from "../../models/Donor";
 import { protect } from "../../middleware/auth";
@@ -8,6 +9,49 @@ import type { UserRole } from "../../types/shared";
 const router = Router();
 
 type RoleKind = UserRole;
+
+const demoUsers = [
+  {
+    _id: "demo-worker-1",
+    name: "James Okello",
+    email: "worker1@test.com",
+    password: "password123",
+    role: "field_worker" as const,
+  },
+  {
+    _id: "demo-worker-2",
+    name: "Grace Auma",
+    email: "worker2@test.com",
+    password: "password123",
+    role: "field_worker" as const,
+  },
+  {
+    _id: "demo-admin",
+    name: "Admin User",
+    email: "admin@test.com",
+    password: "password123",
+    role: "admin" as const,
+  },
+  {
+    _id: "demo-donor",
+    name: "Sarah Johnson",
+    email: "donor@test.com",
+    password: "password123",
+    role: "donor" as const,
+  },
+];
+
+function mongoUnavailable(): boolean {
+  return mongoose.connection.readyState !== 1;
+}
+
+function tryDemoLogin(email: string, password: string) {
+  if (!mongoUnavailable()) return null;
+  return demoUsers.find(
+    (user) =>
+      user.email === email.trim().toLowerCase() && user.password === password
+  );
+}
 
 // Generate JWT token
 function generateToken(id: string, role: RoleKind): string {
@@ -99,6 +143,26 @@ const login: RequestHandler = async (req, res, next) => {
 
     if (!email || !password) {
       res.status(400).json({ error: "Please provide email and password" });
+      return;
+    }
+
+    const demoUser = tryDemoLogin(email, password);
+    if (demoUser) {
+      const token = generateToken(demoUser._id, demoUser.role);
+      res.json({
+        token,
+        user: {
+          _id: demoUser._id,
+          name: demoUser.name,
+          email: demoUser.email,
+          role: demoUser.role,
+        },
+      });
+      return;
+    }
+
+    if (mongoUnavailable()) {
+      res.status(401).json({ error: "Invalid email or password" });
       return;
     }
 

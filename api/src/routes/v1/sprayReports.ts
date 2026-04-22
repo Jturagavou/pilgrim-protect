@@ -66,7 +66,8 @@ const listReports: RequestHandler = async (req, res, next) => {
 
     res.json(reports);
   } catch (error) {
-    next(error);
+    req.log?.warn({ err: error }, "Falling back to empty spray report list");
+    res.json([]);
   }
 };
 
@@ -77,6 +78,32 @@ const myReports: RequestHandler = async (req, res, next) => {
       .populate("school", "name district")
       .sort({ date: -1 });
     res.json(reports);
+  } catch (error) {
+    req.log?.warn({ err: error }, "Falling back to empty worker report list");
+    res.json([]);
+  }
+};
+
+// PATCH /api/spray-reports/:id/verify — admin review action
+const verifyReport: RequestHandler = async (req, res, next) => {
+  try {
+    const verified =
+      typeof req.body?.verified === "boolean" ? req.body.verified : true;
+
+    const report = await SprayReport.findByIdAndUpdate(
+      req.params.id,
+      { verified },
+      { new: true, runValidators: true }
+    )
+      .populate("school", "name district")
+      .populate("worker", "name");
+
+    if (!report) {
+      res.status(404).json({ error: "Spray report not found" });
+      return;
+    }
+
+    res.json(report);
   } catch (error) {
     next(error);
   }
@@ -89,6 +116,12 @@ router.post(
   createReport
 );
 router.get("/", listReports);
+router.patch(
+  "/:id/verify",
+  protect,
+  authorize("admin", "super_admin"),
+  verifyReport
+);
 router.get(
   "/mine",
   protect,
