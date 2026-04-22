@@ -5,26 +5,28 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* === Pilgrim neutrals (cream papers + inks) === */
-  --paper: #f3f0df;
-  --paper-alt: #f4f2e8;
-  --paper-soft: #faf8eb;
-  --paper-depth: #f0eee4;
-  --ink: #101828;
-  --ink-deep: #1a1b1f;
-  --muted-1: #333333;
-  --muted-2: #758696;
-  --muted-3: #5d6c7b;
+  /* === Pilgrim neutrals (warmer parent-site creams + charcoals) === */
+  --paper: #f3efdf;
+  --paper-alt: #efe7d5;
+  --paper-soft: #f8f3e7;
+  --paper-depth: #e6dcc6;
+  --ink: #2d2d2d;
+  --ink-deep: #242424;
+  --muted-1: #3a3734;
+  --muted-2: #6f675a;
+  --muted-3: #8f8574;
 
   /* === Pilgrim accents === */
-  --pilgrim-blue: #0050bd;
-  --pilgrim-orange: #fb6202;
-  --pilgrim-olive: #617d0e;
+  --pilgrim-orange: #ff6d23;
+  --pilgrim-orange-deep: #eb5a12;
+  --pilgrim-gold: #f0cf57;
+  --pilgrim-olive: #7f8f39;
+  --pilgrim-clay: #b88650;
 
   /* === Map: donor gap view (WCAG-friendly green vs orange; deuteranopia-safe pair) === */
   --map-state-helped: #3d6827;
   --map-state-struggling: #c2410c;
-  --map-state-neutral: #64748b;
+  --map-state-neutral: #8f8574;
   --map-phase-funded: #86a84f;
   --map-phase-contracted: #617d0e;
   --map-phase-checked-in: #4d6224;
@@ -35,15 +37,15 @@
   --background: var(--paper);
   --foreground: var(--ink);
 
-  --card: #ffffff;
+  --card: rgba(255, 251, 244, 0.88);
   --card-foreground: var(--ink);
-  --popover: #ffffff;
+  --popover: #fffaf1;
   --popover-foreground: var(--ink);
 
-  --primary: var(--pilgrim-blue);
+  --primary: var(--pilgrim-orange);
   --primary-foreground: #ffffff;
 
-  --secondary: var(--pilgrim-orange);
+  --secondary: var(--ink-deep);
   --secondary-foreground: #ffffff;
 
   --accent: var(--pilgrim-olive);
@@ -55,28 +57,28 @@
   --destructive: #dc2626;
   --destructive-foreground: #ffffff;
 
-  --border: #dddddd;
-  --input: #dddddd;
-  --ring: var(--pilgrim-blue);
+  --border: #c7baa3;
+  --input: #c7baa3;
+  --ring: var(--pilgrim-orange);
 
   --radius: 0.5rem;
 
   /* === Chart colors (harmonize with Pilgrim palette) === */
-  --chart-1: var(--pilgrim-blue);
+  --chart-1: var(--pilgrim-orange);
   --chart-2: var(--pilgrim-orange);
   --chart-3: var(--pilgrim-olive);
-  --chart-4: #758696; /* muted blue-grey */
-  --chart-5: #6941c6; /* purple accent */
+  --chart-4: var(--pilgrim-clay);
+  --chart-5: #6d7e34;
 
   /* === Sidebar tokens (base-nova needs these) === */
   --sidebar: var(--paper-alt);
   --sidebar-foreground: var(--ink);
-  --sidebar-primary: var(--pilgrim-blue);
+  --sidebar-primary: var(--pilgrim-orange);
   --sidebar-primary-foreground: #ffffff;
   --sidebar-accent: var(--paper-depth);
   --sidebar-accent-foreground: var(--ink);
-  --sidebar-border: #dddddd;
-  --sidebar-ring: var(--pilgrim-blue);
+  --sidebar-border: #c7baa3;
+  --sidebar-ring: var(--pilgrim-orange);
 }
 
 .dark {
@@ -84,36 +86,36 @@
    * minimal for now; we'll tune if/when a dark theme is surfaced in the UI. */
   --background: var(--ink-deep);
   --foreground: #f5f2e3;
-  --card: #15171c;
+  --card: #2a2725;
   --card-foreground: #f5f2e3;
-  --popover: #15171c;
+  --popover: #2a2725;
   --popover-foreground: #f5f2e3;
-  --primary: #3c82f6;
-  --primary-foreground: #0b1220;
-  --secondary: #fb6202;
+  --primary: var(--pilgrim-orange);
+  --primary-foreground: #ffffff;
+  --secondary: #3a3734;
   --secondary-foreground: #ffffff;
-  --accent: #a9c64c;
-  --accent-foreground: #0b1220;
-  --muted: #1b1d23;
-  --muted-foreground: #9aa4b2;
-  --destructive: #f87171;
-  --destructive-foreground: #0b1220;
-  --border: #2a2d35;
-  --input: #2a2d35;
-  --ring: #3c82f6;
-  --chart-1: #3c82f6;
-  --chart-2: #fb6202;
-  --chart-3: #a9c64c;
-  --chart-4: #9aa4b2;
-  --chart-5: #a78bfa;
-  --sidebar: #15171c;
+  --accent: #8fa34a;
+  --accent-foreground: #181614;
+  --muted: #332f2c;
+  --muted-foreground: #d4c7b1;
+  --destructive: #ef7e62;
+  --destructive-foreground: #1f1a18;
+  --border: #4b4540;
+  --input: #4b4540;
+  --ring: var(--pilgrim-orange);
+  --chart-1: var(--pilgrim-orange);
+  --chart-2: var(--pilgrim-gold);
+  --chart-3: #8fa34a;
+  --chart-4: var(--pilgrim-clay);
+  --chart-5: #d8c2a0;
+  --sidebar: #221f1d;
   --sidebar-foreground: #f5f2e3;
-  --sidebar-primary: #3c82f6;
-  --sidebar-primary-foreground: #0b1220;
-  --sidebar-accent: #1b1d23;
+  --sidebar-primary: var(--pilgrim-orange);
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #332f2c;
   --sidebar-accent-foreground: #f5f2e3;
-  --sidebar-border: #2a2d35;
-  --sidebar-ring: #3c82f6;
+  --sidebar-border: #4b4540;
+  --sidebar-ring: var(--pilgrim-orange);
 }
 
 @theme inline {
@@ -125,9 +127,11 @@
   --color-paper-depth: var(--paper-depth);
   --color-ink: var(--ink);
   --color-ink-deep: var(--ink-deep);
-  --color-pilgrim-blue: var(--pilgrim-blue);
   --color-pilgrim-orange: var(--pilgrim-orange);
+  --color-pilgrim-orange-deep: var(--pilgrim-orange-deep);
+  --color-pilgrim-gold: var(--pilgrim-gold);
   --color-pilgrim-olive: var(--pilgrim-olive);
+  --color-pilgrim-clay: var(--pilgrim-clay);
 
   --color-state-helped: var(--map-state-helped);
   --color-state-struggling: var(--map-state-struggling);
@@ -196,15 +200,18 @@
     @apply bg-background text-foreground;
     font-family: var(--font-sans);
     line-height: 1.6;
+    background-image:
+      radial-gradient(circle at top right, rgba(255,109,35,0.09), transparent 24%),
+      linear-gradient(180deg, rgba(255,255,255,0.24), rgba(255,255,255,0));
   }
   h1, h2, h3 {
     font-family: var(--font-display);
-    letter-spacing: -0.01em;
-    line-height: 1.12;
+    letter-spacing: -0.03em;
+    line-height: 0.98;
   }
   h4, h5, h6 {
     font-family: var(--font-condensed);
-    font-weight: 500;
-    letter-spacing: 0.02em;
+    font-weight: 700;
+    letter-spacing: 0.04em;
   }
 }

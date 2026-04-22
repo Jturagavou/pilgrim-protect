@@ -43,8 +43,8 @@ export function StatTriad({
       label: "Schools protected",
       value: schoolsProtected,
       Icon: School,
-      accentClassName: "bg-pilgrim-blue/10 ring-pilgrim-blue/25",
-      iconTintClassName: "text-pilgrim-blue",
+      accentClassName: "bg-pilgrim-gold/15 ring-pilgrim-gold/35",
+      iconTintClassName: "text-pilgrim-orange-deep",
       format: integer,
     },
     {

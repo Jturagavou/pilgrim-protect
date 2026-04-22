@@ -40,7 +40,7 @@ export function HowItWorks() {
     <section className="bg-paper py-16 md:py-20">
       <div className="mx-auto max-w-6xl px-6">
         <div className="mx-auto max-w-2xl">
-          <p className="font-condensed text-xs uppercase tracking-widest text-pilgrim-blue">
+          <p className="font-condensed text-xs uppercase tracking-[0.22em] text-pilgrim-orange">
             How it works
           </p>
           <h2 className="mt-2 font-display text-3xl font-bold tracking-tight text-ink md:text-4xl">
@@ -62,7 +62,7 @@ export function HowItWorks() {
                   {p.step}
                 </span>
                 <p.Icon
-                  className="size-5 text-pilgrim-blue"
+                  className="size-5 text-pilgrim-orange"
                   strokeWidth={1.75}
                   aria-hidden
                 />

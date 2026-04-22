@@ -23,7 +23,7 @@ Open [http://localhost:3000](http://localhost:3000) to view the site.
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `NEXT_PUBLIC_API_URL` | Backend API base URL | `http://localhost:5000/api` |
+| `NEXT_PUBLIC_API_URL` | Backend API base URL | `http://localhost:8080/api/v1` |
 | `NEXT_PUBLIC_MAPBOX_TOKEN` | Mapbox GL access token | (required for map) |
 | `NEXT_PUBLIC_MOCK` | Enable mock data mode | `true` |
 
@@ -31,7 +31,7 @@ Open [http://localhost:3000](http://localhost:3000) to view the site.
 
 When `NEXT_PUBLIC_MOCK=true`, the site uses hardcoded mock data (10 Uganda schools) instead of calling the backend API. This allows the frontend to work standalone during development.
 
-To connect to the real backend, set `NEXT_PUBLIC_MOCK=false` and ensure the backend is running on port 5000.
+To connect to the real backend, set `NEXT_PUBLIC_MOCK=false` and ensure the backend is running on port 8080.
 
 ## Pages
 
@@ -39,7 +39,7 @@ To connect to the real backend, set `NEXT_PUBLIC_MOCK=false` and ensure the back
 - `/map` — Full interactive Mapbox map with sidebar school list and filters
 - `/schools/[id]` — Individual school profile with photos, spray timeline, mini map
 - `/dashboard` — Impact statistics with Chart.js line and bar charts
-- `/donate` — Donation page with school selection, amount picker, Stripe checkout
+- `/donate` — Donation page with school selection, impact guidance, and external giving CTA
 - `/donate/success` — Post-donation thank you page
 - `/stories` — Field worker stories (hardcoded for prototype)
 - `/about` — Mission, how spraying works, the team
@@ -54,7 +54,7 @@ To connect to the real backend, set `NEXT_PUBLIC_MOCK=false` and ensure the back
 - **Map:** Mapbox GL JS via react-map-gl
 - **Charts:** Chart.js via react-chartjs-2
 - **HTTP:** Axios
-- **Backend:** Connects to Express API on port 5000
+- **Backend:** Connects to Express API on port 8080
 
 ## Project Structure
 
@@ -93,11 +93,19 @@ web/
 
 ## Deployment
 
-Deploy to Vercel:
+This app is deployed with the repo root DigitalOcean App Platform spec in
+[`../.do/app.yaml`](../.do/app.yaml), not Vercel.
 
-```bash
-npm run build
-# Or connect your GitHub repo to Vercel for automatic deployments
-```
+Typical production rules:
 
-Set environment variables in Vercel dashboard, changing `NEXT_PUBLIC_MOCK` to `false` and pointing `NEXT_PUBLIC_API_URL` to your production backend.
+- `NEXT_PUBLIC_MOCK=false`
+- `NEXT_PUBLIC_API_URL` must end with `/api/v1`
+- `NEXT_PUBLIC_API_URL` must be available at build time and runtime
+- `NEXT_PUBLIC_MAPBOX_TOKEN` must be available at build time and runtime
+
+The app also exposes `GET /api/public/runtime-config` so the browser can
+recover the live API base URL and Mapbox token if a deploy baked incorrect
+`NEXT_PUBLIC_*` values into the bundle.
+
+See [../DEPLOYMENT.md](../DEPLOYMENT.md) and [../SMOKE_TESTS.md](../SMOKE_TESTS.md)
+for the full deploy and verification flow.

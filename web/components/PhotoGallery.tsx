@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 
 interface PhotoGalleryProps {
@@ -26,10 +27,12 @@ export default function PhotoGallery({ photos = [] }: PhotoGalleryProps) {
             onClick={() => setSelected(url)}
             className="relative aspect-[4/3] rounded-lg overflow-hidden bg-muted hover:opacity-90 transition-opacity"
           >
-            <img
+            <Image
               src={url}
               alt={`Photo ${i + 1}`}
-              className="object-cover w-full h-full"
+              fill
+              sizes="(max-width: 640px) 50vw, 33vw"
+              className="object-cover"
             />
           </button>
         ))}
@@ -41,10 +44,13 @@ export default function PhotoGallery({ photos = [] }: PhotoGalleryProps) {
           className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4"
           onClick={() => setSelected(null)}
         >
-          <img
+          <Image
             src={selected}
             alt="Full size"
-            className="max-w-full max-h-[90vh] rounded-lg shadow-2xl"
+            width={1600}
+            height={1200}
+            sizes="100vw"
+            className="max-w-full max-h-[90vh] h-auto w-auto rounded-lg shadow-2xl"
           />
           <button
             onClick={() => setSelected(null)}

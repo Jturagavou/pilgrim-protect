@@ -14,7 +14,7 @@ const nextConfig = {
       },
     ],
   },
-  transpilePackages: ["react-map-gl"],
+  transpilePackages: ["react-map-gl", "mapbox-gl", "@vis.gl/react-mapbox"],
 };
 
 // Only wrap with Sentry's build plugin when a DSN is available. Without it,

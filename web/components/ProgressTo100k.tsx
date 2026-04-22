@@ -56,7 +56,7 @@ export function ProgressTo100k({ current, goal }: Props) {
         aria-valuenow={current}
       >
         <motion.div
-          className="h-full rounded-full bg-pilgrim-blue"
+          className="h-full rounded-full bg-gradient-to-r from-pilgrim-orange via-pilgrim-gold to-pilgrim-olive"
           style={{ transformOrigin: "0% 50%" }}
           initial={{ scaleX: 0 }}
           animate={{ scaleX: pct }}

@@ -46,32 +46,37 @@ export default function PortalPage() {
   const uniqueSchools = new Set(donations.map((d) => d.school?._id).filter(Boolean));
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-ink">
+    <div className="max-w-5xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
+      <section className="mb-8 rounded-[2rem] border border-border bg-gradient-to-br from-paper-soft via-paper to-paper-depth px-6 py-8 shadow-[0_18px_45px_rgba(45,45,45,0.06)]">
+        <div className="max-w-3xl">
+          <div className="mb-3 inline-flex items-center rounded-full border border-border bg-card px-3 py-1 text-xs font-semibold uppercase tracking-[0.22em] text-pilgrim-orange">
+            Donor Portal
+          </div>
+          <h1 className="text-4xl text-ink sm:text-5xl">
           Welcome back, {user?.name || "Donor"}
-        </h1>
-        <p className="text-muted-foreground mt-1">
-          Track your donations and see the impact you're making
-        </p>
-      </div>
+          </h1>
+          <p className="mt-3 text-base leading-7 text-muted-foreground">
+            Track your giving, see how many schools you&apos;ve helped support,
+            and keep a clean record of the impact you&apos;re making.
+          </p>
+        </div>
+      </section>
 
       {/* Stats */}
-      <div className="grid grid-cols-3 gap-4 mb-8">
-        <div className="bg-primary/10 border border-border rounded-xl p-5 text-center">
+      <div className="grid grid-cols-1 gap-4 mb-8 md:grid-cols-3">
+        <div className="rounded-[1.5rem] border border-border bg-card/85 p-5 text-center shadow-sm">
           <div className="text-2xl font-bold text-primary">
             {formatCurrency(totalDonated)}
           </div>
           <div className="text-xs text-muted-foreground mt-1">Total Donated</div>
         </div>
-        <div className="bg-primary/10 border border-border rounded-xl p-5 text-center">
+        <div className="rounded-[1.5rem] border border-border bg-card/85 p-5 text-center shadow-sm">
           <div className="text-2xl font-bold text-primary">
             {donations.length}
           </div>
           <div className="text-xs text-muted-foreground mt-1">Donations Made</div>
         </div>
-        <div className="bg-primary/10 border border-border rounded-xl p-5 text-center">
+        <div className="rounded-[1.5rem] border border-border bg-card/85 p-5 text-center shadow-sm">
           <div className="text-2xl font-bold text-primary">
             {uniqueSchools.size}
           </div>
@@ -83,8 +88,8 @@ export default function PortalPage() {
       <div>
         <h2 className="text-lg font-semibold text-ink mb-4">Donation History</h2>
         {donations.length === 0 ? (
-          <div className="bg-muted rounded-xl p-8 text-center">
-            <p className="text-muted-foreground">You haven't made any donations yet.</p>
+          <div className="rounded-[1.6rem] border border-border bg-card/80 p-8 text-center shadow-sm">
+            <p className="text-muted-foreground">You haven&apos;t made any donations yet.</p>
             <Link
               href="/donate"
               className="inline-flex mt-4 px-5 py-2 bg-secondary text-secondary-foreground font-medium rounded-lg hover:bg-secondary/90 transition-colors"
@@ -93,7 +98,7 @@ export default function PortalPage() {
             </Link>
           </div>
         ) : (
-          <div className="border border-border rounded-xl overflow-hidden">
+          <div className="overflow-hidden rounded-[1.6rem] border border-border bg-card/80 shadow-sm">
             <table className="w-full text-sm">
               <thead className="bg-muted text-muted-foreground">
                 <tr>

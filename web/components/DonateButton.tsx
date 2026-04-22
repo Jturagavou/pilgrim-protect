@@ -13,12 +13,12 @@ interface DonateButtonProps {
 
 export default function DonateButton({
   schoolId,
-  label = "Sponsor This School",
+  label = "Support This School",
   className = "",
   size = "default",
 }: DonateButtonProps) {
   const base =
-    "inline-flex items-center justify-center font-semibold rounded-lg transition-colors bg-secondary text-secondary-foreground hover:bg-secondary/90 focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2 focus:ring-offset-background";
+    "inline-flex items-center justify-center font-semibold rounded-lg transition-colors bg-primary text-primary-foreground hover:bg-pilgrim-orange-deep focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background shadow-[0_12px_28px_rgba(255,109,35,0.22)]";
 
   const sizes: Record<DonateButtonSize, string> = {
     sm: "text-xs px-3 py-1.5",

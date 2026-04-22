@@ -11,12 +11,30 @@ export interface SchoolBulkRow {
   netsCount: number;
   hasMalariaClub: boolean;
   sponsorshipStatus?: string;
+  source?: "manual-csv" | "master-csv";
+  sourceFile?: string;
 }
 
 const BOOL_TRUE = new Set(["true", "1", "yes", "y"]);
 
 function splitLine(line: string): string[] {
   return line.split(",").map((c) => c.trim());
+}
+
+function normalizeHeader(value: string): string {
+  return value.toLowerCase().replace(/[^a-z0-9]/g, "");
+}
+
+function firstPresent(
+  header: string[],
+  cols: string[],
+  names: string[]
+): string {
+  for (const name of names) {
+    const index = header.indexOf(name);
+    if (index >= 0) return cols[index] ?? "";
+  }
+  return "";
 }
 
 export function parseSchoolCsv(text: string): SchoolBulkRow[] {
@@ -27,37 +45,43 @@ export function parseSchoolCsv(text: string): SchoolBulkRow[] {
     .filter(Boolean);
   if (lines.length < 2) return [];
 
-  const header = splitLine(lines[0]).map((h) => h.toLowerCase().replace(/\s/g, ""));
-  const idx = (name: string) => header.indexOf(name);
+  const header = splitLine(lines[0]).map(normalizeHeader);
+  const hasLat =
+    header.includes("lat") || header.includes("latitude");
+  const hasLng =
+    header.includes("lng") ||
+    header.includes("longitude") ||
+    header.includes("long");
+  const hasName =
+    header.includes("name") || header.includes("institutionname");
+  const hasDistrict =
+    header.includes("district") || header.includes("cityregion");
+  const isMasterCsv =
+    header.includes("institutionname") && header.includes("cityregion");
 
-  const need = ["name", "district", "lng", "lat"] as const;
-  for (const k of need) {
-    if (idx(k) < 0) {
-      throw new Error(
-        `CSV header must include: ${need.join(", ")}. Found: ${header.join(", ")}`
-      );
-    }
+  if (!hasName || !hasDistrict || !hasLng || !hasLat) {
+    throw new Error(
+      `CSV header must include name/institution name, district/city-region, and lat/lng or latitude/longitude. Found: ${header.join(", ")}`
+    );
   }
 
   const out: SchoolBulkRow[] = [];
   for (let r = 1; r < lines.length; r += 1) {
     const cols = splitLine(lines[r]);
-    const get = (h: string) => {
-      const i = idx(h);
-      return i >= 0 ? cols[i] : "";
-    };
-    const name = get("name");
-    const district = get("district");
-    const lng = Number(get("lng"));
-    const lat = Number(get("lat"));
+    const get = (...names: string[]) => firstPresent(header, cols, names);
+
+    const name = get("name", "institutionname");
+    const district = get("district", "cityregion");
+    const lng = Number(get("lng", "longitude", "long"));
+    const lat = Number(get("lat", "latitude"));
     if (!name || !district || !Number.isFinite(lng) || !Number.isFinite(lat)) {
       continue;
     }
-    const sub = get("subcounty") || get("sub_county");
-    const sc = Number(get("studentcount") || get("students"));
-    const tr = Number(get("totalrooms") || get("rooms"));
-    const nets = Number(get("netscount") || get("nets"));
-    const clubRaw = (get("hasmalariaclub") || get("malaria_club")).toLowerCase();
+    const sub = get("subcounty", "sub_county");
+    const sc = Number(get("studentcount", "students"));
+    const tr = Number(get("totalrooms", "rooms"));
+    const nets = Number(get("netscount", "nets"));
+    const clubRaw = get("hasmalariaclub", "malaria_club").toLowerCase();
     out.push({
       name,
       district,
@@ -68,7 +92,11 @@ export function parseSchoolCsv(text: string): SchoolBulkRow[] {
       totalRooms: Number.isFinite(tr) && tr >= 0 ? tr : 0,
       netsCount: Number.isFinite(nets) && nets >= 0 ? nets : 0,
       hasMalariaClub: BOOL_TRUE.has(clubRaw),
-      sponsorshipStatus: get("sponsorshipstatus") || get("phase") || undefined,
+      sponsorshipStatus: get("sponsorshipstatus", "phase") || undefined,
+      source: isMasterCsv ? "master-csv" : "manual-csv",
+      sourceFile: isMasterCsv
+        ? "Uganda_Schools_Master_Database.csv"
+        : "admin-upload.csv",
     });
   }
   return out;

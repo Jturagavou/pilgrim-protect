@@ -22,6 +22,22 @@ export default function ImpactCounter({
   const started = useRef(false);
 
   useEffect(() => {
+    function animate() {
+      const startTime = performance.now();
+      const target = Number(end);
+
+      function step(now: number) {
+        const elapsed = now - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        // Ease-out cubic
+        const eased = 1 - Math.pow(1 - progress, 3);
+        setCount(Math.floor(eased * target));
+        if (progress < 1) requestAnimationFrame(step);
+      }
+
+      requestAnimationFrame(step);
+    }
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting && !started.current) {
@@ -34,22 +50,7 @@ export default function ImpactCounter({
 
     if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();
-  }, [end]);
-
-  function animate() {
-    const startTime = performance.now();
-    const target = Number(end);
-
-    function step(now: number) {
-      const elapsed = now - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      // Ease-out cubic
-      const eased = 1 - Math.pow(1 - progress, 3);
-      setCount(Math.floor(eased * target));
-      if (progress < 1) requestAnimationFrame(step);
-    }
-    requestAnimationFrame(step);
-  }
+  }, [duration, end]);
 
   return (
     <div ref={ref} className="text-center">

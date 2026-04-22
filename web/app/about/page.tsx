@@ -2,10 +2,13 @@ import Link from "next/link";
 
 export default function AboutPage() {
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       {/* Hero */}
-      <div className="text-center mb-12">
-        <h1 className="text-3xl sm:text-4xl font-bold text-ink">
+      <div className="text-center mb-12 rounded-[2rem] border border-border bg-card/80 px-6 py-10 shadow-[0_18px_45px_rgba(45,45,45,0.06)]">
+        <p className="font-condensed text-xs uppercase tracking-[0.24em] text-pilgrim-orange">
+          Who we are
+        </p>
+        <h1 className="mt-3 text-4xl sm:text-5xl font-bold text-ink">
           About Pilgrim Protect
         </h1>
         <p className="text-muted-foreground mt-3 max-w-2xl mx-auto text-lg">
@@ -16,7 +19,7 @@ export default function AboutPage() {
 
       {/* Mission */}
       <section className="mb-12">
-        <h2 className="text-xl font-bold text-ink mb-4">Our Mission</h2>
+        <h2 className="text-2xl font-bold text-ink mb-4">Our Mission</h2>
         <p className="text-muted-foreground leading-relaxed">
           Malaria remains one of the leading causes of school absenteeism and childhood
           mortality in Uganda. Pilgrim Protect was created to tackle this head-on through
@@ -33,7 +36,7 @@ export default function AboutPage() {
 
       {/* How it works */}
       <section className="mb-12">
-        <h2 className="text-xl font-bold text-ink mb-6">How Spraying Works</h2>
+        <h2 className="text-2xl font-bold text-ink mb-6">How Spraying Works</h2>
         <div className="grid sm:grid-cols-3 gap-6">
           {[
             {
@@ -52,9 +55,9 @@ export default function AboutPage() {
               desc: "Reports are submitted through our mobile app, verified by supervisors, and published to the platform — visible to donors in real time.",
             },
           ].map((item) => (
-            <div key={item.step} className="text-center">
-              <div className="w-12 h-12 bg-primary/15 rounded-full flex items-center justify-center mx-auto mb-3">
-                <span className="text-primary font-bold text-lg">{item.step}</span>
+            <div key={item.step} className="text-center rounded-[1.5rem] border border-border bg-card/70 p-6 shadow-sm">
+              <div className="w-12 h-12 bg-pilgrim-orange/15 rounded-full flex items-center justify-center mx-auto mb-3">
+                <span className="text-pilgrim-orange font-bold text-lg">{item.step}</span>
               </div>
               <h3 className="font-semibold text-ink mb-1">{item.title}</h3>
               <p className="text-sm text-muted-foreground">{item.desc}</p>
@@ -65,7 +68,7 @@ export default function AboutPage() {
 
       {/* The Team */}
       <section className="mb-12">
-        <h2 className="text-xl font-bold text-ink mb-6">The Team</h2>
+        <h2 className="text-2xl font-bold text-ink mb-6">The Team</h2>
         <div className="grid sm:grid-cols-2 gap-6">
           {[
             {
@@ -89,9 +92,9 @@ export default function AboutPage() {
               desc: "Individuals and organizations who make this work possible through financial contributions and advocacy.",
             },
           ].map((member) => (
-            <div key={member.name} className="bg-muted rounded-xl p-5 border border-border">
+            <div key={member.name} className="bg-card/80 rounded-[1.5rem] p-5 border border-border shadow-sm">
               <h3 className="font-semibold text-ink">{member.name}</h3>
-              <p className="text-xs text-primary font-medium mt-0.5">{member.role}</p>
+              <p className="text-xs text-pilgrim-orange font-medium mt-0.5 uppercase tracking-[0.14em]">{member.role}</p>
               <p className="text-sm text-muted-foreground mt-2">{member.desc}</p>
             </div>
           ))}
@@ -99,21 +102,21 @@ export default function AboutPage() {
       </section>
 
       {/* CTA */}
-      <section className="bg-paper-depth border border-border rounded-xl p-8 text-center">
-        <h2 className="text-xl font-bold text-ink">Join the Fight Against Malaria</h2>
+      <section className="bg-paper-depth border border-border rounded-[2rem] p-8 text-center shadow-[0_18px_40px_rgba(45,45,45,0.05)]">
+        <h2 className="text-2xl font-bold text-ink">Join the Fight Against Malaria</h2>
         <p className="text-muted-foreground mt-2">
-          Whether you donate, share our story, or simply explore the map — you're part of the solution.
+          Whether you donate, share our story, or simply explore the map - you&apos;re part of the solution.
         </p>
         <div className="flex flex-wrap gap-3 justify-center mt-5">
           <Link
             href="/donate"
-            className="px-6 py-2.5 bg-secondary text-secondary-foreground font-medium rounded-lg hover:bg-secondary/90 transition-colors"
+            className="px-6 py-2.5 bg-pilgrim-orange text-white font-medium rounded-lg hover:bg-pilgrim-orange-deep transition-colors"
           >
             Donate Now
           </Link>
           <Link
             href="/map"
-            className="px-6 py-2.5 border border-border text-ink font-medium rounded-lg hover:bg-paper-depth transition-colors"
+            className="px-6 py-2.5 border border-border text-ink font-medium rounded-lg hover:border-pilgrim-orange/40 hover:bg-paper-soft transition-colors"
           >
             Explore the Map
           </Link>

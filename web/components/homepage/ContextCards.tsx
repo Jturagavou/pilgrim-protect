@@ -13,7 +13,7 @@ const CARDS: ContextCard[] = [
     title: "Why indoor residual spraying",
     body: "IRS kills mosquitoes on contact with treated walls. WHO documents up to 90% reductions in malaria where it's applied consistently. Coverage lasts six to twelve months per spray.",
     Icon: ShieldCheck,
-    tintClassName: "text-pilgrim-blue",
+    tintClassName: "text-pilgrim-orange",
   },
   {
     title: "Why schools",
@@ -34,7 +34,10 @@ export function ContextCards() {
     <section className="bg-paper-soft py-16 md:py-20">
       <div className="mx-auto max-w-6xl px-6">
         <div className="mx-auto max-w-2xl text-center">
-          <h2 className="font-display text-3xl font-bold tracking-tight text-ink md:text-4xl">
+          <p className="font-condensed text-xs uppercase tracking-[0.22em] text-pilgrim-orange">
+            Why this approach
+          </p>
+          <h2 className="mt-3 font-display text-3xl font-bold tracking-tight text-ink md:text-4xl">
             A simple intervention, verified in the open.
           </h2>
           <p className="mt-3 text-muted-foreground">
@@ -45,7 +48,7 @@ export function ContextCards() {
           {CARDS.map((c) => (
             <article
               key={c.title}
-              className="flex flex-col gap-4 rounded-2xl bg-card p-6 ring-1 ring-border"
+              className="flex flex-col gap-4 rounded-[1.65rem] bg-card p-6 ring-1 ring-border shadow-[0_18px_35px_rgba(45,45,45,0.06)]"
             >
               <c.Icon
                 className={`size-7 ${c.tintClassName}`}

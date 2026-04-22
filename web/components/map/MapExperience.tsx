@@ -135,13 +135,23 @@ export default function MapExperience({
     <div className="flex flex-col lg:flex-row h-[calc(100vh-4rem)] min-h-0 bg-background">
       <aside className="flex flex-col shrink-0 border-b border-border lg:border-b-0 lg:border-r lg:border-border lg:w-96 max-h-[48vh] lg:max-h-none overflow-hidden bg-card">
         <div className="p-4 space-y-4 shrink-0">
-          <div>
-            <h1 className="font-display text-2xl text-ink tracking-tight">
+          <div className="rounded-[1.6rem] border border-border bg-gradient-to-br from-paper-soft via-card to-paper-depth p-4 shadow-sm">
+            <div className="inline-flex items-center rounded-full border border-border bg-card px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-pilgrim-orange">
+              Live map view
+            </div>
+            <h1 className="mt-3 font-display text-3xl text-ink tracking-tight">
               Schools we&apos;re protecting
             </h1>
-            <p className="text-sm text-muted-foreground mt-1">
-              Every dot is a school in the Pilgrim Protect program.
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+              Every dot represents a real school in the Pilgrim Protect program,
+              with status tied to visible field follow-through.
             </p>
+          </div>
+
+          <div className="grid grid-cols-3 gap-3">
+            <MapMiniStat value={String(totalScoped)} label="In view" />
+            <MapMiniStat value={String(helpedN)} label="Protected" />
+            <MapMiniStat value={String(strugglingN)} label="Need funding" />
           </div>
 
           <DistrictFilter
@@ -183,8 +193,14 @@ export default function MapExperience({
                 {" is currently in focus. Select a school to see where support, reporting, and field follow-through connect."}
               </>
             ) : (
-              "Select a district or a school to compare program progress across the map."
+              "Select a district or school to compare where protection is already visible and where schools still need dedicated support."
             )}
+          </div>
+
+          <div className="rounded-xl border border-pilgrim-orange/15 bg-pilgrim-orange/8 p-3 text-sm leading-relaxed text-ink">
+            This map is meant to build trust, not just display locations. It helps
+            connect donor support to real schools, real field reporting, and real
+            program momentum.
           </div>
         </div>
 
@@ -297,6 +313,17 @@ export default function MapExperience({
             </Popup>
           )}
         </Map>
+      </div>
+    </div>
+  );
+}
+
+function MapMiniStat({ value, label }: { value: string; label: string }) {
+  return (
+    <div className="rounded-xl border border-border bg-paper-soft px-3 py-3 text-center">
+      <div className="font-display text-2xl leading-none text-ink">{value}</div>
+      <div className="mt-1 text-[11px] font-medium uppercase tracking-[0.16em] text-muted-foreground">
+        {label}
       </div>
     </div>
   );
