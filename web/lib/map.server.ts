@@ -56,13 +56,24 @@ export async function getMapData(): Promise<{
     const { mockMapData } = await import("./mockData");
     fc = normalizeMockCollection(mockMapData);
   } else {
-    const res = await fetch(`${resolveBaseUrl()}/stats/map`, {
-      next: { revalidate: 60, tags: ["map"] },
-    });
-    if (!res.ok) {
-      throw new Error(`Map data fetch failed: ${res.status}`);
+    const url = `${resolveBaseUrl()}/stats/map`;
+    try {
+      // Next/undici default connect timeout is ~3s — too tight when the API is cold or Mongo is slow.
+      const res = await fetch(url, {
+        next: { revalidate: 60, tags: ["map"] },
+        signal: AbortSignal.timeout(30_000),
+      });
+      if (!res.ok) {
+        throw new Error(`Map data fetch failed: ${res.status}`);
+      }
+      fc = (await res.json()) as MapFeatureCollection;
+    } catch (err) {
+      console.warn(
+        `[getMapData] ${url} unreachable (${err instanceof Error ? err.message : err}). Using mock GeoJSON so /map still loads.`
+      );
+      const { mockMapData } = await import("./mockData");
+      fc = normalizeMockCollection(mockMapData);
     }
-    fc = (await res.json()) as MapFeatureCollection;
   }
 
   const schools = fc.features;
