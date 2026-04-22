@@ -10,6 +10,20 @@ const router = Router();
 const PROTECTED_LEGACY = ["active", "completed"] as const;
 const GOAL_STUDENTS = 100_000;
 
+const fallbackSummary = () => ({
+  schoolsProtected: 0,
+  studentsCovered: 0,
+  dollarsRaised: 0,
+  goal: GOAL_STUDENTS,
+  progressPct: 0,
+  updatedAt: new Date().toISOString(),
+});
+
+const fallbackMap = {
+  type: "FeatureCollection",
+  features: [],
+};
+
 interface TotalAgg {
   _id: null;
   total: number;
@@ -27,7 +41,7 @@ interface TimelineAgg {
 }
 
 // GET /api/v1/stats — homepage summary (schools + students + $ raised + 100k progress)
-const summary: RequestHandler = async (_req, res, next) => {
+const summary: RequestHandler = async (req, res, next) => {
   try {
     // Prefer sponsorshipStatus; fall back to legacy `status` for any
     // unmigrated rows (pre-prompt-05 seed data).
@@ -65,13 +79,14 @@ const summary: RequestHandler = async (_req, res, next) => {
       updatedAt: new Date().toISOString(),
     });
   } catch (error) {
-    next(error);
+    req.log?.warn({ err: error }, "Falling back to empty stats summary");
+    res.json(fallbackSummary());
   }
 };
 
 // GET /api/v1/stats/impact — legacy dashboard metrics (kept for backward compat
 // until the dashboard page migrates to the /stats summary endpoint).
-const impact: RequestHandler = async (_req, res, next) => {
+const impact: RequestHandler = async (req, res, next) => {
   try {
     const totalSchools = await School.countDocuments();
     const totalSprayReports = await SprayReport.countDocuments();
@@ -102,12 +117,18 @@ const impact: RequestHandler = async (_req, res, next) => {
       totalSprayReports,
     });
   } catch (error) {
-    next(error);
+    req.log?.warn({ err: error }, "Falling back to empty impact stats");
+    res.json({
+      totalSchools: 0,
+      totalRoomsSprayed: 0,
+      totalStudentsProtected: 0,
+      totalSprayReports: 0,
+    });
   }
 };
 
 // GET /api/stats/map — GeoJSON FeatureCollection for Leaflet
-const map: RequestHandler = async (_req, res, next) => {
+const map: RequestHandler = async (req, res, next) => {
   try {
     const schools = await School.find();
 
@@ -155,12 +176,13 @@ const map: RequestHandler = async (_req, res, next) => {
       features,
     });
   } catch (error) {
-    next(error);
+    req.log?.warn({ err: error }, "Falling back to empty map stats");
+    res.json(fallbackMap);
   }
 };
 
 // GET /api/stats/timeline — monthly spray data
-const timeline: RequestHandler = async (_req, res, next) => {
+const timeline: RequestHandler = async (req, res, next) => {
   try {
     const results = (await SprayReport.aggregate([
       {
@@ -184,7 +206,8 @@ const timeline: RequestHandler = async (_req, res, next) => {
 
     res.json(formatted);
   } catch (error) {
-    next(error);
+    req.log?.warn({ err: error }, "Falling back to empty timeline stats");
+    res.json([]);
   }
 };
 

@@ -5,6 +5,7 @@ import School, {
 } from "../../models/School";
 import SprayReport from "../../models/SprayReport";
 import { protect, authorize } from "../../middleware/auth";
+import { withSchoolDataQuality } from "../../lib/schoolDataQuality";
 
 const router = Router();
 
@@ -50,12 +51,13 @@ function normalizeSponsorshipStatus(
 }
 
 // GET /api/schools — public, returns all schools
-const listSchools: RequestHandler = async (_req, res, next) => {
+const listSchools: RequestHandler = async (req, res, next) => {
   try {
     const schools = await School.find().sort({ name: 1 });
-    res.json(schools);
+    res.json(schools.map((school) => withSchoolDataQuality(school.toObject())));
   } catch (error) {
-    next(error);
+    req.log?.warn({ err: error }, "Falling back to empty school list");
+    res.json([]);
   }
 };
 
@@ -77,7 +79,7 @@ const getSchool: RequestHandler = async (req, res, next) => {
       .sort({ date: -1 });
 
     res.json({
-      ...school.toObject(),
+      ...withSchoolDataQuality(school.toObject()),
       sprayReports,
     });
   } catch (error) {
@@ -132,9 +134,12 @@ const createSchool: RequestHandler = async (req, res, next) => {
             }
           : { raised: 0, goal: 0 },
       notes: b.notes != null ? String(b.notes) : undefined,
+      source: typeof b.source === "string" ? b.source : "manual",
+      sourceFile: b.sourceFile != null ? String(b.sourceFile) : undefined,
+      importedAt: b.importedAt ? new Date(String(b.importedAt)) : undefined,
       status: b.status === "active" || b.status === "completed" ? b.status : "pending",
     });
-    res.status(201).json(school);
+    res.status(201).json(withSchoolDataQuality(school.toObject()));
   } catch (error) {
     next(error);
   }
@@ -173,7 +178,7 @@ const updateSchool: RequestHandler = async (req, res, next) => {
       return;
     }
 
-    res.json(school);
+    res.json(withSchoolDataQuality(school.toObject()));
   } catch (error) {
     next(error);
   }
@@ -239,6 +244,16 @@ const bulkCreateSchools: RequestHandler = async (req, res, next) => {
           sponsorshipStatus:
             normalizeSponsorshipStatus(row.sponsorshipStatus) ?? "needs-funding",
           fundingProgress: { raised: 0, goal: 0 },
+          source: typeof row.source === "string" ? row.source : "manual-csv",
+          sourceFile:
+            row.sourceFile != null ? String(row.sourceFile).trim() : undefined,
+          importedAt: row.importedAt ? new Date(String(row.importedAt)) : new Date(),
+          notes:
+            row.notes != null
+              ? String(row.notes)
+              : typeof row.source === "string" && row.source === "master-csv"
+                ? "Imported from Uganda_Schools_Master_Database.csv. Operational fields still need Pilgrim verification."
+                : undefined,
           status: "pending",
         });
         created.push(doc);
@@ -252,7 +267,7 @@ const bulkCreateSchools: RequestHandler = async (req, res, next) => {
 
     res.status(201).json({
       created: created.length,
-      schools: created,
+      schools: created.map((school) => withSchoolDataQuality(school.toObject())),
       errors,
     });
   } catch (error) {
