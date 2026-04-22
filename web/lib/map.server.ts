@@ -3,14 +3,7 @@
 import "server-only";
 
 import type { MapFeature, MapFeatureCollection } from "./types";
-
-function resolveBaseUrl(): string {
-  return (
-    process.env.NEXT_PUBLIC_API_URL ||
-    process.env.API_URL ||
-    "http://localhost:8080/api/v1"
-  ).replace(/\/+$/, "");
-}
+import { resolvePublicApiBaseUrl } from "./publicApiBase";
 
 function hashId(s: string): number {
   let h = 0;
@@ -56,7 +49,7 @@ export async function getMapData(): Promise<{
     const { mockMapData } = await import("./mockData");
     fc = normalizeMockCollection(mockMapData);
   } else {
-    const url = `${resolveBaseUrl()}/stats/map`;
+    const url = `${resolvePublicApiBaseUrl()}/stats/map`;
     try {
       // Next/undici default connect timeout is ~3s — too tight when the API is cold or Mongo is slow.
       const res = await fetch(url, {

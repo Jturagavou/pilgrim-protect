@@ -9,6 +9,7 @@ import {
   mockDonations,
 } from "./mockData";
 import { getToken } from "./auth";
+import { normalizePublicApiBaseUrl, resolvePublicApiBaseUrl } from "./publicApiBase";
 import type {
   AdminSprayReport,
   Donation,
@@ -36,7 +37,7 @@ export function isMockMode(): boolean {
 let clientApiBaseOverride: string | null = null;
 
 export function setClientApiBaseUrl(url: string | null): void {
-  const t = url?.trim().replace(/\/+$/, "") ?? "";
+  const t = normalizePublicApiBaseUrl(url);
   clientApiBaseOverride = t || null;
 }
 
@@ -44,10 +45,7 @@ function effectiveApiBaseUrl(): string {
   if (typeof window !== "undefined" && clientApiBaseOverride) {
     return clientApiBaseOverride;
   }
-  return (
-    process.env.NEXT_PUBLIC_API_URL?.replace(/\/+$/, "") ||
-    "http://localhost:8080/api/v1"
-  );
+  return resolvePublicApiBaseUrl();
 }
 
 const API: AxiosInstance = axios.create({

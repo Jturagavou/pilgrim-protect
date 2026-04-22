@@ -1,5 +1,6 @@
 import "server-only";
 import type { components } from "./api-types";
+import { resolvePublicApiBaseUrl } from "./publicApiBase";
 
 export type SummaryStats = components["schemas"]["SummaryStats"];
 
@@ -12,20 +13,10 @@ const MOCK_STATS: SummaryStats = {
   updatedAt: new Date().toISOString(),
 };
 
-// Prefer NEXT_PUBLIC_API_URL (already includes /api/v1), fall back to API_URL,
-// then localhost. Mock mode short-circuits the network call.
-function resolveBaseUrl(): string {
-  return (
-    process.env.NEXT_PUBLIC_API_URL ||
-    process.env.API_URL ||
-    "http://localhost:8080/api/v1"
-  );
-}
-
 export async function fetchSummaryStats(): Promise<SummaryStats> {
   if (process.env.NEXT_PUBLIC_MOCK === "true") return MOCK_STATS;
 
-  const base = resolveBaseUrl().replace(/\/+$/, "");
+  const base = resolvePublicApiBaseUrl();
   try {
     const res = await fetch(`${base}/stats`, {
       next: { revalidate: 60, tags: ["stats"] },

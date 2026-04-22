@@ -61,7 +61,7 @@ services:
         value: production
       # NEXT_PUBLIC_* is inlined at `next build` — must be present at build + run (DO default is often runtime-only).
       - key: NEXT_PUBLIC_API_URL
-        value: ${api.PUBLIC_URL}/api/v1
+        value: ${api.PUBLIC_URL}/v1
         scope: RUN_AND_BUILD_TIME
       - key: NEXT_PUBLIC_API_VERSION
         value: v1

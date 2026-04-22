@@ -67,7 +67,7 @@ services:
       - key: NODE_ENV
         value: production
       - key: NEXT_PUBLIC_API_URL
-        value: ${api.PUBLIC_URL}/api/v1
+        value: ${api.PUBLIC_URL}/v1
         scope: RUN_AND_BUILD_TIME
       - key: NEXT_PUBLIC_API_VERSION
         value: v1
