@@ -1,0 +1,1210 @@
+[
+  {
+    "Unnamed: 0": 1,
+    "Spraying date": "2025-05-14",
+    "Spray operator code": "SOC014",
+    "struc_operator": 6,
+    "Sachets/bottles used": 3,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 2,
+    "Spraying date": "2025-05-12",
+    "Spray operator code": "SOC006",
+    "struc_operator": 6,
+    "Sachets/bottles used": 2,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 3,
+    "Spraying date": "2025-05-12",
+    "Spray operator code": "SOC014",
+    "struc_operator": 12,
+    "Sachets/bottles used": 2,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 4,
+    "Spraying date": "2025-05-19",
+    "Spray operator code": "SOC008",
+    "struc_operator": 9,
+    "Sachets/bottles used": 3,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 5,
+    "Spraying date": "2025-05-14",
+    "Spray operator code": "SOC011",
+    "struc_operator": 12,
+    "Sachets/bottles used": 3,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 6,
+    "Spraying date": "2025-05-15",
+    "Spray operator code": "SOC018",
+    "struc_operator": 11,
+    "Sachets/bottles used": 3,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 7,
+    "Spraying date": "2025-05-13",
+    "Spray operator code": "SOC018",
+    "struc_operator": 7,
+    "Sachets/bottles used": 3,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 8,
+    "Spraying date": "2025-05-10",
+    "Spray operator code": "SOC008",
+    "struc_operator": 16,
+    "Sachets/bottles used": 2,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 9,
+    "Spraying date": "2025-05-10",
+    "Spray operator code": "SOC016",
+    "struc_operator": 8,
+    "Sachets/bottles used": 2,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 10,
+    "Spraying date": "2025-05-13",
+    "Spray operator code": "SOC010",
+    "struc_operator": 9,
+    "Sachets/bottles used": 7,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 11,
+    "Spraying date": "2025-05-16",
+    "Spray operator code": "SOC008",
+    "struc_operator": 12,
+    "Sachets/bottles used": 3,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 12,
+    "Spraying date": "2025-05-19",
+    "Spray operator code": "SOC014",
+    "struc_operator": 6,
+    "Sachets/bottles used": 1,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 13,
+    "Spraying date": "2025-05-13",
+    "Spray operator code": "SOC019",
+    "struc_operator": 9,
+    "Sachets/bottles used": 4,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 14,
+    "Spraying date": "2025-05-14",
+    "Spray operator code": "SOC006",
+    "struc_operator": 12,
+    "Sachets/bottles used": 3,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 15,
+    "Spraying date": "2025-05-16",
+    "Spray operator code": "SOC003",
+    "struc_operator": 15,
+    "Sachets/bottles used": 4,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 16,
+    "Spraying date": "2025-05-14",
+    "Spray operator code": "SOC013",
+    "struc_operator": 14,
+    "Sachets/bottles used": 3,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 17,
+    "Spraying date": "2025-05-10",
+    "Spray operator code": "SOC001",
+    "struc_operator": 15,
+    "Sachets/bottles used": 5,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 18,
+    "Spraying date": "2025-05-14",
+    "Spray operator code": "SOC019",
+    "struc_operator": 14,
+    "Sachets/bottles used": 4,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 19,
+    "Spraying date": "2025-05-13",
+    "Spray operator code": "SOC001",
+    "struc_operator": 21,
+    "Sachets/bottles used": 8,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 20,
+    "Spraying date": "2025-05-10",
+    "Spray operator code": "SOC017",
+    "struc_operator": 7,
+    "Sachets/bottles used": 2,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 21,
+    "Spraying date": "2025-05-19",
+    "Spray operator code": "SOC011",
+    "struc_operator": 6,
+    "Sachets/bottles used": 1,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 22,
+    "Spraying date": "2025-05-19",
+    "Spray operator code": "SOC004",
+    "struc_operator": 3,
+    "Sachets/bottles used": 2,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 23,
+    "Spraying date": "2025-05-15",
+    "Spray operator code": "SOC014",
+    "struc_operator": 18,
+    "Sachets/bottles used": 3,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 24,
+    "Spraying date": "2025-05-09",
+    "Spray operator code": "SOC006",
+    "struc_operator": 5,
+    "Sachets/bottles used": 1,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 25,
+    "Spraying date": "2025-05-14",
+    "Spray operator code": "SOC018",
+    "struc_operator": 9,
+    "Sachets/bottles used": 2,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 26,
+    "Spraying date": "2025-05-09",
+    "Spray operator code": "SOC010",
+    "struc_operator": 5,
+    "Sachets/bottles used": 3,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 27,
+    "Spraying date": "2025-05-19",
+    "Spray operator code": "SOC013",
+    "struc_operator": 9,
+    "Sachets/bottles used": 2,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 28,
+    "Spraying date": "2025-05-14",
+    "Spray operator code": "SOC008",
+    "struc_operator": 19,
+    "Sachets/bottles used": 4,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 29,
+    "Spraying date": "2025-05-13",
+    "Spray operator code": "SOC003",
+    "struc_operator": 12,
+    "Sachets/bottles used": 5,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 30,
+    "Spraying date": "2025-05-09",
+    "Spray operator code": "SOC019",
+    "struc_operator": 10,
+    "Sachets/bottles used": 3,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 31,
+    "Spraying date": "2025-05-14",
+    "Spray operator code": "SOC012",
+    "struc_operator": 9,
+    "Sachets/bottles used": 3,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 32,
+    "Spraying date": "2025-05-15",
+    "Spray operator code": "SOC012",
+    "struc_operator": 11,
+    "Sachets/bottles used": 3,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 33,
+    "Spraying date": "2025-05-12",
+    "Spray operator code": "SOC002",
+    "struc_operator": 1,
+    "Sachets/bottles used": 2,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 34,
+    "Spraying date": "2025-05-17",
+    "Spray operator code": "SOC010",
+    "struc_operator": 7,
+    "Sachets/bottles used": 4,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 35,
+    "Spraying date": "2025-05-19",
+    "Spray operator code": "SOC006",
+    "struc_operator": 14,
+    "Sachets/bottles used": 3,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 36,
+    "Spraying date": "2025-05-10",
+    "Spray operator code": "SOC009",
+    "struc_operator": 6,
+    "Sachets/bottles used": 3,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 37,
+    "Spraying date": "2025-05-13",
+    "Spray operator code": "SOC016",
+    "struc_operator": 7,
+    "Sachets/bottles used": 3,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 38,
+    "Spraying date": "2025-05-13",
+    "Spray operator code": "SOC014",
+    "struc_operator": 6,
+    "Sachets/bottles used": 3,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 39,
+    "Spraying date": "2025-05-10",
+    "Spray operator code": "SOC007",
+    "struc_operator": 5,
+    "Sachets/bottles used": 1,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 40,
+    "Spraying date": "2025-05-14",
+    "Spray operator code": "SOC003",
+    "struc_operator": 13,
+    "Sachets/bottles used": 4,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 41,
+    "Spraying date": "2025-05-07",
+    "Spray operator code": "SOC019",
+    "struc_operator": 4,
+    "Sachets/bottles used": 1,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 42,
+    "Spraying date": "2025-05-18",
+    "Spray operator code": "SOC008",
+    "struc_operator": 1,
+    "Sachets/bottles used": 1,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 43,
+    "Spraying date": "2025-05-15",
+    "Spray operator code": "SOC001",
+    "struc_operator": 10,
+    "Sachets/bottles used": 5,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 44,
+    "Spraying date": "2025-05-15",
+    "Spray operator code": "SOC008",
+    "struc_operator": 8,
+    "Sachets/bottles used": 3,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 45,
+    "Spraying date": "2025-05-14",
+    "Spray operator code": "SOC020",
+    "struc_operator": 16,
+    "Sachets/bottles used": 4,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 46,
+    "Spraying date": "2025-05-19",
+    "Spray operator code": "SOC007",
+    "struc_operator": 6,
+    "Sachets/bottles used": 1,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 47,
+    "Spraying date": "2025-05-10",
+    "Spray operator code": "SOC006",
+    "struc_operator": 10,
+    "Sachets/bottles used": 2,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 48,
+    "Spraying date": "2025-05-13",
+    "Spray operator code": "SOC008",
+    "struc_operator": 3,
+    "Sachets/bottles used": 3,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 49,
+    "Spraying date": "2025-05-19",
+    "Spray operator code": "SOC016",
+    "struc_operator": 2,
+    "Sachets/bottles used": 1,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 50,
+    "Spraying date": "2025-05-10",
+    "Spray operator code": "SOC020",
+    "struc_operator": 3,
+    "Sachets/bottles used": 2,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 51,
+    "Spraying date": "2025-05-17",
+    "Spray operator code": "SOC020",
+    "struc_operator": 15,
+    "Sachets/bottles used": 5,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 52,
+    "Spraying date": "2025-05-07",
+    "Spray operator code": "SOC004",
+    "struc_operator": 2,
+    "Sachets/bottles used": 1,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 53,
+    "Spraying date": "2025-05-09",
+    "Spray operator code": "SOC008",
+    "struc_operator": 7,
+    "Sachets/bottles used": 3,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 54,
+    "Spraying date": "2025-05-19",
+    "Spray operator code": "SOC002",
+    "struc_operator": 14,
+    "Sachets/bottles used": 7,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 55,
+    "Spraying date": "2025-05-09",
+    "Spray operator code": "SOC004",
+    "struc_operator": 5,
+    "Sachets/bottles used": 2,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 56,
+    "Spraying date": "2025-05-15",
+    "Spray operator code": "SOC009",
+    "struc_operator": 9,
+    "Sachets/bottles used": 3,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 57,
+    "Spraying date": "2025-05-16",
+    "Spray operator code": "SOC006",
+    "struc_operator": 7,
+    "Sachets/bottles used": 3,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 58,
+    "Spraying date": "2025-05-17",
+    "Spray operator code": "SOC018",
+    "struc_operator": 7,
+    "Sachets/bottles used": 4,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 59,
+    "Spraying date": "2025-05-16",
+    "Spray operator code": "SOC016",
+    "struc_operator": 9,
+    "Sachets/bottles used": 4,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 60,
+    "Spraying date": "2025-05-09",
+    "Spray operator code": "SOC017",
+    "struc_operator": 4,
+    "Sachets/bottles used": 2,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 61,
+    "Spraying date": "2025-05-07",
+    "Spray operator code": "SOC018",
+    "struc_operator": 3,
+    "Sachets/bottles used": 2,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 62,
+    "Spraying date": "2025-05-16",
+    "Spray operator code": "SOC011",
+    "struc_operator": 6,
+    "Sachets/bottles used": 2,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 63,
+    "Spraying date": "2025-05-10",
+    "Spray operator code": "SOC014",
+    "struc_operator": 8,
+    "Sachets/bottles used": 2,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 64,
+    "Spraying date": "2025-05-15",
+    "Spray operator code": "SOC020",
+    "struc_operator": 5,
+    "Sachets/bottles used": 1,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 65,
+    "Spraying date": "2025-05-17",
+    "Spray operator code": "SOC006",
+    "struc_operator": 7,
+    "Sachets/bottles used": 3,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 66,
+    "Spraying date": "2025-05-07",
+    "Spray operator code": "SOC006",
+    "struc_operator": 1,
+    "Sachets/bottles used": 1,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 67,
+    "Spraying date": "2025-05-19",
+    "Spray operator code": "SOC010",
+    "struc_operator": 8,
+    "Sachets/bottles used": 3,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 68,
+    "Spraying date": "2025-05-15",
+    "Spray operator code": "SOC011",
+    "struc_operator": 9,
+    "Sachets/bottles used": 3,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 69,
+    "Spraying date": "2025-05-10",
+    "Spray operator code": "SOC010",
+    "struc_operator": 4,
+    "Sachets/bottles used": 1,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 70,
+    "Spraying date": "2025-05-12",
+    "Spray operator code": "SOC003",
+    "struc_operator": 10,
+    "Sachets/bottles used": 5,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 71,
+    "Spraying date": "2025-05-12",
+    "Spray operator code": "SOC012",
+    "struc_operator": 7,
+    "Sachets/bottles used": 1,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 72,
+    "Spraying date": "2025-05-19",
+    "Spray operator code": "SOC020",
+    "struc_operator": 7,
+    "Sachets/bottles used": 3,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 73,
+    "Spraying date": "2025-05-14",
+    "Spray operator code": "SOC001",
+    "struc_operator": 9,
+    "Sachets/bottles used": 5,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 74,
+    "Spraying date": "2025-05-09",
+    "Spray operator code": "SOC009",
+    "struc_operator": 8,
+    "Sachets/bottles used": 1,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 75,
+    "Spraying date": "2025-05-14",
+    "Spray operator code": "SOC007",
+    "struc_operator": 5,
+    "Sachets/bottles used": 4,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 76,
+    "Spraying date": "2025-05-13",
+    "Spray operator code": "SOC006",
+    "struc_operator": 9,
+    "Sachets/bottles used": 2,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 77,
+    "Spraying date": "2025-05-09",
+    "Spray operator code": "SOC003",
+    "struc_operator": 11,
+    "Sachets/bottles used": 3,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 78,
+    "Spraying date": "2025-05-14",
+    "Spray operator code": "SOC002",
+    "struc_operator": 8,
+    "Sachets/bottles used": 4,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 79,
+    "Spraying date": "2025-05-16",
+    "Spray operator code": "SOC004",
+    "struc_operator": 7,
+    "Sachets/bottles used": 4,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 80,
+    "Spraying date": "2025-05-17",
+    "Spray operator code": "SOC009",
+    "struc_operator": 6,
+    "Sachets/bottles used": 5,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 81,
+    "Spraying date": "2025-05-10",
+    "Spray operator code": "SOC012",
+    "struc_operator": 10,
+    "Sachets/bottles used": 3,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 82,
+    "Spraying date": "2025-05-13",
+    "Spray operator code": "SOC020",
+    "struc_operator": 9,
+    "Sachets/bottles used": 3,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 83,
+    "Spraying date": "2025-05-08",
+    "Spray operator code": "SOC010",
+    "struc_operator": 3,
+    "Sachets/bottles used": 1,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 84,
+    "Spraying date": "2025-05-09",
+    "Spray operator code": "SOC018",
+    "struc_operator": 4,
+    "Sachets/bottles used": 2,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 85,
+    "Spraying date": "2025-05-12",
+    "Spray operator code": "SOC017",
+    "struc_operator": 4,
+    "Sachets/bottles used": 1,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 86,
+    "Spraying date": "2025-05-19",
+    "Spray operator code": "SOC009",
+    "struc_operator": 7,
+    "Sachets/bottles used": 1,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 87,
+    "Spraying date": "2025-05-07",
+    "Spray operator code": "SOC013",
+    "struc_operator": 5,
+    "Sachets/bottles used": 2,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 88,
+    "Spraying date": "2025-05-09",
+    "Spray operator code": "SOC002",
+    "struc_operator": 5,
+    "Sachets/bottles used": 2,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 89,
+    "Spraying date": "2025-05-09",
+    "Spray operator code": "SOC020",
+    "struc_operator": 6,
+    "Sachets/bottles used": 2,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 90,
+    "Spraying date": "2025-05-22",
+    "Spray operator code": "SOC013",
+    "struc_operator": 15,
+    "Sachets/bottles used": 3,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 91,
+    "Spraying date": "2025-05-14",
+    "Spray operator code": "SOC009",
+    "struc_operator": 7,
+    "Sachets/bottles used": 3,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 92,
+    "Spraying date": "2025-05-15",
+    "Spray operator code": "SOC002",
+    "struc_operator": 7,
+    "Sachets/bottles used": 4,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 93,
+    "Spraying date": "2025-05-10",
+    "Spray operator code": "SOC013",
+    "struc_operator": 5,
+    "Sachets/bottles used": 1,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 94,
+    "Spraying date": "2025-05-07",
+    "Spray operator code": "SOC011",
+    "struc_operator": 2,
+    "Sachets/bottles used": 1,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 95,
+    "Spraying date": "2025-05-13",
+    "Spray operator code": "SOC007",
+    "struc_operator": 13,
+    "Sachets/bottles used": 5,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 96,
+    "Spraying date": "2025-05-16",
+    "Spray operator code": "SOC020",
+    "struc_operator": 15,
+    "Sachets/bottles used": 6,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 97,
+    "Spraying date": "2025-05-17",
+    "Spray operator code": "SOC019",
+    "struc_operator": 9,
+    "Sachets/bottles used": 3,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 98,
+    "Spraying date": "2025-05-07",
+    "Spray operator code": "SOC017",
+    "struc_operator": 2,
+    "Sachets/bottles used": 1,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 99,
+    "Spraying date": "2025-05-15",
+    "Spray operator code": "SOC019",
+    "struc_operator": 7,
+    "Sachets/bottles used": 2,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 100,
+    "Spraying date": "2025-05-09",
+    "Spray operator code": "SOC012",
+    "struc_operator": 6,
+    "Sachets/bottles used": 2,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 101,
+    "Spraying date": "2025-05-13",
+    "Spray operator code": "SOC002",
+    "struc_operator": 4,
+    "Sachets/bottles used": 2,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 102,
+    "Spraying date": "2025-05-09",
+    "Spray operator code": "SOC011",
+    "struc_operator": 8,
+    "Sachets/bottles used": 3,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 103,
+    "Spraying date": "2025-05-17",
+    "Spray operator code": "SOC008",
+    "struc_operator": 7,
+    "Sachets/bottles used": 5,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 104,
+    "Spraying date": "2025-05-17",
+    "Spray operator code": "SOC011",
+    "struc_operator": 6,
+    "Sachets/bottles used": 4,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 105,
+    "Spraying date": "2025-05-12",
+    "Spray operator code": "SOC011",
+    "struc_operator": 17,
+    "Sachets/bottles used": 4,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 106,
+    "Spraying date": "2025-05-07",
+    "Spray operator code": "SOC016",
+    "struc_operator": 2,
+    "Sachets/bottles used": 1,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 107,
+    "Spraying date": "2025-05-12",
+    "Spray operator code": "SOC020",
+    "struc_operator": 6,
+    "Sachets/bottles used": 2,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 108,
+    "Spraying date": "2025-05-12",
+    "Spray operator code": "SOC007",
+    "struc_operator": 10,
+    "Sachets/bottles used": 1,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 109,
+    "Spraying date": "2025-05-09",
+    "Spray operator code": "SOC007",
+    "struc_operator": 4,
+    "Sachets/bottles used": 3,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 110,
+    "Spraying date": "2025-05-09",
+    "Spray operator code": "SOC005",
+    "struc_operator": 3,
+    "Sachets/bottles used": 3,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 111,
+    "Spraying date": "2025-05-13",
+    "Spray operator code": "SOC009",
+    "struc_operator": 17,
+    "Sachets/bottles used": 5,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 112,
+    "Spraying date": "2025-05-09",
+    "Spray operator code": "SOC013",
+    "struc_operator": 4,
+    "Sachets/bottles used": 3,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 113,
+    "Spraying date": "2025-05-17",
+    "Spray operator code": "SOC013",
+    "struc_operator": 12,
+    "Sachets/bottles used": 4,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 114,
+    "Spraying date": "2025-05-16",
+    "Spray operator code": "SOC014",
+    "struc_operator": 11,
+    "Sachets/bottles used": 2,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 115,
+    "Spraying date": "2025-05-15",
+    "Spray operator code": "SOC010",
+    "struc_operator": 6,
+    "Sachets/bottles used": 3,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 116,
+    "Spraying date": "2025-05-12",
+    "Spray operator code": "SOC010",
+    "struc_operator": 9,
+    "Sachets/bottles used": 4,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 117,
+    "Spraying date": "2025-05-13",
+    "Spray operator code": "SOC012",
+    "struc_operator": 12,
+    "Sachets/bottles used": 3,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 118,
+    "Spraying date": "2025-05-12",
+    "Spray operator code": "SOC009",
+    "struc_operator": 10,
+    "Sachets/bottles used": 1,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 119,
+    "Spraying date": "2025-05-19",
+    "Spray operator code": "SOC019",
+    "struc_operator": 6,
+    "Sachets/bottles used": 1,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 120,
+    "Spraying date": "2025-05-07",
+    "Spray operator code": "SOC009",
+    "struc_operator": 1,
+    "Sachets/bottles used": 1,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 121,
+    "Spraying date": "2025-05-09",
+    "Spray operator code": "SOC014",
+    "struc_operator": 6,
+    "Sachets/bottles used": 3,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 122,
+    "Spraying date": "2025-05-09",
+    "Spray operator code": "SOC016",
+    "struc_operator": 5,
+    "Sachets/bottles used": 2,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 123,
+    "Spraying date": "2025-05-10",
+    "Spray operator code": "SOC015",
+    "struc_operator": 3,
+    "Sachets/bottles used": 1,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 124,
+    "Spraying date": "2025-05-15",
+    "Spray operator code": "SOC016",
+    "struc_operator": 9,
+    "Sachets/bottles used": 2,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 125,
+    "Spraying date": "2025-05-07",
+    "Spray operator code": "SOC012",
+    "struc_operator": 3,
+    "Sachets/bottles used": 1,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 126,
+    "Spraying date": "2025-05-07",
+    "Spray operator code": "SOC015",
+    "struc_operator": 3,
+    "Sachets/bottles used": 1,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 127,
+    "Spraying date": "2025-05-16",
+    "Spray operator code": "SOC001",
+    "struc_operator": 14,
+    "Sachets/bottles used": 5,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 128,
+    "Spraying date": "2025-05-07",
+    "Spray operator code": "SOC008",
+    "struc_operator": 1,
+    "Sachets/bottles used": 1,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 129,
+    "Spraying date": "2025-05-09",
+    "Spray operator code": "SOC001",
+    "struc_operator": 5,
+    "Sachets/bottles used": 2,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 130,
+    "Spraying date": "2025-05-16",
+    "Spray operator code": "SOC009",
+    "struc_operator": 13,
+    "Sachets/bottles used": 4,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 131,
+    "Spraying date": "2025-05-12",
+    "Spray operator code": "SOC018",
+    "struc_operator": 13,
+    "Sachets/bottles used": 3,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 132,
+    "Spraying date": "2025-05-13",
+    "Spray operator code": "SOC013",
+    "struc_operator": 8,
+    "Sachets/bottles used": 2,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 133,
+    "Spraying date": "2025-05-19",
+    "Spray operator code": "SOC018",
+    "struc_operator": 12,
+    "Sachets/bottles used": 4,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 134,
+    "Spraying date": "2025-05-19",
+    "Spray operator code": "SOC001",
+    "struc_operator": 6,
+    "Sachets/bottles used": 4,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 135,
+    "Spraying date": "2025-05-13",
+    "Spray operator code": "SOC004",
+    "struc_operator": 8,
+    "Sachets/bottles used": 5,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 136,
+    "Spraying date": "2025-05-10",
+    "Spray operator code": "SOC003",
+    "struc_operator": 7,
+    "Sachets/bottles used": 5,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 137,
+    "Spraying date": "2025-05-10",
+    "Spray operator code": "SOC018",
+    "struc_operator": 7,
+    "Sachets/bottles used": 2,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 138,
+    "Spraying date": "2025-05-12",
+    "Spray operator code": "SOC016",
+    "struc_operator": 8,
+    "Sachets/bottles used": 4,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 139,
+    "Spraying date": "2025-05-10",
+    "Spray operator code": "SOC011",
+    "struc_operator": 4,
+    "Sachets/bottles used": 1,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 140,
+    "Spraying date": "2025-05-12",
+    "Spray operator code": "SOC008",
+    "struc_operator": 5,
+    "Sachets/bottles used": 4,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 141,
+    "Spraying date": "2025-05-14",
+    "Spray operator code": "SOC004",
+    "struc_operator": 9,
+    "Sachets/bottles used": 2,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 142,
+    "Spraying date": "2025-05-16",
+    "Spray operator code": "SOC019",
+    "struc_operator": 14,
+    "Sachets/bottles used": 4,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 143,
+    "Spraying date": "2025-05-16",
+    "Spray operator code": "SOC018",
+    "struc_operator": 9,
+    "Sachets/bottles used": 3,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 144,
+    "Spraying date": "2025-05-15",
+    "Spray operator code": "SOC004",
+    "struc_operator": 11,
+    "Sachets/bottles used": 4,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 145,
+    "Spraying date": "2025-05-09",
+    "Spray operator code": "SOC015",
+    "struc_operator": 6,
+    "Sachets/bottles used": 2,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 146,
+    "Spraying date": "2025-05-19",
+    "Spray operator code": "SOC003",
+    "struc_operator": 12,
+    "Sachets/bottles used": 4,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 147,
+    "Spraying date": "2025-05-15",
+    "Spray operator code": "SOC007",
+    "struc_operator": 5,
+    "Sachets/bottles used": 2,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 148,
+    "Spraying date": "2025-05-16",
+    "Spray operator code": "SOC007",
+    "struc_operator": 7,
+    "Sachets/bottles used": 3,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 149,
+    "Spraying date": "2025-05-16",
+    "Spray operator code": "SOC010",
+    "struc_operator": 7,
+    "Sachets/bottles used": 3,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 150,
+    "Spraying date": "2025-05-14",
+    "Spray operator code": "SOC016",
+    "struc_operator": 12,
+    "Sachets/bottles used": 4,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  },
+  {
+    "Unnamed: 0": 151,
+    "Spraying date": "2025-05-15",
+    "Spray operator code": "SOC003",
+    "struc_operator": 11,
+    "Sachets/bottles used": 2,
+    "sourceFile": "irs/oper_structure_sprayed.csv"
+  }
+]

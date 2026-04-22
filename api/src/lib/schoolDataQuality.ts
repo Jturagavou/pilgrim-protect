@@ -5,6 +5,7 @@ export type SchoolDataSource =
   | "manual"
   | "manual-csv"
   | "master-csv"
+  | "pilgrim-data"
   | "unknown";
 
 export type SchoolCompleteness = "ready" | "needs-enrichment" | "manual-review";
@@ -40,7 +41,10 @@ export function getSchoolDataQuality(
   >
 ): SchoolDataQuality {
   const source = sourceFromSchool(school);
-  const imported = source === "master-csv" || source === "manual-csv";
+  const imported =
+    source === "master-csv" ||
+    source === "manual-csv" ||
+    source === "pilgrim-data";
   const missingFields: string[] = [];
 
   if (!school.district || school.district === "Unspecified District") {

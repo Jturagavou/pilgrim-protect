@@ -18,6 +18,7 @@ export type SchoolSource =
   | "manual"
   | "manual-csv"
   | "master-csv"
+  | "pilgrim-data"
   | "unknown";
 
 export const SPONSORSHIP_STATUSES = [
@@ -142,7 +143,7 @@ const schoolSchema = new Schema<ISchool>(
     notes: { type: String },
     source: {
       type: String,
-      enum: ["seed", "manual", "manual-csv", "master-csv", "unknown"],
+      enum: ["seed", "manual", "manual-csv", "master-csv", "pilgrim-data", "unknown"],
       default: "unknown",
       index: true,
     },

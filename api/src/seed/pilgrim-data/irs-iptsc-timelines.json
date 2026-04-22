@@ -1,0 +1,218 @@
+[
+  {
+    "schoolKey": "soroti:halcyon high school",
+    "school": "Halcyon High School",
+    "district": "Soroti",
+    "year": 2023,
+    "irsDate": "2014-02-15",
+    "iptscDate": null,
+    "sourceFile": "soroti/IRS and IPTsc Timelines.csv"
+  },
+  {
+    "schoolKey": "soroti:jeressar high school",
+    "school": "Jeressar High School",
+    "district": "Soroti",
+    "year": 2023,
+    "irsDate": "2014-02-15",
+    "iptscDate": null,
+    "sourceFile": "soroti/IRS and IPTsc Timelines.csv"
+  },
+  {
+    "schoolKey": "soroti:soroti municipal secondary school",
+    "school": "Soroti Municipal Secondary School",
+    "district": "Soroti",
+    "year": 2023,
+    "irsDate": "2014-02-15",
+    "iptscDate": null,
+    "sourceFile": "soroti/IRS and IPTsc Timelines.csv"
+  },
+  {
+    "schoolKey": "soroti:teso day and boarding primary school",
+    "school": "Teso Day & Boarding Primary School",
+    "district": "Soroti",
+    "year": 2023,
+    "irsDate": "2014-02-15",
+    "iptscDate": null,
+    "sourceFile": "soroti/IRS and IPTsc Timelines.csv"
+  },
+  {
+    "schoolKey": "soroti:vineyard christian school",
+    "school": "Vineyard Christian School",
+    "district": "Soroti",
+    "year": 2023,
+    "irsDate": null,
+    "iptscDate": null,
+    "sourceFile": "soroti/IRS and IPTsc Timelines.csv"
+  },
+  {
+    "schoolKey": "soroti:halcyon high school",
+    "school": "Halcyon High School",
+    "district": "Soroti",
+    "year": 2024,
+    "irsDate": "2009-02-11",
+    "iptscDate": null,
+    "sourceFile": "soroti/IRS and IPTsc Timelines.csv"
+  },
+  {
+    "schoolKey": "soroti:jeressar high school",
+    "school": "Jeressar High School",
+    "district": "Soroti",
+    "year": 2024,
+    "irsDate": "2009-02-11",
+    "iptscDate": null,
+    "sourceFile": "soroti/IRS and IPTsc Timelines.csv"
+  },
+  {
+    "schoolKey": "soroti:soroti municipal secondary school",
+    "school": "Soroti Municipal Secondary School",
+    "district": "Soroti",
+    "year": 2024,
+    "irsDate": "2009-02-11",
+    "iptscDate": null,
+    "sourceFile": "soroti/IRS and IPTsc Timelines.csv"
+  },
+  {
+    "schoolKey": "soroti:teso day and boarding primary school",
+    "school": "Teso Day & Boarding Primary School",
+    "district": "Soroti",
+    "year": 2024,
+    "irsDate": "2009-02-11",
+    "iptscDate": null,
+    "sourceFile": "soroti/IRS and IPTsc Timelines.csv"
+  },
+  {
+    "schoolKey": "soroti:vineyard christian school",
+    "school": "Vineyard Christian School",
+    "district": "Soroti",
+    "year": 2024,
+    "irsDate": null,
+    "iptscDate": null,
+    "sourceFile": "soroti/IRS and IPTsc Timelines.csv"
+  },
+  {
+    "schoolKey": "soroti:halcyon high school",
+    "school": "Halcyon High School",
+    "district": "Soroti",
+    "year": 2025,
+    "irsDate": null,
+    "iptscDate": "2004-10-06",
+    "sourceFile": "soroti/IRS and IPTsc Timelines.csv"
+  },
+  {
+    "schoolKey": "soroti:jeressar high school",
+    "school": "Jeressar High School",
+    "district": "Soroti",
+    "year": 2025,
+    "irsDate": null,
+    "iptscDate": null,
+    "sourceFile": "soroti/IRS and IPTsc Timelines.csv"
+  },
+  {
+    "schoolKey": "soroti:soroti municipal secondary school",
+    "school": "Soroti Municipal Secondary School",
+    "district": "Soroti",
+    "year": 2025,
+    "irsDate": null,
+    "iptscDate": "2001-10-03",
+    "sourceFile": "soroti/IRS and IPTsc Timelines.csv"
+  },
+  {
+    "schoolKey": "soroti:teso day and boarding primary school",
+    "school": "Teso Day & Boarding Primary School",
+    "district": "Soroti",
+    "year": 2025,
+    "irsDate": null,
+    "iptscDate": null,
+    "sourceFile": "soroti/IRS and IPTsc Timelines.csv"
+  },
+  {
+    "schoolKey": "soroti:vineyard christian school",
+    "school": "Vineyard Christian School",
+    "district": "Soroti",
+    "year": 2025,
+    "irsDate": null,
+    "iptscDate": null,
+    "sourceFile": "soroti/IRS and IPTsc Timelines.csv"
+  },
+  {
+    "schoolKey": "soroti:immaculate girls secondary school",
+    "school": "Immaculate Girls Secondary School",
+    "district": "Soroti",
+    "year": 2026,
+    "irsDate": null,
+    "iptscDate": null,
+    "sourceFile": "soroti/IRS and IPTsc Timelines.csv"
+  },
+  {
+    "schoolKey": "soroti:olila high school",
+    "school": "Olila High School",
+    "district": "Soroti",
+    "year": 2026,
+    "irsDate": null,
+    "iptscDate": null,
+    "sourceFile": "soroti/IRS and IPTsc Timelines.csv"
+  },
+  {
+    "schoolKey": "soroti:jeressar high school",
+    "school": "Jeressar High School",
+    "district": "Soroti",
+    "year": 2026,
+    "irsDate": null,
+    "iptscDate": null,
+    "sourceFile": "soroti/IRS and IPTsc Timelines.csv"
+  },
+  {
+    "schoolKey": "soroti:madera girls primary school",
+    "school": "Madera Girls Primary School",
+    "district": "Soroti",
+    "year": 2026,
+    "irsDate": null,
+    "iptscDate": null,
+    "sourceFile": "soroti/IRS and IPTsc Timelines.csv"
+  },
+  {
+    "schoolKey": "soroti:halcyon high school",
+    "school": "Halcyon High School",
+    "district": "Soroti",
+    "year": 2026,
+    "irsDate": null,
+    "iptscDate": null,
+    "sourceFile": "soroti/IRS and IPTsc Timelines.csv"
+  },
+  {
+    "schoolKey": "soroti:teso day and boarding primary school",
+    "school": "Teso Day & Boarding Primary School",
+    "district": "Soroti",
+    "year": 2026,
+    "irsDate": null,
+    "iptscDate": null,
+    "sourceFile": "soroti/IRS and IPTsc Timelines.csv"
+  },
+  {
+    "schoolKey": "soroti:siirt muslim primary school",
+    "school": "Siirt Muslim Primary School",
+    "district": "Soroti",
+    "year": 2026,
+    "irsDate": null,
+    "iptscDate": null,
+    "sourceFile": "soroti/IRS and IPTsc Timelines.csv"
+  },
+  {
+    "schoolKey": "soroti:soroti municipal secondary school",
+    "school": "Soroti Municipal Secondary School",
+    "district": "Soroti",
+    "year": 2026,
+    "irsDate": null,
+    "iptscDate": null,
+    "sourceFile": "soroti/IRS and IPTsc Timelines.csv"
+  },
+  {
+    "schoolKey": "soroti:holy angels secondary school",
+    "school": "Holy Angels Secondary School",
+    "district": "Soroti",
+    "year": 2026,
+    "irsDate": null,
+    "iptscDate": null,
+    "sourceFile": "soroti/IRS and IPTsc Timelines.csv"
+  }
+]

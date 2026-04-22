@@ -22,6 +22,8 @@ services:
         value: v1
       - key: LOG_LEVEL
         value: info
+      - key: REQUIRE_MONGODB
+        value: "true"
       - key: ALLOWED_ORIGINS
         value: https://pilgrimprotectstory.org,https://www.pilgrimprotectstory.org
       - key: MONGODB_URI

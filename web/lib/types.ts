@@ -19,6 +19,7 @@ export type SchoolDataSource =
   | "manual"
   | "manual-csv"
   | "master-csv"
+  | "pilgrim-data"
   | "unknown";
 
 export type SchoolCompleteness = "ready" | "needs-enrichment" | "manual-review";

@@ -19,7 +19,6 @@ After deploy, run the checklist in **[`SMOKE_TESTS.md`](./SMOKE_TESTS.md)**. v1 
   - A MongoDB database — easiest: **DO Managed MongoDB** (~$15/mo for a dev
     cluster). You can also point at MongoDB Atlas.
   - A Cloudinary account (free tier is fine)
-  - Stripe — **optional for v1 pilot** (in-app checkout is disabled; keep keys only if you use Stripe elsewhere later)
   - A Mapbox account (public token)
   - A Brevo (ex-Sendinblue) account for transactional email
   - A Sentry project (one for `api`, one for `web`) — optional but highly
@@ -39,9 +38,8 @@ After deploy, run the checklist in **[`SMOKE_TESTS.md`](./SMOKE_TESTS.md)**. v1 
    | Secret | Where to get it |
    |---|---|
    | `MONGODB_URI` | DO Managed Mongo → Connection Details, or Atlas connection string |
+   | `REQUIRE_MONGODB` | `true` in production so the API fails fast if Mongo is missing |
    | `JWT_SECRET` | Generate: `openssl rand -hex 32` |
-   | `STRIPE_SECRET_KEY` | Stripe dashboard → Developers → API keys (secret key) |
-   | `STRIPE_PUBLISHABLE_KEY` | Same page (publishable key) — exposed to the browser |
    | `CLOUDINARY_*` | Cloudinary dashboard → Account Details |
    | `BREVO_API_KEY` | Brevo dashboard → SMTP & API → API Keys |
    | `MAPBOX_TOKEN`, `NEXT_PUBLIC_MAPBOX_TOKEN` | Mapbox account → Tokens |
@@ -55,12 +53,37 @@ After deploy, run the checklist in **[`SMOKE_TESTS.md`](./SMOKE_TESTS.md)**. v1 
 5. Click **Create Resources**. First build takes 5–10 minutes (npm install is
    the long part). Watch the **Runtime Logs** tab for errors.
 
-6. Verify:
-   - `https://<your-app-name>.ondigitalocean.app/health` → returns
+6. Set up the production MongoDB contents from your machine after the managed
+   database exists and `MONGODB_URI` points at it:
+
+   ```bash
+   cd api
+   ADMIN_EMAIL=admin@pilgrimprotectstory.org \
+   ADMIN_PASSWORD='use-a-real-12-plus-character-password' \
+   MONGODB_URI='mongodb+srv://...' \
+   npm run setup:production-db -- --dry-run
+
+   ADMIN_EMAIL=admin@pilgrimprotectstory.org \
+   ADMIN_PASSWORD='use-a-real-12-plus-character-password' \
+   MONGODB_URI='mongodb+srv://...' \
+   npm run setup:production-db
+   ```
+
+   This command is non-destructive by default: it upserts the production admin,
+   imports the normalized Pilgrim field data, and skips already-imported spray
+   reports on reruns. Add `--reset-data` only when intentionally replacing the
+   prior Pilgrim data import.
+
+7. Verify:
+   - `https://<api-service>.ondigitalocean.app/health` → returns
      `{ "status": "ok", "version": "v1", ... }`
-   - `https://<your-app-name>.ondigitalocean.app/` → loads the donor site
-   - `https://<your-app-name>.ondigitalocean.app/api/v1/schools` → returns an
+   - `https://<web-service>.ondigitalocean.app/` → loads the donor site
+   - `https://<api-service>.ondigitalocean.app/api/v1/schools` → returns an
      array
+   - `https://<web-service>.ondigitalocean.app/api/public/runtime-config` →
+     returns JSON with non-empty `apiBaseUrl`
+   - `https://<web-service>.ondigitalocean.app/map` → renders tiles after
+     `NEXT_PUBLIC_MAPBOX_TOKEN` is set
 
 ## 3 · Custom domain (GoDaddy DNS)
 
@@ -74,6 +97,26 @@ Add these to GoDaddy:
 
 Propagation takes up to an hour. DO auto-issues a Let's Encrypt certificate as
 soon as DNS is verified.
+
+## 3.1 · Critical note on `NEXT_PUBLIC_*` vars
+
+This app relies on `NEXT_PUBLIC_API_URL` and `NEXT_PUBLIC_MAPBOX_TOKEN` in the
+browser. In Next.js, `NEXT_PUBLIC_*` variables are normally inlined at build
+time, so on DigitalOcean they must be available at both build time and runtime.
+
+The committed `.do/app.yaml` already sets:
+
+- `NEXT_PUBLIC_API_URL` → `scope: RUN_AND_BUILD_TIME`
+- `NEXT_PUBLIC_MAPBOX_TOKEN` → `scope: RUN_AND_BUILD_TIME`
+
+Do not downgrade these to runtime-only values in the dashboard. If you do, the
+bundle may ship with an empty API URL or Mapbox token even though the container
+has the secrets later.
+
+The web app also exposes `GET /api/public/runtime-config` as a safety net. That
+route reads live server env and lets the browser recover if the build baked in
+empty values, but the deployment should still provide the variables correctly at
+build time.
 
 ## 4 · Streaming logs
 
@@ -156,9 +199,12 @@ the stack per PR at `<app>-<pr-number>-preview.ondigitalocean.app`.
 |---|---|
 | `/health` returns 404 | API didn't boot — check runtime logs for Mongo connection errors |
 | CORS blocked in browser | Confirm `ALLOWED_ORIGINS` env on the api matches the web domain |
+| Custom domain shows a different site or redirects to `/lander` | DNS is still pointed at the old host. Verify apex + `www` records in your registrar against the current DO domain targets |
+| `/api/public/runtime-config` returns HTML instead of JSON | The custom domain is not serving this Next.js app yet; test the web service `.ondigitalocean.app` URL first, then fix DNS |
+| Map says token/API missing in production | Confirm `NEXT_PUBLIC_MAPBOX_TOKEN` and `NEXT_PUBLIC_API_URL` are set on the **web** service with `RUN_AND_BUILD_TIME`, then rebuild |
 | Source-maps missing in Sentry | Set `SENTRY_ORG`/`SENTRY_PROJECT`/`SENTRY_AUTH_TOKEN` on the `web` service |
 | Web build fails on `npm ci` | Ensure `web/package-lock.json` is committed and matches package.json |
-| `MONGODB_URI is not defined` | Secret wasn't set during app creation — add it in Settings → App-Level Env Vars |
+| `MONGODB_URI is not defined` | Secret wasn't set during app creation — add it in Settings → App-Level Env Vars. With `REQUIRE_MONGODB=true`, the API will intentionally fail until this is fixed. |
 
 ## 10 · Other hosting targets
 

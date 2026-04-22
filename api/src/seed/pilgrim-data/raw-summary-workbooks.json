@@ -1,0 +1,215 @@
+{
+  "irsDataSummary": {
+    "sourceFile": "irs/IRS Data Summary.xlsx",
+    "rows": [
+      {
+        "Unnamed: 0": null,
+        "Amuria": "School",
+        "Unnamed: 2": "Tier 1",
+        "Unnamed: 3": "Tier 2",
+        "Unnamed: 4": "Total"
+      },
+      {
+        "Unnamed: 0": null,
+        "Amuria": "Number of schools",
+        "Unnamed: 2": 47,
+        "Unnamed: 3": 46,
+        "Unnamed: 4": 93
+      },
+      {
+        "Unnamed: 0": null,
+        "Amuria": "Number of structures",
+        "Unnamed: 2": null,
+        "Unnamed: 3": null,
+        "Unnamed: 4": 1139
+      },
+      {
+        "Unnamed: 0": null,
+        "Amuria": "Bottle used",
+        "Unnamed: 2": null,
+        "Unnamed: 3": null,
+        "Unnamed: 4": 389
+      },
+      {
+        "Unnamed: 0": null,
+        "Amuria": "School population",
+        "Unnamed: 2": 25608,
+        "Unnamed: 3": 6123,
+        "Unnamed: 4": 31731
+      },
+      {
+        "Unnamed: 0": null,
+        "Amuria": "Population protected",
+        "Unnamed: 2": 6206,
+        "Unnamed: 3": 0,
+        "Unnamed: 4": 6206
+      },
+      {
+        "Unnamed: 0": null,
+        "Amuria": "Cost per person",
+        "Unnamed: 2": null,
+        "Unnamed: 3": null,
+        "Unnamed: 4": 0
+      },
+      {
+        "Unnamed: 0": null,
+        "Amuria": null,
+        "Unnamed: 2": null,
+        "Unnamed: 3": null,
+        "Unnamed: 4": null
+      },
+      {
+        "Unnamed: 0": null,
+        "Amuria": null,
+        "Unnamed: 2": null,
+        "Unnamed: 3": null,
+        "Unnamed: 4": null
+      },
+      {
+        "Unnamed: 0": null,
+        "Amuria": "Soroti",
+        "Unnamed: 2": null,
+        "Unnamed: 3": null,
+        "Unnamed: 4": null
+      },
+      {
+        "Unnamed: 0": null,
+        "Amuria": "School",
+        "Unnamed: 2": "Tier 1",
+        "Unnamed: 3": "Tier 2",
+        "Unnamed: 4": "Total"
+      },
+      {
+        "Unnamed: 0": null,
+        "Amuria": "Number of schools",
+        "Unnamed: 2": 5,
+        "Unnamed: 3": null,
+        "Unnamed: 4": 5
+      },
+      {
+        "Unnamed: 0": null,
+        "Amuria": "Number of structures",
+        "Unnamed: 2": 76,
+        "Unnamed: 3": null,
+        "Unnamed: 4": 76
+      },
+      {
+        "Unnamed: 0": null,
+        "Amuria": "Bottle used",
+        "Unnamed: 2": 37,
+        "Unnamed: 3": null,
+        "Unnamed: 4": 37
+      },
+      {
+        "Unnamed: 0": null,
+        "Amuria": "School population",
+        "Unnamed: 2": 7315,
+        "Unnamed: 3": null,
+        "Unnamed: 4": 7315
+      },
+      {
+        "Unnamed: 0": null,
+        "Amuria": "Population protected",
+        "Unnamed: 2": 6462,
+        "Unnamed: 3": null,
+        "Unnamed: 4": 6462
+      },
+      {
+        "Unnamed: 0": null,
+        "Amuria": "Cost per person",
+        "Unnamed: 2": null,
+        "Unnamed: 3": null,
+        "Unnamed: 4": 0
+      },
+      {
+        "Unnamed: 0": null,
+        "Amuria": null,
+        "Unnamed: 2": null,
+        "Unnamed: 3": null,
+        "Unnamed: 4": null
+      },
+      {
+        "Unnamed: 0": null,
+        "Amuria": null,
+        "Unnamed: 2": null,
+        "Unnamed: 3": null,
+        "Unnamed: 4": null
+      },
+      {
+        "Unnamed: 0": null,
+        "Amuria": "Schools with term 2 enrollment data are considered. However, for those schools without term 2 enrollment data, term 1 figures are considered",
+        "Unnamed: 2": null,
+        "Unnamed: 3": null,
+        "Unnamed: 4": null
+      }
+    ]
+  },
+  "netUsage": {
+    "sourceFile": "soroti/Net usage.xlsx",
+    "rows": [
+      {
+        "Unnamed: 0": null,
+        "Unnamed: 1": "Intervention School",
+        "Unnamed: 2": "Number of beds in use",
+        "Unnamed: 3": "Number of mosquito nets hung up",
+        "Unnamed: 4": "Percentage net usage (%)"
+      },
+      {
+        "Unnamed: 0": null,
+        "Unnamed: 1": "Soroti Municipal Secondary School",
+        "Unnamed: 2": 485,
+        "Unnamed: 3": 107,
+        "Unnamed: 4": 22.1
+      },
+      {
+        "Unnamed: 0": null,
+        "Unnamed: 1": "Halcyon High School",
+        "Unnamed: 2": 147,
+        "Unnamed: 3": 32,
+        "Unnamed: 4": 21.8
+      },
+      {
+        "Unnamed: 0": null,
+        "Unnamed: 1": "Jeressar High School",
+        "Unnamed: 2": 229,
+        "Unnamed: 3": 82,
+        "Unnamed: 4": 35.8
+      },
+      {
+        "Unnamed: 0": null,
+        "Unnamed: 1": "Teso Day & Boarding Primary School",
+        "Unnamed: 2": 395,
+        "Unnamed: 3": 301,
+        "Unnamed: 4": 76.2
+      },
+      {
+        "Unnamed: 0": null,
+        "Unnamed: 1": "Olila High School",
+        "Unnamed: 2": 493,
+        "Unnamed: 3": 375,
+        "Unnamed: 4": 76.1
+      },
+      {
+        "Unnamed: 0": null,
+        "Unnamed: 1": "Holy Angels Secondary School",
+        "Unnamed: 2": 253,
+        "Unnamed: 3": 110,
+        "Unnamed: 4": 43.5
+      },
+      {
+        "Unnamed: 0": null,
+        "Unnamed: 1": "Madera Girls Primary School",
+        "Unnamed: 2": 214,
+        "Unnamed: 3": 214,
+        "Unnamed: 4": 100
+      },
+      {
+        "Unnamed: 0": null,
+        "Unnamed: 1": null,
+        "Unnamed: 2": 2216,
+        "Unnamed: 3": 1221,
+        "Unnamed: 4": 55.099277978339344
+      }
+    ]
+  }
+}

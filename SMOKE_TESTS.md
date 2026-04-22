@@ -9,6 +9,7 @@ Run these after deploy or before stakeholder review. Adapt URLs to your environm
 | `GET /health` | `200`, JSON indicates healthy |
 | `GET /api/v1/schools` | `200`, array (may be empty) |
 | `GET /api/v1/stats/map` | `200`, FeatureCollection |
+| Production DB import | `npm run setup:production-db -- --dry-run` reports imported/updated schools and no connection error |
 
 ## Web (donor)
 
@@ -41,6 +42,17 @@ Follow [`mobile/MOBILE_MVP.md`](./mobile/MOBILE_MVP.md) device E2E: login → li
 | `NEXT_PUBLIC_MAPBOX_STYLE` | Optional custom Studio style |
 | `NEXT_PUBLIC_MOCK` | Must be `false` for real data |
 | `NEXT_PUBLIC_SENTRY_DSN` / API Sentry | Set if error tracking required |
+
+## Production routing + runtime-config
+
+| Step | Pass criteria |
+|------|----------------|
+| Open the web service `.ondigitalocean.app` root URL | Loads the Pilgrim Protect site, not a placeholder or redirect |
+| `GET /api/public/runtime-config` on the deployed web service | `200`, JSON, `apiBaseUrl` is non-empty |
+| `GET /api/public/runtime-config` on the custom domain | Same JSON response as the service URL |
+| Compare DNS for apex + `www` | Records point to the current DigitalOcean targets |
+| Open `/map` on production | Tiles load and no missing-token message appears |
+| Open browser devtools on `/map` | API requests go to the expected `/api/v1` backend |
 
 ## Regression: checkout disabled
 

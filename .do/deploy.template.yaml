@@ -29,6 +29,8 @@ services:
         value: v1
       - key: LOG_LEVEL
         value: info
+      - key: REQUIRE_MONGODB
+        value: "true"
       - key: ALLOWED_ORIGINS
         value: ${_self.PUBLIC_URL}
       - key: MONGODB_URI

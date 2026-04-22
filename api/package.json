@@ -9,7 +9,9 @@
     "build": "tsc",
     "seed": "tsx src/seed/seed.ts",
     "migrate:sponsorship": "tsx src/scripts/migrate-status-to-sponsorship.ts",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "import:pilgrim-data": "tsx src/scripts/import-pilgrim-data.ts",
+    "setup:production-db": "tsx src/scripts/setup-production-db.ts"
   },
   "keywords": [
     "malaria",
