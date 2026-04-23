@@ -19,6 +19,10 @@ import DistrictFilter from "./DistrictFilter";
 import SchoolPopup from "./SchoolPopup";
 import { usePublicMapboxToken } from "@/components/map/MapboxTokenProvider";
 import { getMapboxStyle } from "@/lib/mapStyle";
+import { ensureMapboxCspWorker } from "@/lib/mapbox-worker-init";
+
+// Configure the hosted worker before any map instance boots.
+ensureMapboxCspWorker();
 
 const MAP_STYLE = getMapboxStyle();
 

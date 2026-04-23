@@ -34,7 +34,7 @@ services:
       - key: ALLOWED_ORIGINS
         value: ${_self.PUBLIC_URL}
       - key: MONGODB_URI
-        type: SECRET
+        value: ${db-mongodb-nyc3-29961.DATABASE_URL}
       - key: JWT_SECRET
         type: SECRET
       - key: JWT_EXPIRE
@@ -69,7 +69,7 @@ services:
       - key: NODE_ENV
         value: production
       - key: NEXT_PUBLIC_API_URL
-        value: ${api.PUBLIC_URL}/v1
+        value: ${api.PUBLIC_URL}/api/v1
         scope: RUN_AND_BUILD_TIME
       - key: NEXT_PUBLIC_API_VERSION
         value: v1
@@ -105,3 +105,9 @@ ingress:
       match:
         path:
           prefix: /
+
+databases:
+  - name: db-mongodb-nyc3-29961
+    engine: MONGODB
+    production: true
+    cluster_name: db-mongodb-nyc3-29961

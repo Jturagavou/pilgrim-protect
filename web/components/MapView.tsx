@@ -13,6 +13,10 @@ import { usePublicMapboxToken } from "@/components/map/MapboxTokenProvider";
 import { pinFill } from "@/lib/mapLabels";
 import type { LegacyStatus, MapFeature } from "@/lib/types";
 import { getMapboxStyle } from "@/lib/mapStyle";
+import { ensureMapboxCspWorker } from "@/lib/mapbox-worker-init";
+
+// Configure the hosted worker before any map instance boots.
+ensureMapboxCspWorker();
 
 const MAP_STYLE = getMapboxStyle();
 

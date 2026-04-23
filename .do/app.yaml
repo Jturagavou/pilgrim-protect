@@ -27,7 +27,7 @@ services:
       - key: ALLOWED_ORIGINS
         value: https://pilgrimprotectstory.org,https://www.pilgrimprotectstory.org
       - key: MONGODB_URI
-        type: SECRET
+        value: ${db-mongodb-nyc3-29961.DATABASE_URL}
       - key: JWT_SECRET
         type: SECRET
       - key: JWT_EXPIRE
@@ -63,7 +63,7 @@ services:
         value: production
       # NEXT_PUBLIC_* is inlined at `next build` — must be present at build + run (DO default is often runtime-only).
       - key: NEXT_PUBLIC_API_URL
-        value: ${api.PUBLIC_URL}/v1
+        value: ${api.PUBLIC_URL}/api/v1
         scope: RUN_AND_BUILD_TIME
       - key: NEXT_PUBLIC_API_VERSION
         value: v1
@@ -111,3 +111,9 @@ domains:
     type: PRIMARY
   - domain: www.pilgrimprotectstory.org
     type: ALIAS
+
+databases:
+  - name: db-mongodb-nyc3-29961
+    engine: MONGODB
+    production: true
+    cluster_name: db-mongodb-nyc3-29961

@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node dist/server.js",
     "dev": "tsx watch src/server.ts",
-    "build": "tsc",
+    "build": "tsc && npm run copy:seed-data",
+    "copy:seed-data": "mkdir -p dist/seed && cp -R src/seed/pilgrim-data dist/seed/pilgrim-data",
     "seed": "tsx src/seed/seed.ts",
     "migrate:sponsorship": "tsx src/scripts/migrate-status-to-sponsorship.ts",
     "typecheck": "tsc --noEmit",
