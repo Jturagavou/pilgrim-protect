@@ -5,9 +5,10 @@
   "scripts": {
     "dev": "next dev --webpack",
     "dev:turbo": "next dev --turbopack",
-    "build": "next build",
+    "build": "npm run copy:mapbox-worker && next build",
     "start": "next start",
     "lint": "eslint",
+    "copy:mapbox-worker": "cp node_modules/mapbox-gl/dist/mapbox-gl-csp-worker.js public/mapbox-gl-csp-worker.js",
     "gen:api-types": "openapi-typescript ../api/openapi.yaml -o lib/api-types.ts"
   },
   "dependencies": {
