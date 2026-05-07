@@ -11,24 +11,19 @@ export default function BrandLogo({
   compact = false,
   light = false,
 }: BrandLogoProps) {
-  const textClass = light ? "text-white" : "text-ink";
-  const accentClass = light ? "text-pilgrim-gold" : "text-pilgrim-orange";
+  const logoSrc = light
+    ? "/brand/pilgrim-africa-logo-white.svg"
+    : "/brand/pilgrim-africa-logo-dark.svg";
 
   return (
-    <div className={cn("flex items-center gap-3", className)}>
-      <div className="relative h-11 w-11 shrink-0 rounded-full bg-pilgrim-orange shadow-[0_8px_24px_rgba(255,109,35,0.28)]">
-        <div className="absolute left-[15px] top-[5px] h-[30px] w-[14px] rounded-full bg-ink-deep/90 rotate-[18deg]" />
-        <div className="absolute left-[19px] top-[12px] h-[20px] w-[7px] rounded-full bg-pilgrim-orange rotate-[18deg]" />
-      </div>
-      <div
-        className={cn(
-          "font-display font-bold uppercase leading-none tracking-[-0.04em]",
-          compact ? "text-[1.75rem]" : "text-[2rem]"
-        )}
-      >
-        <span className={textClass}>Pilgrim</span>{" "}
-        <span className={accentClass}>Protect</span>
-      </div>
-    </div>
+    <img
+      src={logoSrc}
+      alt="Pilgrim Africa"
+      className={cn(
+        "block h-auto w-auto",
+        compact ? "max-h-10 max-w-[210px]" : "max-h-12 max-w-[260px]",
+        className
+      )}
+    />
   );
 }

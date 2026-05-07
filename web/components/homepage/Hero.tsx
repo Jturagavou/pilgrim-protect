@@ -25,27 +25,27 @@ import type { SummaryStats } from "@/lib/stats.server";
 const PROGRAM_SIGNALS = [
   "Real schools",
   "Field reports",
-  "Photo evidence",
-  "GPS-tagged visits",
-  "Uganda districts",
-  "Donor-visible progress",
+  "IRS protection",
+  "Malaria education",
+  "School malaria clubs",
+  "Youth champions",
 ];
 
 const FIELD_VOICES = [
   {
     quote:
-      "No school should fall through the cracks. Every child deserves protection, no matter how remote.",
-    attribution: "Field worker · Tororo",
+      "Spraying classrooms and dormitories helps students stay focused on learning instead of losing time to malaria.",
+    attribution: "Beacon of Hope testimony",
   },
   {
     quote:
-      "When the teams return with photos and room counts, communities know this is real follow-through.",
-    attribution: "Program operations",
+      "The first service helps schools compare prevention costs with the health and financial cost of malaria.",
+    attribution: "Pilgrim Protect model",
   },
   {
     quote:
-      "A school is not just a pin on a map. It is a place where attendance, health, and trust are all connected.",
-    attribution: "Pilgrim Protect",
+      "Donations support implementation in schools, with overhead subsidized by Pilgrim Africa board members.",
+    attribution: "Pilgrim Africa",
   },
 ];
 
@@ -82,7 +82,7 @@ export function Hero({ stats }: HeroProps) {
               <div className="inline-flex items-center gap-2 rounded-full border border-border bg-card/90 px-3 py-1.5 shadow-sm backdrop-blur-sm">
                 <span className="text-[11px] font-semibold uppercase tracking-[0.22em] text-pilgrim-orange flex items-center gap-2">
                   <MapPin className="size-3.5 text-pilgrim-orange" aria-hidden />
-                  Uganda · Indoor Residual Spraying · Since 2001
+                  Uganda · Indoor Residual Spraying · School Protection
                 </span>
               </div>
             </motion.div>
@@ -105,9 +105,9 @@ export function Hero({ stats }: HeroProps) {
               transition={delayed(2)}
               className="max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg"
             >
-              Pilgrim Protect links real schools, field reporting, and donor-facing
-              visibility. The goal is not just to fund a visit, but to show where
-              protection is happening and what support makes possible over time.
+              Pilgrim Protect works with schools to reduce malaria-carrying
+              mosquitoes, limit student-mosquito contact, and teach prevention
+              through campus activities that students can carry forward.
             </motion.p>
 
             <motion.div
@@ -141,18 +141,18 @@ export function Hero({ stats }: HeroProps) {
             >
               <SignalPill
                 icon={<ShieldCheck className="h-4 w-4 text-pilgrim-orange" />}
-                title="Verified in the field"
-                body="Reports, photos, and school-level updates"
+                title="IRS-led prevention"
+                body="Approved indoor residual spraying in classrooms and dormitories"
               />
               <SignalPill
                 icon={<HeartHandshake className="h-4 w-4 text-pilgrim-orange" />}
-                title="Donor-visible impact"
-                body="A clearer line from support to follow-through"
+                title="Direct implementation"
+                body="Gifts support school program work, not generic overhead"
               />
               <SignalPill
                 icon={<Sprout className="h-4 w-4 text-pilgrim-olive" />}
-                title="Built to grow"
-                body="Start with Uganda, expand as the program expands"
+                title="Student prevention culture"
+                body="Education, malaria clubs, and youth champions"
               />
             </motion.div>
           </div>

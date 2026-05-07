@@ -9,6 +9,10 @@ export function normalizePublicApiBaseUrl(url: string | undefined | null): strin
 }
 
 export function resolvePublicApiBaseUrl(): string {
+  if (typeof window === "undefined" && process.env.API_URL) {
+    return normalizePublicApiBaseUrl(process.env.API_URL);
+  }
+
   return normalizePublicApiBaseUrl(
     process.env.NEXT_PUBLIC_API_URL || process.env.API_URL
   );

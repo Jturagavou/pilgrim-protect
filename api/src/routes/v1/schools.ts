@@ -74,7 +74,10 @@ const getSchool: RequestHandler = async (req, res, next) => {
       return;
     }
 
-    const sprayReports = await SprayReport.find({ school: school._id })
+    const sprayReports = await SprayReport.find({
+      school: school._id,
+      verified: true,
+    })
       .populate("worker", "name")
       .sort({ date: -1 });
 

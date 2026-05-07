@@ -38,6 +38,10 @@ export const metadata: Metadata = {
   title: "Pilgrim Protect — Malaria Prevention for Uganda Schools",
   description:
     "Track and sponsor indoor residual spraying at Ugandan schools. See real impact data, explore the interactive map, and help protect children from malaria.",
+  icons: {
+    icon: "/favicon.png",
+    apple: "/apple-touch-icon.png",
+  },
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {

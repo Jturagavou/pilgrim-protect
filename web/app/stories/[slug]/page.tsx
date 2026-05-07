@@ -36,6 +36,14 @@ export default async function StoryPage({
 
           <div className="mt-8 grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
             <div>
+              <div className="mb-7 aspect-[1.75] overflow-hidden rounded-[1.75rem] border border-border bg-paper-depth shadow-[0_18px_42px_rgba(45,45,45,0.08)]">
+                <img
+                  src={story.imageUrl}
+                  alt={story.imageAlt}
+                  style={{ objectPosition: story.imagePosition }}
+                  className="h-full w-full object-cover"
+                />
+              </div>
               <p className="font-condensed text-xs uppercase tracking-[0.24em] text-pilgrim-orange">
                 {story.district} · {story.dateLabel}
               </p>
@@ -132,6 +140,15 @@ export default async function StoryPage({
                     href={`/stories/${entry.slug}`}
                     className="group block rounded-2xl border border-border bg-paper-soft px-4 py-4 transition-colors hover:bg-paper-depth"
                   >
+                    <div className="mb-3 aspect-[1.8] overflow-hidden rounded-xl bg-paper-depth">
+                      <img
+                        src={entry.imageUrl}
+                        alt={entry.imageAlt}
+                        style={{ objectPosition: entry.imagePosition }}
+                        className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.04]"
+                        loading="lazy"
+                      />
+                    </div>
                     <p className="text-sm font-semibold text-ink">{entry.title}</p>
                     <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
                       {entry.district} · {entry.readingTime}

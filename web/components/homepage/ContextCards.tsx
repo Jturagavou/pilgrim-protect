@@ -11,19 +11,19 @@ interface ContextCard {
 const CARDS: ContextCard[] = [
   {
     title: "Why indoor residual spraying",
-    body: "IRS kills mosquitoes on contact with treated walls. WHO documents up to 90% reductions in malaria where it's applied consistently. Coverage lasts six to twelve months per spray.",
+    body: "IRS treats interior walls in sleeping and learning spaces, killing or repelling mosquitoes for months after the spray has dried.",
     Icon: ShieldCheck,
     tintClassName: "text-pilgrim-orange",
   },
   {
     title: "Why schools",
-    body: "A classroom with a sleeping child at lunchtime is a mosquito's target. Schools concentrate children, have fixed walls to treat, and give us a reliable cadence — term after term.",
+    body: "In high-transmission areas, a school of 1,000 students can record more malaria cases in a year than it has students. Protecting schools protects learning time.",
     Icon: GraduationCap,
     tintClassName: "text-pilgrim-olive",
   },
   {
     title: "Why Pilgrim",
-    body: "Pilgrim Africa is one of the few organizations licensed to import IRS chemicals into Uganda. Every spray is logged by the worker who did it. Every donor sees exactly where the money went.",
+    body: "Pilgrim Protect pairs spraying with prevention education, school malaria clubs, youth champions, and a cost comparison that helps schools plan beyond one visit.",
     Icon: Landmark,
     tintClassName: "text-pilgrim-orange",
   },
@@ -38,10 +38,11 @@ export function ContextCards() {
             Why this approach
           </p>
           <h2 className="mt-3 font-display text-3xl font-bold tracking-tight text-ink md:text-4xl">
-            A simple intervention, verified in the open.
+            A school-centered intervention with a path to sustainability.
           </h2>
           <p className="mt-3 text-muted-foreground">
-            Three things we are clear on.
+            Pilgrim Protect is not just a spray visit. It is a prevention model
+            designed around students, schools, and long-term local ownership.
           </p>
         </div>
         <div className="mt-10 grid gap-5 md:grid-cols-3">

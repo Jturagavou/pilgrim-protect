@@ -11,26 +11,26 @@ interface Phase {
 const PHASES: Phase[] = [
   {
     step: "01",
-    title: "Fund",
-    body: "A sponsor commits to one school at roughly $1–$2 per student per year. One donation covers one spray cycle.",
+    title: "Subsidize",
+    body: "Pilgrim Africa offers an initial term of spray and protection service so schools can begin despite tight budgets.",
     Icon: CheckCircle2,
   },
   {
     step: "02",
-    title: "Contract",
-    body: "The school signs on. A field worker is assigned and a target date is scheduled for the spray.",
+    title: "Compare",
+    body: "Schools share de-identified malaria case information and examine prevention costs against the cost of illness.",
     Icon: FileSignature,
   },
   {
     step: "03",
-    title: "Spray",
-    body: "A trained worker performs the spray on site, photographing each room and logging room counts via GPS.",
+    title: "Protect",
+    body: "Teams implement IRS in classrooms and dormitories using approved insecticides, with education activities around prevention.",
     Icon: SprayCan,
   },
   {
     step: "04",
-    title: "Report",
-    body: "The report is verified, published to the school's public page, and the sponsor is notified with a direct link.",
+    title: "Sustain",
+    body: "Schools are invited to budget consistently for prevention, contributing to operational costs as they are able.",
     Icon: ClipboardCheck,
   },
 ];
@@ -44,11 +44,11 @@ export function HowItWorks() {
             How it works
           </p>
           <h2 className="mt-2 font-display text-3xl font-bold tracking-tight text-ink md:text-4xl">
-            Fund, contract, spray, report.
+            Subsidize, compare, protect, sustain.
           </h2>
           <p className="mt-3 text-muted-foreground">
-            Four phases. Every school that appears on the map has moved through
-            them. Every sponsor can see where theirs is right now.
+            Pilgrim Protect starts by lowering the barrier for schools, then
+            helps them see the practical case for continued malaria prevention.
           </p>
         </div>
         <ol className="mt-10 grid gap-4 md:grid-cols-4">

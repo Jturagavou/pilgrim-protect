@@ -1,7 +1,8 @@
 FROM node:22-alpine
 WORKDIR /app
 COPY package*.json ./
-RUN npm ci --production
+RUN npm ci
 COPY . .
-EXPOSE 5000
-CMD ["node", "server.js"]
+RUN npm run build
+EXPOSE 8080
+CMD ["node", "dist/server.js"]

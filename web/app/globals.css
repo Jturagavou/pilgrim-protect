@@ -215,3 +215,22 @@
     letter-spacing: 0.04em;
   }
 }
+
+@keyframes story-marquee {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-50%);
+  }
+}
+
+.story-marquee {
+  animation-name: story-marquee;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.story-marquee-paused {
+  animation-play-state: paused;
+}

@@ -8,15 +8,25 @@ import {
   StyleSheet,
 } from 'react-native';
 import { getMyReports } from '../lib/api';
+import { getQueue } from '../lib/offlineQueue';
 import ReportCard from '../components/ReportCard';
+import OfflineBanner from '../components/OfflineBanner';
+import { pilgrimTheme } from '../theme/pilgrimTheme';
 
-export default function MyReportsScreen() {
+export default function MyReportsScreen({ navigation }) {
   const [reports, setReports] = useState([]);
+  const [queuedReports, setQueuedReports] = useState([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
   const [error, setError] = useState('');
 
   const fetchReports = useCallback(async () => {
+    const queue = await getQueue();
+    const queueSorted = [...queue].sort(
+      (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+    );
+    setQueuedReports(queueSorted);
+
     try {
       setError('');
       const data = await getMyReports();
@@ -26,7 +36,12 @@ export default function MyReportsScreen() {
       );
       setReports(sorted);
     } catch (err) {
-      setError('Could not load reports. Pull to retry.');
+      setReports([]);
+      setError(
+        queueSorted.length
+          ? 'Offline: showing queued reports saved on this device.'
+          : 'Could not load synced reports. Pull to retry when connected.'
+      );
     }
   }, []);
 
@@ -39,6 +54,13 @@ export default function MyReportsScreen() {
     load();
   }, [fetchReports]);
 
+  useEffect(() => {
+    const unsubscribe = navigation?.addListener?.('focus', () => {
+      fetchReports();
+    });
+    return unsubscribe;
+  }, [fetchReports, navigation]);
+
   const onRefresh = async () => {
     setRefreshing(true);
     await fetchReports();
@@ -48,14 +70,17 @@ export default function MyReportsScreen() {
   if (loading) {
     return (
       <View style={styles.center}>
-        <ActivityIndicator size="large" color="#1B5E20" />
+        <ActivityIndicator size="large" color={pilgrimTheme.colors.primary} />
         <Text style={styles.loadingText}>Loading your reports...</Text>
       </View>
     );
   }
 
+  const allReports = [...queuedReports, ...reports];
+
   return (
     <View style={styles.container}>
+      <OfflineBanner style={styles.offlineBanner} />
       {error ? (
         <View style={styles.errorContainer}>
           <Text style={styles.errorText}>{error}</Text>
@@ -63,25 +88,68 @@ export default function MyReportsScreen() {
       ) : null}
 
       <FlatList
-        data={reports}
-        keyExtractor={(item) => item._id}
-        renderItem={({ item }) => <ReportCard report={item} />}
+        data={allReports}
+        keyExtractor={(item) => item._id || item.id}
+        renderItem={({ item }) => {
+          const editable = item.syncStatus === 'queued' || item.syncStatus === 'failed';
+          return (
+            <ReportCard
+              report={item}
+              onPress={
+                editable
+                  ? () =>
+                      navigation.navigate('SprayReport', {
+                        school: {
+                          ...(item.schoolSnapshot || {}),
+                          _id: typeof item.school === 'string' ? item.school : item.school?._id,
+                          name: item.schoolSnapshot?.name || item.school?.name || 'Queued school',
+                          district: item.schoolSnapshot?.district || item.school?.district || '',
+                          totalRooms: item.schoolSnapshot?.totalRooms || item.roomsEligible || 0,
+                          studentCount: item.schoolSnapshot?.studentCount || item.studentsProtected || 0,
+                        },
+                        queuedReport: item,
+                      })
+                  : undefined
+              }
+            />
+          );
+        }}
         contentContainerStyle={styles.list}
         refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} colors={['#1B5E20']} />
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+            colors={[pilgrimTheme.colors.primary]}
+          />
         }
         ListEmptyComponent={
-          <View style={styles.center}>
+          <View style={styles.emptyState}>
             <Text style={styles.emptyText}>No reports yet</Text>
             <Text style={styles.emptyHint}>Submit your first spray report to see it here.</Text>
           </View>
         }
         ListHeaderComponent={
-          reports.length > 0 ? (
+          <View style={styles.headerCard}>
+            <Text style={styles.headerEyebrow}>Reporting history</Text>
+            <Text style={styles.headerTitle}>Your recent field submissions</Text>
             <Text style={styles.listHeader}>
-              {reports.length} report{reports.length !== 1 ? 's' : ''} submitted
+              {allReports.length} report{allReports.length !== 1 ? 's' : ''} visible
             </Text>
-          ) : null
+            <View style={styles.summaryRow}>
+              <View style={styles.summaryCard}>
+                <Text style={styles.summaryValue}>{reports.length}</Text>
+                <Text style={styles.summaryLabel}>Synced</Text>
+              </View>
+              <View style={styles.summaryCard}>
+                <Text style={styles.summaryValue}>{queuedReports.length}</Text>
+                <Text style={styles.summaryLabel}>Queued</Text>
+              </View>
+              <View style={styles.summaryCard}>
+                <Text style={styles.summaryValue}>Recent</Text>
+                <Text style={styles.summaryLabel}>Activity</Text>
+              </View>
+            </View>
+          </View>
         }
       />
     </View>
@@ -91,7 +159,7 @@ export default function MyReportsScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5F5F5',
+    backgroundColor: pilgrimTheme.colors.background,
   },
   center: {
     flex: 1,
@@ -101,38 +169,99 @@ const styles = StyleSheet.create({
   },
   loadingText: {
     marginTop: 12,
-    color: '#666',
+    color: pilgrimTheme.colors.textMuted,
     fontSize: 15,
   },
   list: {
-    paddingVertical: 8,
+    paddingVertical: 10,
+    paddingBottom: 24,
+  },
+  offlineBanner: {
+    marginHorizontal: 16,
+    marginTop: 12,
+    marginBottom: 4,
+    borderRadius: 16,
+  },
+  headerCard: {
+    marginHorizontal: 16,
+    marginBottom: 8,
+    padding: 16,
+    borderRadius: 20,
+    backgroundColor: pilgrimTheme.colors.surface,
+    borderWidth: 1,
+    borderColor: pilgrimTheme.colors.border,
+    ...pilgrimTheme.shadow.soft,
+  },
+  headerEyebrow: {
+    color: pilgrimTheme.colors.primary,
+    fontSize: 11,
+    fontWeight: '700',
+    letterSpacing: 1.2,
+    textTransform: 'uppercase',
+  },
+  headerTitle: {
+    marginTop: 6,
+    fontSize: 20,
+    fontWeight: '700',
+    color: pilgrimTheme.colors.ink,
   },
   listHeader: {
     fontSize: 13,
-    color: '#888',
-    textAlign: 'center',
-    marginBottom: 8,
-    marginTop: 4,
+    color: pilgrimTheme.colors.textMuted,
+    marginTop: 6,
+  },
+  summaryRow: {
+    flexDirection: 'row',
+    gap: 10,
+    marginTop: 14,
+  },
+  summaryCard: {
+    flex: 1,
+    borderRadius: 14,
+    backgroundColor: pilgrimTheme.colors.backgroundSoft,
+    borderWidth: 1,
+    borderColor: pilgrimTheme.colors.border,
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+    alignItems: 'center',
+  },
+  summaryValue: {
+    fontSize: 18,
+    fontWeight: '800',
+    color: pilgrimTheme.colors.primaryDeep,
+  },
+  summaryLabel: {
+    fontSize: 11,
+    color: pilgrimTheme.colors.textMuted,
+    marginTop: 3,
+    textTransform: 'uppercase',
+    letterSpacing: 0.5,
   },
   errorContainer: {
-    backgroundColor: '#FFEBEE',
+    backgroundColor: pilgrimTheme.colors.dangerSurface,
     padding: 12,
     marginHorizontal: 16,
     marginTop: 8,
     borderRadius: 8,
   },
   errorText: {
-    color: '#C62828',
+    color: pilgrimTheme.colors.dangerText,
     textAlign: 'center',
     fontSize: 13,
   },
+  emptyState: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 24,
+    paddingTop: 48,
+  },
   emptyText: {
-    color: '#666',
+    color: pilgrimTheme.colors.ink,
     fontSize: 18,
     fontWeight: '600',
   },
   emptyHint: {
-    color: '#999',
+    color: pilgrimTheme.colors.textMuted,
     fontSize: 14,
     marginTop: 6,
   },

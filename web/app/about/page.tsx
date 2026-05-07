@@ -12,8 +12,9 @@ export default function AboutPage() {
           About Pilgrim Protect
         </h1>
         <p className="text-muted-foreground mt-3 max-w-2xl mx-auto text-lg">
-          A Pilgrim Africa initiative bringing transparency and community
-          engagement to malaria prevention in Ugandan schools.
+          A Pilgrim Africa initiative helping schools reduce malaria risk
+          through indoor residual spraying, prevention education, and practical
+          follow-up around the cost of illness.
         </p>
       </div>
 
@@ -21,16 +22,16 @@ export default function AboutPage() {
       <section className="mb-12">
         <h2 className="text-2xl font-bold text-ink mb-4">Our Mission</h2>
         <p className="text-muted-foreground leading-relaxed">
-          Malaria remains one of the leading causes of school absenteeism and childhood
-          mortality in Uganda. Pilgrim Protect was created to tackle this head-on through
-          indoor residual spraying (IRS) — a proven, WHO-recommended intervention that
-          dramatically reduces mosquito populations inside school buildings.
+          In high-transmission areas, malaria can disrupt an entire school year:
+          Pilgrim Africa notes that a school with 1,000 students can record
+          1,200 or more malaria cases in a year. Pilgrim Protect exists to
+          reduce the mosquitoes that spread malaria, limit student-mosquito
+          contact, and educate students about prevention.
         </p>
         <p className="text-muted-foreground leading-relaxed mt-3">
-          But we go beyond spraying. We believe donors deserve to see exactly where their
-          money goes, and communities deserve to see that someone cares. Every spray
-          report is logged, verified, and visible on our interactive map — creating an
-          unprecedented level of transparency for malaria prevention.
+          The program focuses on primary and secondary schools, using IRS along
+          with prevention materials, malaria clubs, youth champion activities,
+          and in some schools preventive treatment at the start of term.
         </p>
       </section>
 
@@ -41,18 +42,18 @@ export default function AboutPage() {
           {[
             {
               step: "1",
-              title: "Identify & Plan",
-              desc: "Our team identifies schools with the highest malaria burden. Each school is surveyed, rooms are counted, and a spraying schedule is created.",
+              title: "Start with service",
+              desc: "Pilgrim Africa offers a first term of spray and protection service so under-resourced schools can begin.",
             },
             {
               step: "2",
-              title: "Spray & Document",
-              desc: "Trained field workers arrive with WHO-approved insecticide. Every room is sprayed and documented with photos, notes, and GPS coordinates.",
+              title: "Measure the case",
+              desc: "Schools share de-identified malaria case information and compare prevention costs with the cost of illness.",
             },
             {
               step: "3",
-              title: "Verify & Report",
-              desc: "Reports are submitted through our mobile app, verified by supervisors, and published to the platform — visible to donors in real time.",
+              title: "Build prevention habits",
+              desc: "Spraying is paired with education, school malaria clubs, and follow-up so schools can budget for prevention over time.",
             },
           ].map((item) => (
             <div key={item.step} className="text-center rounded-[1.5rem] border border-border bg-card/70 p-6 shadow-sm">
@@ -74,22 +75,22 @@ export default function AboutPage() {
             {
               name: "Pilgrim Africa",
               role: "Parent Organization",
-              desc: "A nonprofit dedicated to lasting change in Uganda through health, education, and community development programs.",
+              desc: "The parent organization behind Pilgrim Protect, with offices in Kampala and Seattle.",
             },
             {
               name: "Field Workers",
               role: "Spray Teams",
-              desc: "Trained Ugandan professionals who carry out spraying operations, submit documentation, and build trust with local communities.",
+              desc: "Teams carrying out school protection activities, including IRS and follow-up documentation.",
             },
             {
               name: "Tech Team",
               role: "Platform Development",
-              desc: "Building the web platform, mobile app, and data pipeline that makes transparent impact tracking possible.",
+              desc: "Building the donor-facing map, school profiles, reporting tools, and data pipeline around the real program.",
             },
             {
               name: "Donors & Partners",
               role: "Funding & Support",
-              desc: "Individuals and organizations who make this work possible through financial contributions and advocacy.",
+              desc: "Supporters who help cover direct school implementation costs for Pilgrim Protect.",
             },
           ].map((member) => (
             <div key={member.name} className="bg-card/80 rounded-[1.5rem] p-5 border border-border shadow-sm">

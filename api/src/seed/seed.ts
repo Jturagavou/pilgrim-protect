@@ -14,6 +14,7 @@ import Donor from "../models/Donor";
 import SprayReport from "../models/SprayReport";
 import Donation from "../models/Donation";
 import { logger } from "../lib/logger";
+import { importPilgrimData } from "../scripts/import-pilgrim-data";
 
 const MONGO_URI =
   process.env.MONGODB_URI ||
@@ -220,16 +221,17 @@ async function seed(): Promise<void> {
     ]);
     logger.info("Collections cleared.");
 
-    // --- Seed Schools ---
-    const schoolsData = buildSchools();
-    const schools = await School.insertMany(schoolsData);
-    logger.info(
-      {
-        count: schools.length,
-        byStatus: DISTRIBUTION.map((d) => `${d.status}:${d.count}`).join(" "),
-      },
-      "Seeded schools"
-    );
+    // --- Seed Schools + Imported Spray Reports ---
+    await importPilgrimData({
+      dryRun: false,
+      reset: false,
+      schoolsOnly: false,
+      reportsOnly: false,
+    });
+    const schools = await School.find({ source: "pilgrim-data" }).sort({
+      name: 1,
+    });
+    logger.info({ count: schools.length }, "Seeded Pilgrim data schools");
 
     // --- Seed Workers ---
     const helpedSchools = schools.filter((s) =>
@@ -279,39 +281,10 @@ async function seed(): Promise<void> {
     });
     logger.info("Seeded 1 donor");
 
-    // --- Seed Spray Reports for checked-in + data-gathered schools ---
-    const reportableSchools = schools.filter((s) =>
-      ["checked-in", "data-gathered"].includes(s.sponsorshipStatus)
+    logger.info(
+      { count: await SprayReport.countDocuments() },
+      "Seeded Pilgrim data spray reports"
     );
-    const reportData = reportableSchools.flatMap((school) => {
-      const base: Array<Record<string, unknown>> = [
-        {
-          school: school._id,
-          worker: worker1._id,
-          date: school.lastSprayDate ?? new Date(),
-          roomsSprayed: Math.floor(school.totalRooms * 0.6),
-          photos: [],
-          notes: "Initial spray pass — north wing.",
-          gpsCoords: { lat: school.lat, lng: school.lng },
-          verified: school.sponsorshipStatus === "data-gathered",
-        },
-      ];
-      if (school.sponsorshipStatus === "data-gathered") {
-        base.push({
-          school: school._id,
-          worker: worker2._id,
-          date: school.lastSprayDate ?? new Date(),
-          roomsSprayed: Math.ceil(school.totalRooms * 0.4),
-          photos: [],
-          notes: "Second pass — remaining classrooms complete.",
-          gpsCoords: { lat: school.lat, lng: school.lng },
-          verified: true,
-        });
-      }
-      return base;
-    });
-    const reports = await SprayReport.insertMany(reportData);
-    logger.info({ count: reports.length }, "Seeded spray reports");
 
     // --- Seed Donation (one, against the first helped school) ---
     if (helpedSchools[0]) {

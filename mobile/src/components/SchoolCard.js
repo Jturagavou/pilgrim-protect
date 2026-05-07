@@ -1,10 +1,13 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { pilgrimOrange, primaryDark } from '../theme/pilgrimColors';
+import { pilgrimTheme } from '../theme/pilgrimTheme';
+import { formatDistance } from '../lib/geo';
 
 /**
  * Get spray status color based on last spray date:
- * - green: sprayed within 30 days
- * - orange: 30-90 days ago
+ * - orange (recent): sprayed within 30 days
+ * - amber: 30-90 days ago
  * - red: >90 days or never sprayed
  */
 function getSprayStatus(lastSprayDate) {
@@ -14,17 +17,24 @@ function getSprayStatus(lastSprayDate) {
     (Date.now() - new Date(lastSprayDate).getTime()) / (1000 * 60 * 60 * 24)
   );
 
-  if (daysSince <= 30) return { color: '#2E7D32', label: `${daysSince}d ago` };
+  if (daysSince <= 30) return { color: pilgrimOrange, label: `${daysSince}d ago` };
   if (daysSince <= 90) return { color: '#F57C00', label: `${daysSince}d ago` };
   return { color: '#D32F2F', label: `${daysSince}d ago` };
 }
 
 export default function SchoolCard({ school, onPress }) {
   const status = getSprayStatus(school.lastSprayDate);
+  const distanceLabel =
+    typeof school.distanceKm === 'number' ? formatDistance(school.distanceKm) : null;
+  const focusLabel =
+    !school.lastSprayDate || status.label === 'Never sprayed'
+      ? 'Needs scheduling'
+      : school.hasMalariaClub
+        ? 'Club active'
+        : 'Routine follow-up';
 
   return (
     <TouchableOpacity style={styles.card} onPress={onPress} activeOpacity={0.7}>
-      {/* Status indicator strip */}
       <View style={[styles.statusStrip, { backgroundColor: status.color }]} />
 
       <View style={styles.content}>
@@ -36,7 +46,15 @@ export default function SchoolCard({ school, onPress }) {
           </View>
         </View>
 
-        <Text style={styles.district}>{school.district} District</Text>
+        <View style={styles.locationRow}>
+          <Text style={styles.district}>{school.district} District</Text>
+          {distanceLabel ? <Text style={styles.distance}>{distanceLabel}</Text> : null}
+        </View>
+        <Text style={styles.helper}>Tap to open a guided spray report for this school.</Text>
+
+        <View style={styles.focusPill}>
+          <Text style={styles.focusText}>{focusLabel}</Text>
+        </View>
 
         <View style={styles.stats}>
           <View style={styles.stat}>
@@ -56,17 +74,15 @@ export default function SchoolCard({ school, onPress }) {
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: 12,
+    backgroundColor: pilgrimTheme.colors.surface,
+    borderRadius: 18,
     marginHorizontal: 16,
     marginVertical: 6,
     flexDirection: 'row',
     overflow: 'hidden',
-    elevation: 2,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.1,
-    shadowRadius: 3,
+    borderWidth: 1,
+    borderColor: pilgrimTheme.colors.border,
+    ...pilgrimTheme.shadow.soft,
   },
   statusStrip: {
     width: 5,
@@ -83,8 +99,8 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 16,
-    fontWeight: '600',
-    color: '#1B1B1B',
+    fontWeight: '700',
+    color: pilgrimTheme.colors.ink,
     flex: 1,
     marginRight: 8,
   },
@@ -107,8 +123,39 @@ const styles = StyleSheet.create({
   },
   district: {
     fontSize: 13,
-    color: '#666',
+    color: pilgrimTheme.colors.textMuted,
+  },
+  locationRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 8,
+    marginBottom: 4,
+  },
+  distance: {
+    color: pilgrimTheme.colors.primaryDeep,
+    fontSize: 12,
+    fontWeight: '800',
+  },
+  helper: {
+    fontSize: 12,
+    color: pilgrimTheme.colors.textMuted,
     marginBottom: 10,
+    lineHeight: 18,
+  },
+  focusPill: {
+    alignSelf: 'flex-start',
+    backgroundColor: pilgrimTheme.colors.backgroundSoft,
+    borderRadius: 999,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    marginBottom: 12,
+  },
+  focusText: {
+    fontSize: 11,
+    fontWeight: '700',
+    color: pilgrimTheme.colors.primaryDeep,
+    letterSpacing: 0.3,
   },
   stats: {
     flexDirection: 'row',
@@ -121,17 +168,17 @@ const styles = StyleSheet.create({
   statValue: {
     fontSize: 16,
     fontWeight: '700',
-    color: '#1B5E20',
+    color: primaryDark,
   },
   statLabel: {
     fontSize: 11,
-    color: '#888',
+    color: pilgrimTheme.colors.textMuted,
     marginTop: 1,
   },
   divider: {
     width: 1,
     height: 28,
-    backgroundColor: '#E0E0E0',
+    backgroundColor: pilgrimTheme.colors.border,
     marginHorizontal: 16,
   },
 });

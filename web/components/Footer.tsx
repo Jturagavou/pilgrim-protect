@@ -12,9 +12,9 @@ export default function Footer() {
               <BrandLogo light />
             </div>
             <p className="text-sm text-paper-alt/78 max-w-sm">
-              Protecting Ugandan schoolchildren from malaria through
-              indoor residual spraying, transparent impact tracking,
-              and donor-powered community engagement.
+              Protecting Ugandan students from malaria through indoor residual
+              spraying, prevention education, school malaria clubs, and
+              sustainable follow-up with participating schools.
             </p>
           </div>
 
@@ -45,7 +45,7 @@ export default function Footer() {
 
         <div className="border-t border-white/12 mt-10 pt-6 flex flex-col sm:flex-row justify-between items-center gap-4">
           <p className="text-xs text-paper-alt/65">
-            &copy; {new Date().getFullYear()} Pilgrim Africa &mdash; Pilgrim Protect Story.
+            &copy; {new Date().getFullYear()} Pilgrim Africa &mdash; Pilgrim Protect.
             All rights reserved.
           </p>
           <p className="text-xs text-paper-alt/65">

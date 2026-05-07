@@ -5,7 +5,20 @@
 import { useEffect, useMemo, useState } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
-import { ArrowRight, Clock3, Package, Shield } from "lucide-react";
+import {
+  ArrowRight,
+  Building2,
+  CalendarDays,
+  CheckCircle2,
+  ClipboardCheck,
+  Clock3,
+  Database,
+  FileText,
+  MapPin,
+  Package,
+  Shield,
+  Users,
+} from "lucide-react";
 import { fetchSchoolById } from "@/lib/api";
 import { daysSince, formatCurrency, formatDate, formatNumber } from "@/lib/formatters";
 import { sponsorshipPhaseLabel } from "@/lib/mapLabels";
@@ -24,6 +37,41 @@ const HELPED = new Set([
   "checked-in",
   "data-gathered",
 ]);
+
+function formatPercent(value: number) {
+  if (!Number.isFinite(value)) return "0%";
+  return `${Math.round(value)}%`;
+}
+
+function humanizeKey(key: string) {
+  return key
+    .replace(/([a-z])([A-Z])/g, "$1 $2")
+    .replace(/[_-]/g, " ")
+    .replace(/\b\w/g, (char) => char.toUpperCase());
+}
+
+function parseReportNotes(notes?: string) {
+  if (!notes) return [];
+  return notes
+    .split(";")
+    .map((part) => part.trim())
+    .map((part) => {
+      const [key, ...valueParts] = part.split("=");
+      if (!key || valueParts.length === 0) return null;
+      return {
+        key: humanizeKey(key.trim()),
+        value: valueParts.join("=").trim(),
+      };
+    })
+    .filter((entry): entry is { key: string; value: string } => Boolean(entry));
+}
+
+function splitSourceFiles(sourceFile?: string) {
+  return (sourceFile || "")
+    .split(",")
+    .map((file) => file.trim())
+    .filter(Boolean);
+}
 
 export default function SchoolProfilePage() {
   const params = useParams<{ id: string }>();
@@ -105,6 +153,11 @@ export default function SchoolProfilePage() {
     (sum, r) => sum + r.roomsSprayed,
     0
   );
+  const latestReport = [...(school.sprayReports || [])].sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+  )[0];
+  const latestReportDetails = parseReportNotes(latestReport?.notes);
+  const sourceFiles = splitSourceFiles(school.sourceFile);
   const daysSinceSpray = daysSince(school.lastSprayDate);
   const supportUrgency =
     !school.lastSprayDate || daysSinceSpray > 365
@@ -112,9 +165,11 @@ export default function SchoolProfilePage() {
       : daysSinceSpray > 180
         ? "Needs follow-up soon"
         : "Recently documented";
-  const roomsRemaining = Math.max(0, school.totalRooms - totalRoomsSprayed);
-  const estimatedRangeLow = school.studentCount;
-  const estimatedRangeHigh = school.studentCount * 2;
+  const latestRoomsSprayed = latestReport?.roomsSprayed ?? 0;
+  const latestRoomCoverage = school.totalRooms
+    ? Math.min(100, (latestRoomsSprayed / school.totalRooms) * 100)
+    : 0;
+  const verifiedReports = (school.sprayReports || []).filter((report) => report.verified).length;
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -153,6 +208,10 @@ export default function SchoolProfilePage() {
       ) : null}
 
       <div className="flex flex-wrap gap-2 mt-6 mb-6">
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-paper-depth border border-border px-3 py-1 text-xs font-medium text-ink">
+          <CheckCircle2 className="h-3.5 w-3.5 text-pilgrim-olive" aria-hidden />
+          {phaseLabel}
+        </span>
         {school.hasMalariaClub ? (
           <span className="inline-flex items-center gap-1.5 rounded-full bg-paper-depth border border-border px-3 py-1 text-xs font-medium text-ink">
             <Shield className="h-3.5 w-3.5 text-primary" aria-hidden />
@@ -170,6 +229,12 @@ export default function SchoolProfilePage() {
         <span className="inline-flex rounded-full bg-muted px-3 py-1 text-xs text-muted-foreground tabular-nums">
           {lat.toFixed(4)}, {lng.toFixed(4)}
         </span>
+        {school.source ? (
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-muted px-3 py-1 text-xs text-muted-foreground">
+            <Database className="h-3.5 w-3.5" aria-hidden />
+            {school.source}
+          </span>
+        ) : null}
       </div>
 
       {showFunding ? (
@@ -218,18 +283,18 @@ export default function SchoolProfilePage() {
             </div>
             <div className="rounded-2xl border border-border bg-paper-soft px-4 py-3">
               <div className="text-lg font-display font-semibold text-ink">
-                {roomsRemaining}
+                {formatPercent(latestRoomCoverage)}
               </div>
               <div className="mt-1 text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
-                Rooms not yet shown in reports
+                Latest documented room coverage
               </div>
             </div>
             <div className="rounded-2xl border border-border bg-paper-soft px-4 py-3">
               <div className="text-lg font-display font-semibold text-ink">
-                {estimatedRangeLow.toLocaleString("en-US")}–{estimatedRangeHigh.toLocaleString("en-US")}
+                {formatNumber(school.studentCount)}
               </div>
               <div className="mt-1 text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
-                Typical giving range by student impact
+                Students in this school record
               </div>
             </div>
           </div>
@@ -333,6 +398,198 @@ export default function SchoolProfilePage() {
           ) : null}
         </div>
       </div>
+
+      <section className="mb-12 rounded-[1.8rem] border border-border bg-card p-6 shadow-sm">
+        <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <p className="font-condensed text-xs uppercase tracking-[0.18em] text-pilgrim-orange">
+              School dossier
+            </p>
+            <h2 className="mt-2 font-display text-3xl text-ink">
+              Everything currently known from the live school record
+            </h2>
+          </div>
+          <p className="max-w-sm text-sm leading-relaxed text-muted-foreground">
+            These fields come from the API and imported Pilgrim data, so the page
+            can keep improving as new survey and spray records are added.
+          </p>
+        </div>
+
+        <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          {[
+            {
+              label: "District",
+              value: school.district,
+              detail: school.subCounty ? `${school.subCounty} sub-county` : "Sub-county not listed",
+              Icon: MapPin,
+            },
+            {
+              label: "Enrollment",
+              value: formatNumber(school.studentCount),
+              detail: "Students recorded",
+              Icon: Users,
+            },
+            {
+              label: "School rooms",
+              value: formatNumber(school.totalRooms),
+              detail: `${formatNumber(latestRoomsSprayed)} rooms in latest report`,
+              Icon: Building2,
+            },
+            {
+              label: "Spray evidence",
+              value: formatNumber(school.sprayReports?.length ?? 0),
+              detail: `${formatNumber(verifiedReports)} verified reports`,
+              Icon: ClipboardCheck,
+            },
+            {
+              label: "Last spray",
+              value: formatDate(school.lastSprayDate),
+              detail:
+                daysSinceSpray === Infinity
+                  ? "No public spray date"
+                  : `${formatNumber(daysSinceSpray)} days ago`,
+              Icon: CalendarDays,
+            },
+            {
+              label: "Nets",
+              value: school.netsCount != null ? formatNumber(school.netsCount) : "N/A",
+              detail: "Recorded mosquito nets",
+              Icon: Package,
+            },
+            {
+              label: "Malaria club",
+              value: school.hasMalariaClub ? "Yes" : "Not yet",
+              detail: "School prevention activity",
+              Icon: Shield,
+            },
+            {
+              label: "Data source",
+              value: school.source || "unknown",
+              detail: dataQuality?.completeness
+                ? humanizeKey(dataQuality.completeness)
+                : "Quality not scored",
+              Icon: Database,
+            },
+          ].map(({ label, value, detail, Icon }) => (
+            <div
+              key={label}
+              className="rounded-2xl border border-border bg-paper-soft p-4"
+            >
+              <div className="flex items-center justify-between gap-3">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+                  {label}
+                </p>
+                <Icon className="h-4 w-4 text-primary" aria-hidden />
+              </div>
+              <p className="mt-3 font-display text-2xl leading-none text-ink">
+                {value}
+              </p>
+              <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
+                {detail}
+              </p>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-6 grid gap-4 lg:grid-cols-[1fr_1fr]">
+          <div className="rounded-2xl border border-border bg-background/60 p-5">
+            <div className="flex items-center gap-2">
+              <FileText className="h-4 w-4 text-primary" aria-hidden />
+              <h3 className="font-display text-lg text-ink">Imported record trail</h3>
+            </div>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+              {dataQuality?.summary || "No data quality summary is available yet."}
+            </p>
+            <div className="mt-4 flex flex-wrap gap-2">
+              {sourceFiles.length ? (
+                sourceFiles.map((file) => (
+                  <span
+                    key={file}
+                    className="rounded-full border border-border bg-paper-soft px-3 py-1 text-xs text-muted-foreground"
+                  >
+                    {file}
+                  </span>
+                ))
+              ) : (
+                <span className="text-sm text-muted-foreground">
+                  Source file details have not been attached yet.
+                </span>
+              )}
+            </div>
+            {school.importedAt ? (
+              <p className="mt-4 text-xs text-muted-foreground">
+                Imported {formatDate(school.importedAt)}
+              </p>
+            ) : null}
+          </div>
+
+          <div className="rounded-2xl border border-border bg-background/60 p-5">
+            <div className="flex items-center gap-2">
+              <ClipboardCheck className="h-4 w-4 text-primary" aria-hidden />
+              <h3 className="font-display text-lg text-ink">Latest spray report details</h3>
+            </div>
+            {latestReport ? (
+              <>
+                <div className="mt-4 grid grid-cols-2 gap-3 text-sm">
+                  <div>
+                    <p className="text-xs uppercase tracking-[0.14em] text-muted-foreground">
+                      Date
+                    </p>
+                    <p className="mt-1 font-medium text-ink">
+                      {formatDate(latestReport.date)}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-xs uppercase tracking-[0.14em] text-muted-foreground">
+                      Rooms sprayed
+                    </p>
+                    <p className="mt-1 font-medium text-ink">
+                      {formatNumber(latestReport.roomsSprayed)}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-xs uppercase tracking-[0.14em] text-muted-foreground">
+                      Verification
+                    </p>
+                    <p className="mt-1 font-medium text-ink">
+                      {latestReport.verified ? "Verified" : "Awaiting verification"}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-xs uppercase tracking-[0.14em] text-muted-foreground">
+                      Recorded by
+                    </p>
+                    <p className="mt-1 font-medium text-ink">
+                      {latestReport.worker?.name || "Field team"}
+                    </p>
+                  </div>
+                </div>
+                {latestReportDetails.length ? (
+                  <div className="mt-4 grid gap-2 sm:grid-cols-2">
+                    {latestReportDetails.slice(0, 8).map((item) => (
+                      <div
+                        key={`${item.key}-${item.value}`}
+                        className="rounded-xl bg-paper-soft px-3 py-2"
+                      >
+                        <p className="text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
+                          {item.key}
+                        </p>
+                        <p className="mt-1 break-words text-sm font-medium text-ink">
+                          {item.value}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                ) : null}
+              </>
+            ) : (
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                No spray report has been attached to this school yet.
+              </p>
+            )}
+          </div>
+        </div>
+      </section>
 
       <SchoolStorySection schoolName={school.name} district={school.district} />
 

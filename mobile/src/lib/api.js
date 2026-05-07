@@ -2,9 +2,10 @@ import axios from 'axios';
 import { getToken } from './auth';
 import { mockLogin, mockGetSchools, mockGetMyReports, mockSubmitReport, mockUploadImage } from '../mock/mockData';
 
-// Must match Express: /api/v1 on PORT (default 8080). Use your LAN IP for a physical device.
+// Default to the live demo API so the field app is usable without local network setup.
 const BASE_URL =
-  process.env.EXPO_PUBLIC_API_URL || 'http://192.168.1.1:8080/api/v1';
+  process.env.EXPO_PUBLIC_API_URL || 'https://pilgrimprotectstory.org/api/v1';
+const ALLOW_MOCK = process.env.EXPO_PUBLIC_ALLOW_MOCK === 'true';
 
 function healthCheckUrl() {
   const base = BASE_URL.replace(/\/api\/v\d+\/?$/i, '');
@@ -33,8 +34,8 @@ API.interceptors.request.use(async (config) => {
 API.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (__DEV__ && (!error.response || error.code === 'ECONNABORTED' || error.message === 'Network Error')) {
-      console.log('[API] Backend unreachable — switching to mock mode');
+    if (__DEV__ && ALLOW_MOCK && (!error.response || error.code === 'ECONNABORTED' || error.message === 'Network Error')) {
+      console.log('[API] Backend unreachable — explicit mock mode enabled');
       useMock = true;
     }
     return Promise.reject(error);
@@ -45,11 +46,11 @@ API.interceptors.response.use(
  * Check if backend is reachable; if not, enable mock mode (dev only)
  */
 export async function initApi() {
-  if (!__DEV__) return;
+  if (!__DEV__ || !ALLOW_MOCK) return;
   try {
     await axios.get(healthCheckUrl(), { timeout: 3000 });
   } catch {
-    console.log('[API] Backend not available — mock mode enabled');
+    console.log('[API] Backend not available — explicit mock mode enabled');
     useMock = true;
   }
 }
@@ -78,6 +79,36 @@ export async function getMe() {
 export async function getSchools() {
   if (useMock && __DEV__) return mockGetSchools();
   const res = await API.get('/schools');
+  return res.data;
+}
+
+/**
+ * GET /api/stats/impact
+ */
+export async function getImpactStats() {
+  if (useMock && __DEV__) {
+    const schools = await mockGetSchools();
+    return {
+      totalSchools: schools.length,
+      totalRoomsSprayed: schools.reduce((sum, school) => sum + (school.totalRooms || 0), 0),
+      totalStudentsProtected: schools.reduce((sum, school) => sum + (school.studentCount || 0), 0),
+      totalSprayReports: 0,
+    };
+  }
+  const res = await API.get('/stats/impact');
+  return res.data;
+}
+
+/**
+ * GET /api/schools/:id
+ */
+export async function getSchoolDetails(schoolId) {
+  if (useMock && __DEV__) {
+    const schools = await mockGetSchools();
+    const school = schools.find((item) => item._id === schoolId) || null;
+    return school ? { ...school, sprayReports: [] } : null;
+  }
+  const res = await API.get(`/schools/${schoolId}`);
   return res.data;
 }
 
@@ -117,6 +148,10 @@ export async function uploadImage(imageUri) {
   });
 
   const token = await getToken();
+  if (!token) {
+    throw new Error('Please sign in before syncing report photos.');
+  }
+
   const res = await axios.post(`${BASE_URL}/upload/image`, formData, {
     headers: {
       'Content-Type': 'multipart/form-data',

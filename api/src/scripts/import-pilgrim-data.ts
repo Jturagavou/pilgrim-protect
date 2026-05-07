@@ -10,7 +10,9 @@ import { logger } from "../lib/logger";
 
 dotenv.config({ path: path.join(__dirname, "..", "..", ".env") });
 
-const DATA_DIR = path.join(__dirname, "..", "seed", "pilgrim-data");
+const DATA_DIR = process.env.PILGRIM_DATA_DIR
+  ? path.resolve(process.env.PILGRIM_DATA_DIR)
+  : path.join(__dirname, "..", "seed", "pilgrim-data");
 const MONGO_URI =
   process.env.MONGODB_URI ||
   process.env.MONGO_URI ||

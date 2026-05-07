@@ -43,7 +43,9 @@ cp .env.example .env
 
 ### Mock Mode
 
-If the backend is not running, the app automatically uses mock data in development mode. No configuration needed — just start the app.
+Mock data is opt-in so the field app cannot silently look connected while writing
+nowhere. Set `EXPO_PUBLIC_ALLOW_MOCK=true` only when intentionally testing the
+bundled demo data without a backend.
 
 **Test credentials:** `worker1@test.com` / `password123`
 
@@ -56,7 +58,7 @@ If the backend is not running, the app automatically uses mock data in developme
 
 ## Offline Support
 
-Reports are automatically saved locally when there's no internet connection. A banner shows how many reports are pending upload. When connectivity returns, queued reports are automatically synced.
+Reports are automatically saved locally when there's no internet connection. The app now tracks queued, syncing, failed, and fully synced states so field workers can tell what happened after reconnecting.
 
 ## Connecting to Backend
 

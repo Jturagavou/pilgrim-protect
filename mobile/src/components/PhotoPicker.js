@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, Image, ScrollView, Alert, StyleSheet } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
+import { pilgrimTheme } from '../theme/pilgrimTheme';
 
 export default function PhotoPicker({ photos, onPhotosChange, maxPhotos = 5 }) {
   const pickFromCamera = async () => {
@@ -91,7 +92,7 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#333',
+    color: pilgrimTheme.colors.ink,
     marginBottom: 8,
   },
   scroll: {
@@ -104,7 +105,7 @@ const styles = StyleSheet.create({
   thumbnail: {
     width: 80,
     height: 80,
-    borderRadius: 8,
+    borderRadius: 12,
     backgroundColor: '#E0E0E0',
   },
   removeBtn: {
@@ -127,21 +128,22 @@ const styles = StyleSheet.create({
   addBtn: {
     width: 80,
     height: 80,
-    borderRadius: 8,
+    borderRadius: 12,
     borderWidth: 2,
-    borderColor: '#1B5E20',
+    borderColor: pilgrimTheme.colors.primaryDeep,
     borderStyle: 'dashed',
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: pilgrimTheme.colors.backgroundSoft,
   },
   addIcon: {
     fontSize: 24,
-    color: '#1B5E20',
+    color: pilgrimTheme.colors.primaryDeep,
     fontWeight: '600',
   },
   addText: {
     fontSize: 10,
-    color: '#1B5E20',
+    color: pilgrimTheme.colors.primaryDeep,
     marginTop: 2,
   },
 });
